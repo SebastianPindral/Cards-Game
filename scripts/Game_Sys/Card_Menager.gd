@@ -7,8 +7,9 @@ func _ready() -> void:
 	QuickLoad.load_icons(Card_Style)
 	var N
 	var C
-	for i in range(1,5):
-		for j in range(1,14):
+	var index = 0
+	for j in range(2,15):
+		for i in range(1,5):
 			var item = ONE_CARD.instantiate() 
 			match i:
 				1: C = "Pik"
@@ -16,17 +17,19 @@ func _ready() -> void:
 				3: C = "Kier"
 				4: C = "Karo"
 			match j:
-				1:  N = "A"
 				11: N = "J"
 				12: N = "Q"
 				13: N = "K"
-				14: N = "Joker"# na razie pomijany
+				14: N = "A"
+				15: N = "Joker"# na razie pomijany
 				_:
 					N = str(j)
 			add_child(item)
-			item.Start(N,C)
-			item.position = Vector2(900,400)
+			index +=1
+			item.Start(index,N,C)
+			item.position = Vector2(700,450)
 			Deck.append(item)
+	Deck.shuffle()
 
 func send(i):
 	var t = []
