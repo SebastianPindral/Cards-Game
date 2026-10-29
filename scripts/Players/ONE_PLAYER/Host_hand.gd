@@ -1,7 +1,7 @@
 extends Node2D
 @onready var host: Base_Hand = $"."
 
-func set_visual(On_Hand,numer):
+func set_visual(On_Hand,_typ,numer):
 	if On_Hand.size()==0:return
 	var weight
 	var height

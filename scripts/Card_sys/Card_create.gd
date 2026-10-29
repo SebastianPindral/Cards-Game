@@ -28,11 +28,8 @@ func Create(j,i) -> void:
 
 func set_size():
 	var target_size = get_parent().size
-	var tex_size = front.texture.get_size()
-	front.scale = target_size / tex_size
-	
-	tex_size = back.texture.get_size()
-	back.scale = target_size / tex_size
+	SMen.Resize(front,get_parent().size)
+	SMen.Resize(back,get_parent().size)
 	
 	var texture_size = front.texture.get_size()* front.scale
 	var shape = cs.shape as RectangleShape2D

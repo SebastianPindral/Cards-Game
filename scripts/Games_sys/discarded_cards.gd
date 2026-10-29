@@ -8,5 +8,5 @@ func _init() -> void:
 	add_to_group("Discarded")
 
 func Set_poz(c):
-	c.position = position
-	c.rotation = randf_range(0.0, TAU)
+	SMen.Move_Anim(c,position,randf_range(-PI, PI),.2)
+	c.where_is("Discard",position)

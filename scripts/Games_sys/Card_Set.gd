@@ -11,5 +11,5 @@ func _ready() -> void:
 			var item = ONE_CARD.instantiate() 
 			add_child(item)
 			item.Start(j,i)
-			item.position = Vector2(-300,-300)
+			item.position = Vector2(-500,-500)
 			table.Stack.append(item)

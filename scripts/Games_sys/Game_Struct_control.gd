@@ -30,7 +30,6 @@ func send(i):
 	return t
 
 func Card_is_Used(c):
-	c.where_is("Discard")
 	Discarded.append(c)
 	reorder_Stack(Discarded)
 	dis_node.Set_poz(c)

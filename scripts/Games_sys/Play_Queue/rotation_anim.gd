@@ -2,9 +2,7 @@ extends Sprite2D
 
 var direct = 1
 func _ready():
-	var target_size = Vector2(310,310)
-	var tex_size = texture.get_size()
-	scale = target_size / tex_size
+	SMen.Resize(self,Vector2(310,310))
 	spin()
 
 func spin():
