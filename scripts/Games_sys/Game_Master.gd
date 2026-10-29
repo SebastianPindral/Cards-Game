@@ -80,6 +80,7 @@ func new_game(game_type):
 		"Makao":	Game = Makao.new()
 		"Spades":	Game = Spades.new()
 		"Pan":		Game = Pan.new()
+		"Sapers":	Game = Sapers.new()
 		_:
 			print("Blad wczytania gry")
 			get_tree().quit()

@@ -26,7 +26,7 @@ func set_game():
 
 func The_Deal():
 	GM.shuffle()
-	for i in range(0,4):
+	for i in range(0,player_count):
 		GM.deal_cards(i,13)
 
 func set_poz_on_discard(c,dis_poz):

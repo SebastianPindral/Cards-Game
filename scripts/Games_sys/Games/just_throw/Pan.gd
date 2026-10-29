@@ -31,6 +31,13 @@ func The_Deal():
 func config_character2(Data):
 	player_count = get_value(0,Data)
 
+
+func permission_to_throw() -> bool:
+	if ((ch("M2")[0] and (GM.Players[Turn][0].On_Hold.size() in [1,4]
+	or (GM.Players[Turn][0].On_Hold[0].Data["Number"] == 9 and GM.Players[Turn][0].On_Hold.size() == 3)))
+	or ch("M2")[1]):return true
+	else: return false
+
 func Can_from_Stack() -> bool:
 	return true if GM.Discarded.size()>1 else false
 

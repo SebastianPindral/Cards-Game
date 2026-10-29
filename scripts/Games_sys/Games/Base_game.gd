@@ -112,8 +112,10 @@ func Get_from_Stack(_id):pass
 
 func Enemy_SI(_xx):pass
 
-func set_poz_on_discard(_c,_dis_poz):pass
-func after_take_every_card(_c:Array) -> bool:return false
+func set_poz_on_discard(_c,_dis_poz):pass 
+
+func permission_to_throw() -> bool:return true #pozwala na zablokowanie rzutu jesli np jest wymog rzucenia 1 lub 4 kart a jest zaznaczonych 2 lub 3
+func after_take_every_card(_c:Array) -> bool:return false #warunek przerwania pobierania przy kilku kartach na raz
 func Can_from_Stack() -> bool:return false
 
 func Start_Player_Turn(_numer,_Hand):pass

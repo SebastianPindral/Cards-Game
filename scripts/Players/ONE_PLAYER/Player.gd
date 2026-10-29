@@ -54,10 +54,17 @@ func take_cards(cards:Array):
 	hand.set_visual(On_Hand,typ)
 
 func Use_Card():
+	var clicked_card
 	for c in On_Hand:
 		if c.is_hold[1] and not On_Hold.has(c):
 			On_Hold.append(c)
+			clicked_card = c
 			break
+	
+	if not GM.Game.permission_to_throw():
+		On_Hold.erase(clicked_card)
+		return
+	
 	var dupli = On_Hold.duplicate()
 	
 	for H in On_Hold:
