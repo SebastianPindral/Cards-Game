@@ -38,13 +38,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Exit"
 
-[node name="choose_game" type="Control" parent="."]
+[node name="Choice_game" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("2_xh5tv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="choose_game"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Choice_game"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 40.0
@@ -52,42 +52,42 @@ offset_right = 1860.0
 offset_bottom = 1040.0
 theme_override_constants/separation = 27
 
-[node name="VBC1" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC1" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Back" type="Button" parent="choose_game/HBoxContainer/VBC1"]
+[node name="Back" type="Button" parent="Choice_game/HBoxContainer/VBC1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Back
 "
 icon_alignment = 1
 
-[node name="VBC2" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC2" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC3" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC3" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC4" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC4" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC5" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC5" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC6" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC6" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC7" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC7" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="VBC8" type="VBoxContainer" parent="choose_game/HBoxContainer"]
+[node name="VBC8" type="VBoxContainer" parent="Choice_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 

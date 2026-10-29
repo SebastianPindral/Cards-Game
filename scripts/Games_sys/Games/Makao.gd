@@ -8,7 +8,7 @@ var stopper = func() -> bool: return GM.card.Data["Number"] == 4
 
 var num_order = func() -> bool: return GM.card.Data["Number"] in [11,Order[0]] #J
 var all_can_in = func() -> bool: return GM.card.Data["Number"] == 12 #Q
-var Choose_color = func() -> bool: return GM.card.Data["Number"] in [14,Order[1]] #A
+var Choice_color = func() -> bool: return GM.card.Data["Number"] in [14,Order[1]] #A
 
 var last_card_check = func() -> bool: return (GM.last_take_card.Data["Number"] == GM.card.Data["Number"] 
 						or GM.last_take_card.Data["Color"] == GM.card.Data["Color"])

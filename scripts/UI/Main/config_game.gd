@@ -1,5 +1,5 @@
 extends Control
-@onready var choose_game: Control = $"../choose_game"
+@onready var Choice_game: Control = $"../Choice_game"
 @onready var back: Button = $HBoxContainer/VBC0/Back
 @onready var start: Button = $HBoxContainer/VBC0/Start
 @onready var playerc: VBoxContainer = $HBoxContainer/VBC0/VBoxContainer
@@ -48,4 +48,4 @@ func _on_back_pressed():
 		get_node("HBoxContainer/VBC" + str(i))
 	config_list.clear()
 	visible = false
-	choose_game.visible = true
+	Choice_game.visible = true

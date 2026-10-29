@@ -50,11 +50,12 @@ offset_bottom = 1080.0
 mouse_filter = 1
 
 [node name="Card_Rules" type="Control" parent="UI"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Choose_order" type="Control" parent="UI"]
+[node name="Choice_order" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 0
 script = ExtResource("2_0d5u6")
