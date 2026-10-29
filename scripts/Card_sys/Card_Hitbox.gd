@@ -29,7 +29,8 @@ func exiter():
 		SMen.Move_Anim(self,Vector2(0,0),0,.1)
 
 func Click():
-	card.Use()
+	if GMaster.Turn == 1:
+		card.Use()
 
 func Off_Click():
 	pass

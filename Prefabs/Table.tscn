@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bv35nhhf776fr"]
+[gd_scene load_steps=10 format=3 uid="uid://bv35nhhf776fr"]
 
 [ext_resource type="Script" path="res://scripts/Games_sys/Stack/stack_sys.gd" id="1_jysi0"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Game_Struct_control.gd" id="1_n6h7l"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/Games_sys/discarded_cards.gd" id="4_8t2o3"]
 [ext_resource type="Texture2D" uid="uid://ogexx185du6a" path="res://assets/Other/Queue_direct/Queue_Direct_Default.png" id="5_iycg0"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Play_Queue/rotation_anim.gd" id="6_o81ct"]
+[ext_resource type="Texture2D" uid="uid://ba7dqjffuc242" path="res://assets/Other/Queue_cursor/Default_cursor.png" id="7_qqfg4"]
+[ext_resource type="Script" path="res://scripts/Games_sys/Play_Queue/cursor_target.gd" id="8_ycx7v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysxoe"]
 size = Vector2(130, 202)
@@ -28,3 +30,7 @@ script = ExtResource("4_8t2o3")
 [node name="Spin" type="Sprite2D" parent="Discarded"]
 texture = ExtResource("5_iycg0")
 script = ExtResource("6_o81ct")
+
+[node name="Cursor" type="Sprite2D" parent="Discarded"]
+texture = ExtResource("7_qqfg4")
+script = ExtResource("8_ycx7v")

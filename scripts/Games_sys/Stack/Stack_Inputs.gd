@@ -11,4 +11,4 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 
 func Click():
 	if table.Stack.size()>0:
-		table.players.deal_cards(0,1)
+		GMaster.Deal_Stack_Cards(0)

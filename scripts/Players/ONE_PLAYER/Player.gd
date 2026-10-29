@@ -15,9 +15,14 @@ func set_this(t,num=0):
 	match typ:
 		"player":
 			hand.set_script(PlayerHand)
+			global_position = Vector2(1000,850)
 		"host":
 			hand.set_script(HostHand)
 			numer = num
+			match numer:
+				1:global_position = Vector2(100,450)
+				2:global_position = Vector2(1000,100)
+				3:global_position = Vector2(1800,450)
 
 func take_cards(cards:Array):
 	for c in cards:

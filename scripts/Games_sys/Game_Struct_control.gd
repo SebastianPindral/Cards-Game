@@ -10,21 +10,21 @@ var Discarded = [] # zuzyte karty
 
 func _ready() -> void:
 	add_to_group("Table")
-	set_game()
+	GMaster.Start_Game()
 
 func shuffle():
 	Stack.shuffle()
 	reorder_Stack(Stack)
 
-func set_game():
+func set_game(players_count,card_count):
 	shuffle()
-	for i in range(0,4):
-		players.deal_cards(i,5)
+	for i in range(0,players_count):
+		players.deal_cards(i,card_count)
 	stack_node.Set_Stack(Stack)
 
 func send(i):
 	var t = []
-	for x in range(0,i):
+	for x in range(min(i, Stack.size()) - 1, -1, -1):
 		t.append(Stack[x])
 		Stack.remove_at(x)
 	return t
@@ -33,8 +33,7 @@ func Card_is_Used(c):
 	Discarded.append(c)
 	reorder_Stack(Discarded)
 	dis_node.Set_poz(c)
-	#Tutaj operacje na rzuconej karcie
-	#GMaster.Next_Turn()
+	GMaster.card_function(c)
 
 func reorder_Stack(tab):
 	var parent = tab[0].get_parent()

@@ -1,8 +1,9 @@
 extends Sprite2D
-
+var self_size = Vector2(310,310)
 var direct = 1
 func _ready():
-	SMen.Resize(self,Vector2(310,310))
+	add_to_group("spin")
+	SMen.Resize(self,self_size)
 	spin()
 
 func spin():
