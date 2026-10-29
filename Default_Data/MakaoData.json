@@ -1,4 +1,19 @@
 {
+	"cut in line": [
+		"M21",
+		false,
+		"pozwala do wskoczenie w kolejkę jesli ma sie karte o tym samym kolorze i wartosci"
+	],
+	"As block": [
+		"M20",
+		false,
+		"As nie mozna rzucic na niego kart funkcyjnych"
+	],
+	"As debility": [
+		"M19",
+		false,
+		"As mozna rzucic na niego karty funkcyjne ale jako zwykłe karty"
+	],
 	"As on everything": [
 		"M18",
 		false,
