@@ -29,7 +29,7 @@ func exiter():
 	if card.state == "player" and card.legality and not card.is_hold[0]:
 		SMen.Move_Anim(card,card.shadow_position,0,.07)
 		SMen.Move_Anim(self,Vector2(0,0),0,.07)
-		colli.shape.size -= size_y
+		colli.shape.size = card.shadow_colli
 		card.is_hold[1] = false
 
 func Click_card():

@@ -7,6 +7,7 @@ signal Used()
 signal Holdered(arg)
 
 var shadow_position
+var shadow_colli
 var Data = {"Number":0,"Color":0}
 var size = Vector2(100,150)
 
@@ -52,8 +53,8 @@ func reset(r:bool = true):
 	$Area2D.position = Vector2(0,0)
 	$Area2D/CollisionShape2D.shape.size = size
 	
-	if r == false:
-		is_hold[0] = false
+	is_hold[0] = false
+	if not r:
 		$Area2D.exiter()
 	legal(r)
 

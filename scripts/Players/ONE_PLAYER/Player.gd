@@ -31,17 +31,20 @@ func take_cards(cards:Array):
 
 func Use_Card():
 	for c in On_Hand:
-		if c.is_hold[1]:
-			if not On_Hold.has(c):
-				On_Hold.append(c)
+		if c.is_hold[1] and not On_Hold.has(c):
+			On_Hold.append(c)
 			break
-	GM.throw_card(On_Hold)
+	var dupli = On_Hold.duplicate()
+	
 	for H in On_Hold:
 		H.Holdered.disconnect(holded_cards)
+		H.Used.disconnect(Use_Card)
 		On_Hand.erase(H)
 		H.reset()
 	On_Hold.clear()
 	hand.set_visual(On_Hand,typ)
+	
+	GM.throw_card(dupli)
 
 func holded_cards(card):
 	if card.is_hold[0]:

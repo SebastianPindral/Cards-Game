@@ -73,7 +73,9 @@ func Next_Turn():
 			else: Turn = player_count
 	table.cursor.set_cursor_target(Turn)
 	
-	if Players[Turn-1][1] < 0: # jest mniejszy od zera jesli gracz musi czekac i nic nie robic
+	if Players[Turn-1][1] == -PI:
+		Next_Turn()
+	elif Players[Turn-1][1] < 0: # jest mniejszy od zera jesli gracz musi czekac i nic nie robic
 		Players[Turn-1][1] += 1
 		Next_Turn()
 	elif Players[Turn-1][1] == 0:

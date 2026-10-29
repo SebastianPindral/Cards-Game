@@ -38,7 +38,7 @@ func set_size():
 	var shape = cs.shape as RectangleShape2D
 	if shape and texture_size:
 		shape.size = texture_size
-	
+	$"..".shadow_colli = shape.size 
 	polygon_2d.polygon = [	Vector2(-(target_size.x/2+1),-(target_size.y/2+1)),
 							Vector2((target_size.x/2+1),-(target_size.y/2+1)), 
 							Vector2((target_size.x/2+1),(target_size.y/2+1)), 

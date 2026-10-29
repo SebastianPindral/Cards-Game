@@ -17,15 +17,14 @@ func new_game(game_type):
 
 func Deal_Stack_Cards(id):
 	send(0)
-	deal_cards(id,game_rule["Deal_Stack_Cards"])
-	Game.Get_from_Stack()
+	Game.Get_from_Stack(id)
 	Next_Turn()
 
 func card_function(c):#obslurzyc karty funkcyjne
 	Game.Throw_card(c)
 	Active_card = c
 
-func throw_card(c):
+func throw_card(c:Array):
 	table.Cards_is_Used(c)
 	SMen.reorder_Stack(Discarded)
 	Next_Turn()

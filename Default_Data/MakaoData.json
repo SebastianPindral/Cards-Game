@@ -1,4 +1,9 @@
 {
+	"last win": [
+		"M6",
+		true,
+		"true- gra sie konczy gdy ostatnia osoba ma jeszcze karty/false- gra sie konczy gdy pierwsza osoba pozbedzie się kart"
+	],
 	"5 ReDirect": [
 		"M4",
 		true,

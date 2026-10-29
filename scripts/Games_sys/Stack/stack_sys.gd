@@ -20,6 +20,6 @@ func Set_Stack(S):
 
 func set_label(vari):
 	if vari > 1:
-		$Label.text = str(vari)
+		$Label.text = "+"+str(vari)
 	else:
 		$Label.text = ""
