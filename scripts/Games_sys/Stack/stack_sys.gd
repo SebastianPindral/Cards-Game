@@ -5,7 +5,7 @@ func _init() -> void:
 	add_to_group("Stack")
 
 func Set_Stack(S):
-	var Stack_Pos = Vector2(500,450)
+	var Stack_Pos = Vector2(50,100)
 	var offset = S[0].size.x/50
 	for c in S:
 		Stack_Pos.x += offset

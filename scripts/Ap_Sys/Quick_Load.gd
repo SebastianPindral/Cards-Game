@@ -1,10 +1,18 @@
 extends Node
 class_name q_load
 var icons = {}
+var cursor = preload("res://assets/Other/Cursor/hover.png")
+
+func set_cursor_icon(i:int = 0):
+	match i:
+		1:	Input.set_custom_mouse_cursor(cursor)
+		_:	Input.set_custom_mouse_cursor(null)
+
 
 func get_icons(i:String):
 	if icons.get(i) != null:
 		return icons[i]
+	else: print("Load_error")
 
 func load_icons(sets):
 	var path = "res://assets/Cards/"+sets+"/"

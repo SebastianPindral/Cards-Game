@@ -1,6 +1,9 @@
 extends Area2D
 @onready var table: Node2D = $"../.."
 
+func _init() -> void:
+	mouse_entered.connect(enter)
+	mouse_exited.connect(exiter)
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and GM.Turn == 1:
@@ -11,3 +14,9 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 func Click_card():
 	if GM.Stack.size()>0:
 		GM.Deal_Stack_Cards(0)
+
+func enter():
+	QuickLoad.set_cursor_icon(1)
+
+func exiter():
+	QuickLoad.set_cursor_icon()

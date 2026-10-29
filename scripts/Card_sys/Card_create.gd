@@ -9,18 +9,20 @@ func Create(j,i) -> void:
 	var C
 	match i:
 		1: C = "Pik"
-		2: C = "Trefl"
-		3: C = "Kier"
+		2: C = "Kier"
+		3: C = "Trefl"
 		4: C = "Karo"
 	match j:
 		11: N = "J"
 		12: N = "Q"
 		13: N = "K"
 		14: N = "A"
-		15:# na razie pomijany
-			N = "Joker"
-			if i > 2: C = "RED"
-			if i <= 2: C = "BLACK"
+		15:
+			N = "JOKER"
+			C = "RED"
+		16:
+			N = "JOKER"
+			C = "BLACK"
 		_:
 			N = str(j)
 	front.texture = QuickLoad.get_icons(str(N)+"_"+str(C))

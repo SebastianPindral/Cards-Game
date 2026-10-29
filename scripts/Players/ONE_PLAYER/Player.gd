@@ -7,10 +7,18 @@ var typ = ""#typ gracza
 var On_Hand = []#karty na rece
 var On_Hold = []#karty podniesione do grupowego rzucenia
 var numer
+
 func set_this(t,num=0):
 	typ = t
 	numer = num
 	add_to_group(t)
+	set_poz(450,num)
+
+func set_poz(dis: float, index: int):
+	var angle_step = TAU / GM.Player_count()
+	var angle = angle_step * index + PI
+	position =  GM.Dis_poz + Vector2(0, -dis).rotated(angle)
+	rotation = (position - GM.Dis_poz).angle() - PI/2
 
 func take_cards(cards:Array):
 	for c in cards:

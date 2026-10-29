@@ -2,7 +2,9 @@ extends Node
 class_name BGM
 var table 
 var Players = []
+var Deck_size = {"count_colors":4,"count_numer":13,"count_decks":1,"count_jockers":0}
 var game_rule = {"Start_Cards":5,"Deal_Stack_Cards":1}
+var Dis_poz = Vector2(900,450) #Srodek stolu
 
 var player_count = 4
 var Turn = 0 # false jesli gracz nie moze nic robic
