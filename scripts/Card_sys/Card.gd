@@ -22,7 +22,9 @@ func Start(N,C):
 
 func where_is(isin,target_poz):
 	state = isin
-	if isin == "player" or isin == "Discard":
+	if isin == "player":
+		face_Up()
+	elif isin == "Discard":
 		face_Up()
 	elif isin == "host" or isin == "Stack":
 		face_Down()
@@ -48,6 +50,8 @@ func face_Up():
 
 func reset():
 	$Area2D.position = Vector2(0,0)
+	$Area2D/CollisionShape2D.shape.size = size
+
 	is_hold[0] = false
 	legal(true)
 

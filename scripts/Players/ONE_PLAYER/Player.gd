@@ -11,21 +11,11 @@ func set_this(t,num=0):
 	typ = t
 	numer = num
 	add_to_group(t)
-	
-	match numer:
-		0:	global_position = Vector2(900,850)
-		1:
-			global_position = Vector2(100,450)
-			rotation = PI/2
-		2:	global_position = Vector2(900,100)
-		3:
-			global_position = Vector2(1800,450)
-			rotation = -PI/2
 
 func take_cards(cards:Array):
 	for c in cards:
 		c.Used.connect(Use_Card,CONNECT_DEFERRED | CONNECT_ONE_SHOT)
-		c.Holdered.connect(holded_cards,CONNECT_DEFERRED)
+		c.Holdered.connect(holded_cards)
 		On_Hand.append(c)
 		c.legal(GM.Legality_Check(c))
 	sort_hand(true)
@@ -34,11 +24,12 @@ func take_cards(cards:Array):
 func Use_Card():
 	for c in On_Hand:
 		if c.is_hold[1]:
-			On_Hold.append(c)
+			if not On_Hold.has(c):
+				On_Hold.append(c)
 			break
 	GM.throw_card(On_Hold)
 	for H in On_Hold:
-		H.disconnect("Holdered", holded_cards)
+		H.Holdered.disconnect(holded_cards)
 		On_Hand.erase(H)
 		H.reset()
 	On_Hold.clear()

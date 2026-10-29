@@ -1,12 +1,14 @@
 extends Area2D
 class_name Card_Hitbox
 @onready var card: ONE_Card = $".."
+@onready var colli: CollisionShape2D = $CollisionShape2D
 
 var size_y
 func _ready() -> void:
 	mouse_entered.connect(enter)
 	mouse_exited.connect(exiter)
 	size_y = Vector2(0,card.size.y/2)
+	colli.shape = colli.shape.duplicate()
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	get_viewport().set_input_as_handled()
@@ -18,14 +20,16 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 
 func enter():
 	if card.state == "player" and card.legality and not card.is_hold[0]:
-		SMen.Move_Anim(card,card.position-size_y,0,.1)
-		SMen.Move_Anim(self,size_y,0,.1)
+		SMen.Move_Anim(card,card.position-size_y,0,.07)
+		SMen.Move_Anim(self,size_y/2,0,.07)
+		colli.shape.size += size_y
 		card.is_hold[1] = true
 
 func exiter():
 	if card.state == "player" and card.legality and not card.is_hold[0]:
-		SMen.Move_Anim(card,card.shadow_position,0,.1)
-		SMen.Move_Anim(self,Vector2(0,0),0,.1)
+		SMen.Move_Anim(card,card.shadow_position,0,.07)
+		SMen.Move_Anim(self,Vector2(0,0),0,.07)
+		colli.shape.size -= size_y
 		card.is_hold[1] = false
 
 func Click_card():
