@@ -3,16 +3,18 @@ extends Node2D
 @onready var deck: Node2D = $"../Deck"
 #----------------------------
 @onready var stack_node: Node2D = $Stack
+@onready var dis_node: Node2D = $Discarded
 
 var Stack = []
 var Discarded = [] # zuzyte karty
 
 func _ready() -> void:
+	add_to_group("Table")
 	set_game()
 
 func shuffle():
 	Stack.shuffle()
-	reorder_children()
+	reorder_Stack(Stack)
 
 func set_game():
 	shuffle()
@@ -27,7 +29,14 @@ func send(i):
 		Stack.remove_at(x)
 	return t
 
-func reorder_children():
-	var parent = Stack[0].get_parent()
-	for i in range(Stack.size()):
-		parent.move_child(Stack[i], i)
+func Card_is_Used(c):
+	c.where_is("Discard")
+	Discarded.append(c)
+	reorder_Stack(Discarded)
+	dis_node.Set_poz(c)
+	#Tutaj operacje na rzuconej karcie
+
+func reorder_Stack(tab):
+	var parent = tab[0].get_parent()
+	for i in range(tab.size()):
+		parent.move_child(tab[i], i)

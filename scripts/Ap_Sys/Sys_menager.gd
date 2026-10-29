@@ -2,7 +2,7 @@ extends Node
 
 var Player_count = 4
 
-var your_turn = true # false jesli gracz nie moze nic robic
+var Turn = 0 # false jesli gracz nie moze nic robic
 
 func _ready() -> void:
 	get_viewport().physics_object_picking_sort = true

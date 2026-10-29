@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv35nhhf776fr"]
+[gd_scene load_steps=6 format=3 uid="uid://bv35nhhf776fr"]
 
 [ext_resource type="Script" path="res://scripts/Games_sys/Stack/stack_sys.gd" id="1_jysi0"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Game_Struct_control.gd" id="1_n6h7l"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Stack/Stack_Inputs.gd" id="3_vkjh6"]
+[ext_resource type="Script" path="res://scripts/Games_sys/discarded_cards.gd" id="4_8t2o3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysxoe"]
 size = Vector2(130, 202)
@@ -18,3 +19,6 @@ script = ExtResource("3_vkjh6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stack/Area2D"]
 shape = SubResource("RectangleShape2D_ysxoe")
+
+[node name="Discarded" type="Node2D" parent="."]
+script = ExtResource("4_8t2o3")

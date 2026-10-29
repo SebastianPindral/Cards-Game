@@ -5,6 +5,9 @@ extends Node2D
 var S_Stack_Pos = Vector2(700,450)
 var E_Stack_Pos = S_Stack_Pos
 
+func _init() -> void:
+	add_to_group("Stack")
+
 func Set_Stack(S):
 	var offset = S[0].size.x/50
 	for c in S:

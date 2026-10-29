@@ -28,7 +28,7 @@ func exiter():
 		position.y -= size_y
 
 func Click():
-	pass
+	card.Use()
 
 func Off_Click():
 	pass
