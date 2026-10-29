@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://gvnr3or1pnyf"]
+[gd_scene load_steps=5 format=3 uid="uid://gvnr3or1pnyf"]
 
 [ext_resource type="Script" path="res://scripts/UI/Esc/pause.gd" id="1_lrbym"]
 [ext_resource type="Script" path="res://scripts/UI/play_UI/UI_Control.gd" id="2_8pov3"]
 [ext_resource type="Script" path="res://scripts/UI/play_UI/Choice_Order_Circle/choice_order.gd" id="3_74t50"]
+[ext_resource type="Script" path="res://scripts/UI/LeaderBoard/Score_Board.gd" id="4_217mj"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -85,3 +86,9 @@ offset_right = 1885.0
 offset_bottom = 877.0
 theme_override_font_sizes/font_size = 35
 text = "PASS"
+
+[node name="Score_board" type="VBoxContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 10
+script = ExtResource("4_217mj")

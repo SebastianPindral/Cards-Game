@@ -1,7 +1,9 @@
 extends Node
 signal Stack_number(arg)
+signal players()
 
 var table #wskaznik na stol
+var score_board #tablica wynikow w UI
 var Players = []
 var Deck_size = {"count_colors":4,"count_numer":13,"count_decks":1,"count_jockers":0}
 var Dis_poz = Vector2(900,450) #Srodek stolu
@@ -71,3 +73,6 @@ func throw_card(c:Array):
 	table.Cards_is_Used(c)
 	SMen.reorder_Stack(Discarded)
 	Game.After_Turn()
+
+func void0():
+	players.emit()

@@ -31,10 +31,12 @@ func After_Trick(_win):
 	var local_turn = Get_Turn(1)
 	auction[local_turn][0] += 1
 	GM.Players[local_turn][0].set_label(false,str(auction[local_turn][0])+"/"+str(auction[local_turn][1]))
-	#tutaj przypisac punkty wygranemu i dac mu rozpoczac kolejna kolejke
+
 
 func After_loop():
 	# Tu podliczyc punkty
+	var score = []# ta tablica przechowuje punkty w kolejnosci graczy (0 player) - (1,2,3 host)
+	GM.score_board.Data_update(score)
 	
 	auction_var = 0
 	auction.clear()

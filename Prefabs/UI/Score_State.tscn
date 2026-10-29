@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://22ydrgcc8k3h"]
+
+[node name="ColorRect" type="ColorRect"]
+custom_minimum_size = Vector2(285, 55)
+offset_left = -10.0
+offset_right = 285.0
+offset_bottom = 55.0
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="ScoreState" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(285, 55)
+offset_left = 10.0
+offset_right = 295.0
+offset_bottom = 55.0
+theme_override_constants/separation = 20
+
+[node name="name" type="Label" parent="ScoreState"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+
+[node name="score" type="Label" parent="ScoreState"]
+custom_minimum_size = Vector2(115, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40

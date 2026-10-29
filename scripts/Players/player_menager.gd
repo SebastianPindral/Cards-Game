@@ -13,3 +13,4 @@ func _ready() -> void:
 		add_child(x)
 		x.set_this("host",i+1)
 		GM.Players.append([x,0])
+	GM.players.emit()
