@@ -31,10 +31,13 @@ func The_Deal():
 func config_character2(Data):
 	player_count = get_value(0,Data)
 
-func After_Turn():
-	Next_Turn()
+func Can_from_Stack() -> bool:
+	return true if GM.Discarded.size()>1 else false
 
-func Get_from_Stack(id):pass
+func Get_from_Stack(id):
+	GM.deal_disc_cards(id,3,1)
+	Active_card = GM.Discarded[-1]
+	Next_Turn()
 
 func Before_Throw(_c):
 	if not Throw_conditions.has(base_conditions):
@@ -51,7 +54,6 @@ func Throw_card(c):
 		end_check()
 	
 	End_Game()
-
 
 func Can_Hold_bool()->bool:
 	return not ch("M2").has(true)

@@ -12,8 +12,7 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 			get_viewport().set_input_as_handled()
 
 func Click_card():
-	if GM.Stack.size()>0:
-		GM.Deal_Stack_Cards(0)
+	GM.Deal_Stack_Cards(0)
 
 func enter():
 	SMen.QL.set_cursor_icon(1)

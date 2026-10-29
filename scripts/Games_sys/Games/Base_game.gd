@@ -129,7 +129,7 @@ func change_rotation_direct():
 	GM.table.spin.Re_Direct()
 
 func Turn_move(value):
-	var u_value = abs(value)
+	var u_value = range(abs(value))
 	var rot_dir = (not Rotation_direct) if value < 0 else (Rotation_direct)
 	for x in u_value:
 		if not rot_dir:
@@ -140,6 +140,8 @@ func Turn_move(value):
 			if Turn > 0:
 				Turn -= 1
 			else: Turn = player_count-1
+		if GM.Players[Turn][1] == -PI:
+			u_value.append(0)
 
 func Get_Turn(value,local) -> int:
 	var local_turn = local

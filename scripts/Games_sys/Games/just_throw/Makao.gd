@@ -117,9 +117,6 @@ func Before_Throw(c):
 		Obj_Order["Colors"].visible = true
 		await sig_to_con
 
-func After_Turn():
-	Next_Turn()
-
 func set_order_state(ord,order_type):
 	if Order[order_type][1] == 0:
 		Throw_conditions.erase(ord)

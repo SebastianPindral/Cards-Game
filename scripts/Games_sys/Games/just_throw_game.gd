@@ -12,10 +12,11 @@ func config_character2(_Data):pass
 
 func Before_Throw(_c):pass
 func Throw_card(_c):pass
-func After_Turn():pass
+func After_Turn():
+	Next_Turn()
 
-func Get_from_Stack(id):
-	GM.deal_cards(id,1)
+func Can_from_Stack() -> bool:return false
+func Get_from_Stack(id):pass
 
 
 func Legality_Check(_card)->bool:return false
