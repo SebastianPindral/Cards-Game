@@ -9,6 +9,9 @@ var typ = ""#typ gracza
 var On_Hand = []#karty na rece
 var On_Hold = []#karty podniesione do grupowego rzucenia
 var numer
+
+var sort_style = true
+
 func _ready() -> void:
 	GM.Stack_number.connect(set_label.bind(true))
 
@@ -47,7 +50,7 @@ func take_cards(cards:Array):
 		c.Holdered.connect(holded_cards)
 		On_Hand.append(c)
 		c.legal(GM.Game.Legality_Check(c))
-	sort_hand(true)
+	sort_hand(sort_style)
 	hand.set_visual(On_Hand,typ)
 
 func Use_Card():

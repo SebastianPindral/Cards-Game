@@ -35,6 +35,14 @@ func throw_signal():
 	was_emited = true
 	sig_to_con.emit()
 
+func Who_have_card(color,number):
+	var i = 0
+	for p in GM.Players:
+		for c in p[0].On_Hand:
+			if c.Data["Color"] == color and c.Data["Number"] == number:
+				return i
+		i+=1
+
 func Who_Starts_game():
 	Turn = randi_range(0,player_count-1)
 
@@ -54,6 +62,8 @@ func config_character(Data): #wywolane po zaakceptowaniu ustawien
 	config_character2(Data)
 
 func config_character2(_Data):pass
+
+func get_value(index,Data): return Data["OCL_name_list"][index][2][Data["OCL_name_list"][index][1]]
 
 func ch(text): 
 	if characteristics.has(text):

@@ -56,7 +56,8 @@ func Start_Game(t):
 func new_game(game_type):
 	match game_type:
 		"Makao":	Game = Makao.new()
-		"Spades" :	Game = Spades.new()
+		"Spades":	Game = Spades.new()
+		"Pan":		Game = Pan.new()
 		_:
 			print("Blad wczytania gry")
 			get_tree().quit()

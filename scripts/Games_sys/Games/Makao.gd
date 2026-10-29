@@ -30,7 +30,6 @@ func _init() -> void:
 	}
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 13
-	#GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
 	GM.Deck_size["count_jockers"] = 0
 	GM.game_rule["Start_Cards"] = 4#dac mozliwosc dostosowania
 	GM.game_rule["Deal_Stack_Cards"] = 1
@@ -90,8 +89,6 @@ func The_Deal():
 	GM.shuffle()
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
-
-func get_value(index,Data): return Data["OCL_name_list"][index][2][Data["OCL_name_list"][index][1]]
 
 func config_character2(Data):
 	player_count = get_value(0,Data)
