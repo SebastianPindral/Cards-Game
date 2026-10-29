@@ -55,7 +55,10 @@ func config_character(Data): #wywolane po zaakceptowaniu ustawien
 
 func config_character2(_Data):pass
 
-func ch(text): return characteristics[text]
+func ch(text): 
+	if characteristics.has(text):
+		return characteristics[text]
+	else: return false
 
 func The_Deal():pass
 
@@ -84,9 +87,12 @@ func Enemy_SI(_xx):pass
 func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
 func Can_from_Stack() -> bool:return false
+
 func Start_Player_Turn(_numer,_Hand):pass
 func End_Player_Turn(_numer,_Hand):pass
+
 func Knock_Knock(_num = null):pass
+
 func end_check():pass #wywolane po kazdym ruchu ktory zmienia ranking
 func End_Game():pass #Wywolane kiedy gra sie konczy
 

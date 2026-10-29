@@ -1,4 +1,4 @@
-extends BaseGame
+extends just_throw
 class_name Makao
 var base_conditions = func() -> bool: return (Active_card.Data["Number"] == card.Data["Number"] 
 											or Active_card.Data["Color"] == card.Data["Color"])
@@ -37,10 +37,6 @@ func _init() -> void:
 	Throw_conditions.append(base_conditions)
 	Order["Colors"] = [0,0] # pierwsza jest tura urzycia a 2 rzadana wartosc
 	Order["Numbers"] = [0,0]
-
-func set_poz_on_discard(c,dis_poz):
-	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
-	c.where_is("Discard",dis_poz)
 
 func Enemy_SI(xx):
 	if xx.Data["Number"]==11:
@@ -242,7 +238,7 @@ func Get_from_Stack(id):
 		GM.Players[id][0].set_info_color(Color(0.3,0.3,0.3))
 		Report_Makao[id] = true
 		
-		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"],first_save[2])# true oznacza ze first_save dziala
+		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"],first_save[2])
 	
 	if first_save[0]:# wywolane po dobraniu pierwszej karty jesli mozna ja legalnie rzucic
 		first_save[0] = false

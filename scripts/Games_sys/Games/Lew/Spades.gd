@@ -44,7 +44,7 @@ func After_Trick():
 func After_loop():
 	# Tu podliczyc punkty
 	var score = []# ta tablica przechowuje punkty w kolejnosci graczy (0 player) - (1,2,3 host)
-	if ch("M4") and player_count == 4:
+	if ch("MT") and player_count == 4:
 		if auction[1][1] != 0 and auction[3][1] != 0:
 			auction[1][1] += auction[3][1]
 			auction[1][0] += auction[3][0]
@@ -55,7 +55,7 @@ func After_loop():
 	for i in range(player_count):
 		var calc
 		if auction[i][1] != 0:
-			if ch("M4") and player_count == 4:
+			if ch("MT") and player_count == 4:
 				if (i >= 2 and auction[i - 2][1] == 0) or (i<2 and auction[i + 2][1] == 0):pass
 				elif i >= 2:
 					score.append(full_score[i-2][0])
@@ -71,12 +71,15 @@ func After_loop():
 		score.append(calc)
 		full_score[i][0] = calc
 		
-	if ch("M4"):
+	if ch("MT"):
 		score.remove_at(1)
 		score.remove_at(0)
 	
 	GM.score_board.Data_update(score)
 	
+	var score_d = full_score.duplicate()
+	score_d.sort_custom(func(a, b): return a[0] < b[0])
+	if (score_d[0] - score_d[1]) > spades_count["End var"]: End_Game()
 	for i in range(player_count):
 		if full_score[i][0] >= spades_count["End var"]: End_Game()
 
