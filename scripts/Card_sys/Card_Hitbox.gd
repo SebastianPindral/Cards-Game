@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	get_viewport().set_input_as_handled()
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and $"..".state == "player":
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				Click()

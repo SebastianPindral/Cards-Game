@@ -3,7 +3,7 @@ extends Node2D
 class_name Base_Hand
 @onready var hand: Node2D = $Hand
 
-var typ
+var typ = ""
 var On_Hand = []
 var numer = 0
 

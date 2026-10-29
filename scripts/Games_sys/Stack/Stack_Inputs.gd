@@ -3,7 +3,7 @@ extends Area2D
 
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and SMen.Turn == 0:
+	if event is InputEventMouseButton and GMaster.Turn == 1:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				Click()

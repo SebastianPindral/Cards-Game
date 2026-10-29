@@ -9,7 +9,7 @@ func _ready() -> void:
 	add_child(x)
 	x.set_this("player")
 	Actors.append(x)
-	for i in (SMen.Set_Players() - 1):
+	for i in (GMaster.Set_Players() - 1):
 		x = PLAYER.instantiate()
 		add_child(x)
 		x.set_this("host",i+1)

@@ -35,6 +35,7 @@ func Card_is_Used(c):
 	reorder_Stack(Discarded)
 	dis_node.Set_poz(c)
 	#Tutaj operacje na rzuconej karcie
+	#GMaster.Next_Turn()
 
 func reorder_Stack(tab):
 	var parent = tab[0].get_parent()
