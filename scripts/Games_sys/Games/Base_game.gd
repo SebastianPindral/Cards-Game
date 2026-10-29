@@ -14,6 +14,9 @@ var player_count
 var Turn = 0
 var Rotation_direct = true
 
+var Active_card # karta na szczycie stosu
+var card #aktualnie testowana karta
+
 func characteristic(text,state):	characteristics[text] = state
 
 func ch(text): return characteristics[text]
@@ -27,6 +30,8 @@ func After_Turn():pass
 func Throw_card(_c): pass
 func Get_from_Stack(_id):pass
 func set_poz_on_discard(_c,_dis_poz):pass
+func after_take_every_card(_c:Array) -> bool:return false
+
 
 func stop():	sig_to_con.emit()
 

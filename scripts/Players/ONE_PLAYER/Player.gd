@@ -42,7 +42,6 @@ func draw_conture(dis:float,angle_step):
 	new.z_as_relative = false
 
 func take_cards(cards:Array):
-	if cards.size()>0:GM.last_take_card = cards[-1]
 	for c in cards:
 		c.Used.connect(Use_Card,CONNECT_DEFERRED)
 		c.Holdered.connect(holded_cards)

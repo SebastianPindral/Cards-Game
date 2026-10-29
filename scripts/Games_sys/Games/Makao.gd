@@ -1,21 +1,18 @@
 extends BaseGame
 class_name Makao
-var base_conditions = func() -> bool: return (GM.Active_card.Data["Number"] == GM.card.Data["Number"] 
-											or GM.Active_card.Data["Color"] == GM.card.Data["Color"])
+var base_conditions = func() -> bool: return (Active_card.Data["Number"] == card.Data["Number"] 
+											or Active_card.Data["Color"] == card.Data["Color"])
 var getter = func() -> bool: 
-	return (GM.card.Data["Number"] in [2,3] or (GM.card.Data["Number"] == 13 and (GM.card.Data["Color"] == 1)))
+	return (card.Data["Number"] in [2,3] or (card.Data["Number"] == 13 and (card.Data["Color"] == 1)))
 
 var stopper = func() -> bool: 
-	return GM.card.Data["Number"] == 4
+	return card.Data["Number"] == 4
 
 var num_order = func() -> bool: 
-	return GM.card.Data["Number"] in [11,Order["Numbers"][1]] #J
+	return card.Data["Number"] in [11,Order["Numbers"][1]] #J
 
 var Choice_color = func() -> bool: 
-	return (GM.card.Data["Number"] == 14 or GM.card.Data["Color"] == Order["Colors"][1]) #A
-
-var last_card_check = func() -> bool: return (GM.last_take_card.Data["Number"] == GM.card.Data["Number"] 
-						or GM.last_take_card.Data["Color"] == GM.card.Data["Color"])
+	return (card.Data["Number"] == 14 or card.Data["Color"] == Order["Colors"][1]) #A
 
 var nope = func() -> bool: return false
 var wait_count = 0
@@ -41,7 +38,7 @@ func set_game(plc):
 	change_rotation_direct()
 	GM.shuffle()
 	var one = GM.send(1)
-	GM.Active_card = one[0]
+	Active_card = one[0]
 	GM.table.Cards_is_Used(one)
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
@@ -116,6 +113,8 @@ func Throw_card(c):
 								if id == Turn:continue
 								id -= 1
 								GM.deal_cards(id,1)
+						else:
+							stack_combo(5)
 					3: back_move("M13")
 	
 	match c.Data["Number"]:
@@ -157,6 +156,7 @@ func end_check(c):
 		GM.Players[Turn-1][1] = -PI
 		ifend+=1
 	
+	Active_card = c
 	if ch("M6"):
 		if ifend == player_count-1:
 			get_tree().quit()
@@ -182,13 +182,25 @@ func Get_from_Stack(id):
 	clear_conditions()
 	Next_Turn()
 
+func after_take_every_card(c:Array) -> bool:
+	return false#usunac jak bedzie zrobione
+	#brakuje aby gracz mogl zagrac ta karte jesli legalna #GM.Actor_play()
+	#do powyzszego uwarzac bo makao zatrzymac sie moze na 169 linijce bo tam wywoluje sie after_take_every_card()
+	#brakuje aby dalo sie rzucic tylko ta jedna
+	#brakuje aby dalo sie odmowic, nie biorac wiecej kart! jesli nie trzeba dobierac do skutku
+	#przy dobieraniu do skutku "M2" zawsze dobiera sie jedna, obslurzyc aby sie nie psulo
+	#moze shift_turn()???
+	if c.size()==1:
+		return Legality_Check(c[0])
+	return false
+
 func clear_conditions():
 	Throw_conditions.erase(getter)
 	Throw_conditions.erase(stopper)
 	Throw_conditions.erase(nope)
 
 func Legality_Check(c)->bool:
-	GM.card = c
+	card = c
 	
 	#przy spelnieniu warunku mazna rzucic nawet mimo puli z kart funkcyjnych
 	if true_except_orders("M15",c,10):	return true
@@ -199,8 +211,8 @@ func Legality_Check(c)->bool:
 	 and (c.Data["Number"] in [2,3,4] or (c.Data["Number"] == 13 and c.Data["Color"] in [1,2]))): return false
 	
 	#warunki :dama na wszystko/wszystko na dame
-	if GM.Active_card.Data["Number"] == 12 and ch("M9"):	return true
-	if (GM.card.Data["Number"] == 12 and GM.game_rule["Deal_Stack_Cards"]==1 
+	if Active_card.Data["Number"] == 12 and ch("M9"):	return true
+	if (card.Data["Number"] == 12 and GM.game_rule["Deal_Stack_Cards"]==1 
 		and wait_count >= 0 and Order["Numbers"][1]==0 and ch("M8")):	return true
 	return SHelp.if_in_loop(Throw_conditions)
 
