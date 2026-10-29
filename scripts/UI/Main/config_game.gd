@@ -28,7 +28,7 @@ func set_config_options(t):
 		var btn = get_node("HBoxContainer/VBC" + str(i))
 		btn.add_child(bu)
 		if btn.get_child_count()>=8:	i+=1
-		bu.create(x,Data[x][1])
+		bu.call_deferred("create",x,Data[x][1])
 		config_list.append(bu)
 
 func _on_start_pressed():

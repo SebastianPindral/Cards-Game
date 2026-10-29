@@ -1,10 +1,12 @@
 extends Node
 
 var QL = q_load.new()
+var Card_Style = "Default"
 
 func _ready() -> void:
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
+	SMen.QL.load_icons(Card_Style)
 
 func change_scene(path: String):
 	var new_scene = load(path).instantiate()

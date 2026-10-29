@@ -63,6 +63,7 @@ func save_json(path,data):
 func load_icons(sets):
 	var path = "res://assets/Cards/"+sets+"/"
 	icons["Back"] = load(path+"Back.png")
+	icons["Clear_card"] = load("res://assets/Cards/Clear_card.png")
 	
 	path = path + "Fronts/"
 	var dir = DirAccess.open(path)
