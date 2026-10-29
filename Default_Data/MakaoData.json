@@ -1,0 +1,32 @@
+{
+	"5 ReDirect": [
+		"M4",
+		true,
+		"odwraca kolejke (zrobione)"
+	],
+	"As Bit": [
+		"M5",
+		true,
+		"pozwala na przebijanie asa przed koncem kolejki"
+	],
+	"BitLegal": [
+		"M3",
+		true,
+		"pozwala na przebijanie kart, jesli off trzeba dobrac nawet jesli ma sie odpowiednia karte"
+	],
+	"GetLegal": [
+		"M2",
+		true,
+		"zmusza do dobierania kart az trafi sie taka ktora mozna legalnie rzucic (nie dotyczy dobierania po 2 , 3 , 4 i K)"
+	],
+	"Stack": [
+		"M1",
+		true,
+		"pozwala na stakowanie puli z kart: 2,3,4,K (zrobione bez K!!!!!)"
+	],
+	"playercount": [
+		4,
+		2,
+		8
+	]
+}

@@ -7,9 +7,9 @@ func _ready() -> void:
 	var x = PLAYER.instantiate()
 	add_child(x)
 	x.set_this("player")
-	GM.Players.append(x)
+	GM.Players.append([x,0])
 	for i in (GM.Player_count() - 1):
 		x = PLAYER.instantiate()
 		add_child(x)
 		x.set_this("host",i+1)
-		GM.Players.append(x)
+		GM.Players.append([x,0])

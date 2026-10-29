@@ -37,6 +37,11 @@ func Legality_Check(c)->bool:
 func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
 	for c in On_Hand:
 		c.legal(Legality_Check(c))
+		if not Legality_Check(On_Hold[0]):
+			for Hold_card in On_Hold:
+				Hold_card.reset(Legality_Check(Hold_card))
+			On_Hold.clear()
+			return
 		for Hold_card in On_Hold:
 			if Hold_card.Data["Number"] == c.Data["Number"]:
 				c.legal(true)

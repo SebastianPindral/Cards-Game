@@ -23,7 +23,7 @@ var Throw_conditions = [func() -> bool: return (Active_card.Data["Number"] == ca
 
 var Stack = []
 var Discarded = [] # zuzyte karty
-var Active_card
+var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
 
 func set_game():
@@ -45,9 +45,9 @@ func send(i):
 	return t
 
 func Player_count():	return player_count
-func deal_cards(pid,count):	Players[pid].take_cards(send(count))
-func Actor_poz(index):	return Players[index-1].global_position
-func Actor_play(index):	Players[index-1].play()
+func deal_cards(pid,count):	Players[pid][0].take_cards(send(count))
+func Actor_poz(index):	return Players[index-1][0].global_position
+func Actor_play(index):	Players[index-1][0].play()
 
 func change_rotation_direct():
 	Rotation_direct = not Rotation_direct
@@ -60,16 +60,24 @@ func shuffle():
 		table.stack.Set_Stack(Stack)
 
 func Next_Turn():
-	if not Rotation_direct:
-		if Turn < player_count:
-			Turn += 1
-		else: Turn = 1
+	if Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
+		Players[Turn-1][1] -= 1
 	else:
-		if Turn > 1:
-			Turn -= 1
-		else: Turn = player_count
+		if not Rotation_direct:
+			if Turn < player_count:
+				Turn += 1
+			else: Turn = 1
+		else:
+			if Turn > 1:
+				Turn -= 1
+			else: Turn = player_count
 	table.cursor.set_cursor_target(Turn)
-	Actor_play(Turn)
+	
+	if Players[Turn-1][1] < 0: # jest mniejszy od zera jesli gracz musi czekac i nic nie robic
+		Players[Turn-1][1] += 1
+		Next_Turn()
+	elif Players[Turn-1][1] == 0:
+		Actor_play(Turn)
 
 func Legality_Check(_card)->bool:return false
 func throw_card(_card):pass

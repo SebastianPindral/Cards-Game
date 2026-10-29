@@ -48,12 +48,14 @@ func face_Up():
 	front.visible = true
 	back.visible = false
 
-func reset():
+func reset(r:bool = true):
 	$Area2D.position = Vector2(0,0)
 	$Area2D/CollisionShape2D.shape.size = size
-
-	is_hold[0] = false
-	legal(true)
+	
+	if r == false:
+		is_hold[0] = false
+		$Area2D.exiter()
+	legal(r)
 
 func Use():
 	reset()
