@@ -16,10 +16,8 @@ func set_Deal_Stack_Number(adding,vari):
 	else:		game_rule["Deal_Stack_Cards"] = vari
 	Stack_number.emit(game_rule["Deal_Stack_Cards"])
 
-
 # nieokreslona ilosc warunkow do spelnienia aby rzucic karta
-var Throw_conditions = [func() -> bool: return (Active_card.Data["Number"] == card.Data["Number"] 
-						or Active_card.Data["Color"] == card.Data["Color"])]
+var Throw_conditions = []
 
 var Stack = []
 var Discarded = [] # zuzyte karty
@@ -59,11 +57,9 @@ func shuffle():
 		SMen.reorder_Stack(Stack)
 		table.stack.Set_Stack(Stack)
 
-func Next_Turn():
-	if Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
-		Players[Turn-1][1] -= 1
-	else:
-		if not Rotation_direct:
+func Turn_move(value,RD_Local):
+	for x in value:
+		if not RD_Local:
 			if Turn < player_count:
 				Turn += 1
 			else: Turn = 1
@@ -71,12 +67,20 @@ func Next_Turn():
 			if Turn > 1:
 				Turn -= 1
 			else: Turn = player_count
+
+
+func Next_Turn():
+	if Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
+		Players[Turn-1][1] -= 1
+	else:
+		Turn_move(1,Rotation_direct)
 	table.cursor.set_cursor_target(Turn)
 	
 	if Players[Turn-1][1] == -PI:
 		Next_Turn()
 	elif Players[Turn-1][1] < 0: # jest mniejszy od zera jesli gracz musi czekac i nic nie robic
 		Players[Turn-1][1] += 1
+		Stack_number.emit(game_rule["Deal_Stack_Cards"])
 		Next_Turn()
 	elif Players[Turn-1][1] == 0:
 		Actor_play(Turn)

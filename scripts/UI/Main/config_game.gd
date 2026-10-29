@@ -17,14 +17,17 @@ func set_config_options(t):
 	type = t
 	Data = SMen.QL.load_json(type)
 	playerc.set_it()
-	for x in Data:
-		if x == "playercount":	continue
-		
+	
+	var sorted_keys = Data.keys()
+	sorted_keys.erase("playercount")
+	sorted_keys.sort_custom(func(a, b):return Data[a][0] < Data[b][0])
+	
+	for x in sorted_keys:
 		#var description = Data[x][2] #Zrobic!!!!!!!!!!!!!!!!!
 		var bu = CONFIG_ONE.instantiate()
 		var btn = get_node("HBoxContainer/VBC" + str(i))
 		btn.add_child(bu)
-		if btn.get_child_count()>9:	i+=1
+		if btn.get_child_count()>=8:	i+=1
 		bu.create(x,Data[x][1])
 		config_list.append(bu)
 
@@ -38,6 +41,11 @@ func _on_start_pressed():
 	SMen.change_scene("res://scens/Cards_Games.tscn")
 
 func _on_back_pressed():
+	for j in range(1,5):
+		var nodi = get_node("HBoxContainer/VBC" + str(j))
+		for ch in nodi.get_children():
+			nodi.remove_child(ch)
+		get_node("HBoxContainer/VBC" + str(i))
 	config_list.clear()
 	visible = false
 	choose_game.visible = true

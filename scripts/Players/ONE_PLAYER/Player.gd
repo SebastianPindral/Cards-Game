@@ -7,6 +7,8 @@ var typ = ""#typ gracza
 var On_Hand = []#karty na rece
 var On_Hold = []#karty podniesione do grupowego rzucenia
 var numer
+func _ready() -> void:
+	GM.Stack_number.connect(set_label)
 
 func set_this(t,num=0):
 	typ = t
@@ -22,7 +24,7 @@ func set_poz(dis: float, index: int):
 
 func take_cards(cards:Array):
 	for c in cards:
-		c.Used.connect(Use_Card,CONNECT_DEFERRED | CONNECT_ONE_SHOT)
+		c.Used.connect(Use_Card,CONNECT_DEFERRED)
 		c.Holdered.connect(holded_cards)
 		On_Hand.append(c)
 		c.legal(GM.Legality_Check(c))
@@ -88,3 +90,10 @@ func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 		var parent = node.get_parent()
 		if parent:
 			parent.move_child(node, i)
+
+func set_label(vari=0):
+	vari = GM.Players[numer][1]
+	if vari != 0 and vari != -PI:
+		$Label.text = str(vari)
+	else:
+		$Label.text = ""

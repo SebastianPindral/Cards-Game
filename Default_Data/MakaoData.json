@@ -1,4 +1,39 @@
 {
+	"K TREFL": [
+		"M12",
+		false,
+		"K TREFL wykonuje ruch wstecz"
+	],
+	"K PIK": [
+		"M12",
+		false,
+		"K Pik wykonuje ruch wstecz"
+	],
+	"the same numbers at once": [
+		"M11",
+		false,
+		"rzucanie kilku kart o tej samej wartosci na raz"
+	],
+	"reporting last card": [
+		"M10",
+		false,
+		"zglaszenie jesli po rzucie zostanie ci jedna karta"
+	],
+	"everything on Q": [
+		"M9",
+		false,
+		"wszystko mozna rzucic na dame"
+	],
+	"Q on everything": [
+		"M8",
+		false,
+		"dame mozna rzucic na wszystko"
+	],
+	"first card save": [
+		"M7",
+		false,
+		"pierwsza karte dobrana ze stosu mozna rzucic ale nie trzeba"
+	],
 	"last win": [
 		"M6",
 		true,
@@ -7,7 +42,7 @@
 	"5 ReDirect": [
 		"M4",
 		true,
-		"odwraca kolejke (zrobione)"
+		"odwraca kolejke"
 	],
 	"As Bit": [
 		"M5",
@@ -27,7 +62,7 @@
 	"Stack": [
 		"M1",
 		true,
-		"pozwala na stakowanie puli z kart: 2,3,4,K (zrobione bez K!!!!!)"
+		"pozwala na stakowanie puli z kart: 2,3,4,K"
 	],
 	"playercount": [
 		4,

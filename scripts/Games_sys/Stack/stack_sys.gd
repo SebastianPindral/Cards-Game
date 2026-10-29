@@ -1,5 +1,7 @@
 extends Node2D
 @onready var area_2d: Area2D = $Area2D
+@onready var label: Label = $Label
+
 var Stack_Pos = Vector2(50,100)
 
 func _init() -> void:
@@ -15,7 +17,7 @@ func Set_Stack(S):
 		c.where_is("Stack",Stack_Pos)
 	area_2d.position = Stack_Pos
 	$Label.position = Stack_Pos-Vector2(S[0].size.x/4,S[0].size.x/2)
-	$Label.size = S[0].size
+	$Label.size.x = S[0].size.x*2
 	$Area2D/CollisionShape2D.shape.size = S[0].size
 
 func set_label(vari):

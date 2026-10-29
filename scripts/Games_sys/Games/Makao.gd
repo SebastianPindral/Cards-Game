@@ -1,10 +1,19 @@
 extends BaseGame
 class_name Makao
-var getter = func() -> bool: return (GM.card.Data["Number"] == 2 or GM.card.Data["Number"] == 3)
+var base_conditions = [func() -> bool: return (GM.Active_card.Data["Number"] == GM.card.Data["Number"] 
+						or GM.Active_card.Data["Color"] == GM.card.Data["Color"])]
+var getter = func() -> bool: return (GM.card.Data["Number"] == 2 or GM.card.Data["Number"] == 3 or (GM.card.Data["Number"] == 13 and (GM.card.Data["Color"] == 1 or GM.card.Data["Color"] == 2)))
 var stopper = func() -> bool: return GM.card.Data["Number"] == 4
+
+var jopek = func() -> bool: return GM.card.Data["Number"] == 11 #J
+var all_can_in = func() -> bool: return GM.card.Data["Number"] == 12 #Q
+var Choose_color = func() -> bool: return GM.card.Data["Number"] == 14 #A
 
 var wait_count = 0
 var first_card = true
+func _init() -> void:
+	GM.Throw_conditions = base_conditions
+
 func Throw_card(c):
 	if c.Data["Number"] == 2 or c.Data["Number"] == 3:
 		if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
@@ -18,7 +27,14 @@ func Throw_card(c):
 			GM.Throw_conditions.append(stopper)
 	elif c.Data["Number"] == 5 and characteristics["M4"]:
 		GM.change_rotation_direct()
-	
+	elif c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2):
+		if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
+		GM.set_Deal_Stack_Number(characteristics["M1"],5)
+		if c.Data["Color"] == 1 and characteristics["M12"]:
+			GM.Turn_move(2,not GM.Rotation_direct)
+			print("hgfhfghfg")
+		if not GM.Throw_conditions.has(getter):
+			GM.Throw_conditions.append(getter)
 	end_check()
 
 var ifend=0
@@ -39,8 +55,8 @@ func end_check():
 func Get_from_Stack(id):
 	if wait_count==0:
 		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"])
-	GM.set_Deal_Stack_Number(false,1)
 	GM.Players[GM.Turn-1][1] = wait_count
 	wait_count = 0
+	GM.set_Deal_Stack_Number(false,1)
 	GM.Throw_conditions.erase(getter)
 	GM.Throw_conditions.erase(stopper)
