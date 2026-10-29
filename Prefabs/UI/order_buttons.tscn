@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://brcdcwpixpco5"]
 
-[ext_resource type="Script" path="res://scripts/UI/play_UI/Create_Order_buttons.gd" id="1_tlonu"]
+[ext_resource type="Script" path="res://scripts/UI/play_UI/Choice_Order_Circle/Create_Order_buttons.gd" id="1_tlonu"]
 
 [node name="Order_Buttons" type="Control"]
 layout_mode = 3

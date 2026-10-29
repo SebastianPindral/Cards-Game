@@ -59,8 +59,9 @@
 	],
 	"first card save": [
 		"M7",
-		false,
-		"pierwsza karte dobrana ze stosu mozna rzucic ale nie trzeba"
+		1,
+		"pierwsza karte dobrana ze stosu mozna rzucic ale nie trzeba (OK)",
+		"jak wyzej ale mozna rzucic wiecej niz tylko ta jedna ratujaca rakte jesli maja ta sama wartosc (OK)"
 	],
 	"last win": [
 		"M6",

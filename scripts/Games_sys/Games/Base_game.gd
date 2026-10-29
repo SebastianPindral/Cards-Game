@@ -63,9 +63,16 @@ func Get_Turn(value,RD_Local) -> int:
 			else: local_turn = player_count
 	return local_turn
 
+func back_move(order_name:String):
+	if ch(order_name):
+		Turn_move(2,not Rotation_direct)
+
+func shift_turn():
+	Turn_move(1,not Rotation_direct)
+
 func Next_Turn():
 	if GM.Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
-		GM.Players[Turn-1][1] -= 1
+		GM.Players[Turn-1][1] -= 1 
 	else:
 		Turn_move(1,Rotation_direct)
 	GM.table.cursor.set_cursor_target(Turn)

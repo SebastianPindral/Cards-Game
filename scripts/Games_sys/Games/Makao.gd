@@ -16,7 +16,9 @@ var Choice_color = func() -> bool:
 
 var nope = func() -> bool: return false
 var wait_count = 0
-var first_card = true
+var first_card = true #zabezpieczenie przy rozpoczeciu gry
+
+var first_save = [false,false,true] #pierwsza karta dobrana ze stosu mozna rzucic ale nie trzeba
 
 func _init() -> void:
 	GM.Deck_size["count_colors"] = 4
@@ -38,7 +40,6 @@ func set_game(plc):
 	change_rotation_direct()
 	GM.shuffle()
 	var one = GM.send(1)
-	Active_card = one[0]
 	GM.table.Cards_is_Used(one)
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
@@ -66,9 +67,6 @@ func Before_Throw(c):
 func After_Turn():
 	Next_Turn()
 
-func shift_turn():
-	Turn_move(1,not Rotation_direct)
-
 func set_order_state(ord,order_type):
 	if Order[order_type][1] == 0:
 		Throw_conditions.erase(ord)
@@ -76,10 +74,6 @@ func set_order_state(ord,order_type):
 	elif not Throw_conditions.has(ord):
 		Throw_conditions.append(ord)
 		Throw_conditions.erase(base_conditions)
-
-func back_move(order_name:String):
-	if ch(order_name):
-		Turn_move(2,not Rotation_direct)
 
 func true_except_orders(order_num,c,num:int):
 	return (ch(order_num)[1] and c.Data["Number"] == num 
@@ -109,9 +103,8 @@ func Throw_card(c):
 						back_move("M12")
 					2:
 						if ch("M18"):
-							for id in range(1,player_count+1):
-								if id == Turn:continue
-								id -= 1
+							for id in range(0,player_count):
+								if (id+1) == Turn or GM.Players[id][1] == -PI:continue
 								GM.deal_cards(id,1)
 						else:
 							stack_combo(5)
@@ -156,6 +149,7 @@ func end_check(c):
 		GM.Players[Turn-1][1] = -PI
 		ifend+=1
 	
+	first_save[1] = false
 	Active_card = c
 	if ch("M6"):
 		if ifend == player_count-1:
@@ -165,33 +159,43 @@ func end_check(c):
 			get_tree().quit()
 
 func Get_from_Stack(id):
-	if wait_count >= 0:
-		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"])
+	if wait_count >= 0 and not first_save[1]:
+		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"],first_save[2])# true oznacza ze first_save dziala
 	
-	# 4 - karta stop
-	GM.Players[Turn-1][1] = wait_count
-	wait_count = 0
-	
-	GM.set_Deal_Stack_Number(false,1)
-	GM.table.get_node("Order_info").set_label2("",wait_count)
-	#Dobieranie do skutku
-	if (ch("M2") and Order["Colors"][1]==0 and Order["Numbers"][1]==0 and 
-		not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):
+	if first_save[0]:# wywolane po dobraniu pierwszej karty jesli mozna ja legalnie rzucic
+		first_save[0] = false
+		first_save[1] = true#jesli nie trzeba dobierac do skutku to na tej karcie sie konczy
+		if ch("M2"):
+			first_save[1] = false
+		if Throw_conditions.has(getter):
+			if GM.game_rule["Deal_Stack_Cards"] >= 1: GM.game_rule["Deal_Stack_Cards"] -= 1
+			first_save[1] = false
+			first_save[2] = false
 		shift_turn()
+		Next_Turn()
+	else:
+		first_save[1] = false
+		first_save[2] = true
+		# 4 - karta stop
+		GM.Players[Turn-1][1] = wait_count
+		wait_count = 0
+		
+		GM.set_Deal_Stack_Number(false,1)
+		GM.table.get_node("Order_info").set_label2("",wait_count)
+		#Dobieranie do skutku
+		if (ch("M2") and Order["Colors"][1]==0 and Order["Numbers"][1]==0 and 
+			not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):
+			shift_turn()
+		
+		clear_conditions()
+		Next_Turn()
 	
-	clear_conditions()
-	Next_Turn()
 
 func after_take_every_card(c:Array) -> bool:
-	return false#usunac jak bedzie zrobione
-	#brakuje aby gracz mogl zagrac ta karte jesli legalna #GM.Actor_play()
-	#do powyzszego uwarzac bo makao zatrzymac sie moze na 169 linijce bo tam wywoluje sie after_take_every_card()
-	#brakuje aby dalo sie rzucic tylko ta jedna
-	#brakuje aby dalo sie odmowic, nie biorac wiecej kart! jesli nie trzeba dobierac do skutku
-	#przy dobieraniu do skutku "M2" zawsze dobiera sie jedna, obslurzyc aby sie nie psulo
-	#moze shift_turn()???
-	if c.size()==1:
-		return Legality_Check(c[0])
+	if first_card: Active_card = c[0]
+	if c.size()==1 and (ch("M7").has(true)) and not ch("M2") and Legality_Check(c[0]):
+		first_save[0] = true
+		return true
 	return false
 
 func clear_conditions():
@@ -217,7 +221,7 @@ func Legality_Check(c)->bool:
 	return SHelp.if_in_loop(Throw_conditions)
 
 func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
-	if not ch("M11"): 
+	if not ch("M11") or (not ch("M7")[1] and first_save[1]): 
 		if On_Hold.size()<=0:
 			for Hold_card in On_Hand:
 				Hold_card.legal(Legality_Check(Hold_card))

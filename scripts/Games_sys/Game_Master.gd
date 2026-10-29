@@ -16,12 +16,12 @@ func set_Deal_Stack_Number(adding,vari):
 var Stack = []
 var Discarded = [] # zuzyte karty
 
-func send(i):
+func send(i,breaking = false):
 	var t = []
 	for x in range(min(i, Stack.size()) - 1, -1, -1):
 		t.append(Stack[x])
 		Stack.remove_at(x)
-		if Game.after_take_every_card(t): break #dokonczyc priorytetowo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if breaking and Game.after_take_every_card(t): break
 	if game_rule["Deal_Stack_Cards"] >= Stack.size():
 		Reset_Stack(1)
 	return t
@@ -33,7 +33,7 @@ func Reset_Stack(left_on_discard):
 	shuffle()
 
 func Player_count():	return player_count
-func deal_cards(pid,count):	Players[pid][0].take_cards(send(count))
+func deal_cards(pid,count,breaking0 = false):	Players[pid][0].take_cards(send(count,breaking0))
 func Actor_poz(index):	return Players[index-1][0].global_position
 func Actor_play(index):	Players[index-1][0].play()
 

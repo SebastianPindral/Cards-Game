@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://gvnr3or1pnyf"]
+[gd_scene load_steps=4 format=3 uid="uid://gvnr3or1pnyf"]
 
 [ext_resource type="Script" path="res://scripts/UI/Esc/pause.gd" id="1_lrbym"]
-[ext_resource type="Script" path="res://scripts/UI/play_UI/choose_order.gd" id="2_0d5u6"]
+[ext_resource type="Script" path="res://scripts/UI/play_UI/UI_Control.gd" id="2_8pov3"]
+[ext_resource type="Script" path="res://scripts/UI/play_UI/Choice_Order_Circle/choice_order.gd" id="3_74t50"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -48,6 +49,7 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 1
+script = ExtResource("2_8pov3")
 
 [node name="Card_Rules" type="Control" parent="UI"]
 visible = false
@@ -58,4 +60,23 @@ offset_bottom = 40.0
 [node name="Choice_order" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 0
-script = ExtResource("2_0d5u6")
+script = ExtResource("3_74t50")
+
+[node name="knock_button" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 1726.0
+offset_top = 897.0
+offset_right = 1882.0
+offset_bottom = 960.0
+theme_override_font_sizes/font_size = 35
+text = "KNOCK"
+
+[node name="Pass_button" type="Button" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1729.0
+offset_top = 814.0
+offset_right = 1885.0
+offset_bottom = 877.0
+theme_override_font_sizes/font_size = 35
+text = "PASS"

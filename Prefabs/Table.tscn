@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/Games_sys/Play_Queue/rotation_anim.gd" id="6_o81ct"]
 [ext_resource type="Texture2D" uid="uid://ba7dqjffuc242" path="res://assets/Other/Queue_cursor/Default_cursor.png" id="7_qqfg4"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Play_Queue/cursor_target.gd" id="8_ycx7v"]
-[ext_resource type="Script" path="res://scripts/UI/play_UI/order_info.gd" id="9_2fuo0"]
+[ext_resource type="Script" path="res://scripts/UI/play_UI/Choice_Order_Circle/order_info.gd" id="9_2fuo0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysxoe"]
 size = Vector2(130, 202)
