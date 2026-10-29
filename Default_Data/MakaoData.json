@@ -2,12 +2,12 @@
 	"Shift 10": [
 		"M15",
 		false,
-		"10 nie zurzywa tury, trzeba rzucic jeszcze raz"
+		"10 nie zurzywa tury, trzeba rzucic jeszcze raz (OK)"
 	],
 	"Shift Q": [
 		"M14",
 		false,
-		"Q nie zurzywa tury, trzeba rzucic jeszcze raz"
+		"Q nie zurzywa tury, trzeba rzucic jeszcze raz (OK)"
 	],
 	"K TREFL": [
 		"M13",
@@ -22,7 +22,7 @@
 	"the same numbers at once": [
 		"M11",
 		false,
-		"rzucanie kilku kart o tej samej wartosci na raz"
+		"rzucanie kilku kart o tej samej wartosci na raz (OK)"
 	],
 	"reporting last card": [
 		"M10",
@@ -63,7 +63,7 @@
 	"BitLegal": [
 		"M3",
 		true,
-		"pozwala na przebijanie kart, jesli off trzeba dobrac nawet jesli ma sie odpowiednia karte"
+		"pozwala na przebijanie kart, jesli off trzeba dobrac nawet jesli ma sie odpowiednia karte (OK)"
 	],
 	"GetLegal": [
 		"M2",

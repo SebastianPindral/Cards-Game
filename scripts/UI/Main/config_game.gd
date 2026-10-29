@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func set_config_options(t):
 	type = t
-	Data = SMen.QL.load_json(type)
+	Data = SMen.SJ.load_json(type)
 	playerc.set_it()
 	
 	var sorted_keys = Data.keys()
@@ -37,7 +37,7 @@ func _on_start_pressed():
 	for x in Data:
 		if x == "playercount":continue
 		GM.Game.characteristic(Data[x][0],Data[x][1])
-	SMen.QL.save_json(type,Data)
+	SMen.SJ.save_json(type,Data)
 	SMen.change_scene("res://scens/Cards_Games.tscn")
 
 func _on_back_pressed():

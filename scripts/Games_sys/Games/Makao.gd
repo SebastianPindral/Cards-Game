@@ -12,14 +12,15 @@ var Choose_color = func() -> bool: return GM.card.Data["Number"] in [14,Order[1]
 
 var last_card_check = func() -> bool: return (GM.last_take_card.Data["Number"] == GM.card.Data["Number"] 
 						or GM.last_take_card.Data["Color"] == GM.card.Data["Color"])
-						
+
+var nope = func() -> bool: return false
 var wait_count = 0
 var first_card = true
 func _init() -> void:
 	Throw_conditions = base_conditions
 
 func Throw_card(c):
-	if c.Data["Number"] == 2 or c.Data["Number"] == 3:
+	if c.Data["Number"] in [2,3]:
 		if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
 		GM.set_Deal_Stack_Number(characteristics["M1"],c.Data["Number"])
 		if not Throw_conditions.has(getter):
@@ -40,7 +41,14 @@ func Throw_card(c):
 			GM.Turn_move(2,not GM.Rotation_direct)
 		if not Throw_conditions.has(getter):
 			Throw_conditions.append(getter)
+	elif c.Data["Number"] == 10 and characteristics["M15"]:
+		GM.Turn_move(1,not GM.Rotation_direct)
+	elif c.Data["Number"] == 12 and characteristics["M14"]:
+		GM.Turn_move(1,not GM.Rotation_direct)
 	
+	if not characteristics["M3"] and (c.Data["Number"] in [2,3,4] or 
+		(c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2))):
+		Throw_conditions.append(nope)
 	end_check()
 
 var ifend=0
@@ -72,8 +80,9 @@ func Get_from_Stack(id):
 		not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):
 		GM.Turn_move(1,not GM.Rotation_direct)
 	
-	if Throw_conditions.has(getter):Throw_conditions.erase(getter)
-	if Throw_conditions.has(stopper):Throw_conditions.erase(stopper)
+	Throw_conditions.erase(getter)
+	Throw_conditions.erase(stopper)
+	Throw_conditions.erase(nope)
 
 func Legality_Check(c)->bool:
 	GM.card = c
@@ -83,6 +92,17 @@ func Legality_Check(c)->bool:
 	return SHelp.if_in_loop(Throw_conditions)
 
 func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
+	if not characteristics["M11"]: 
+		if On_Hold.size()<=0:
+			for Hold_card in On_Hand:
+				Hold_card.legal(Legality_Check(Hold_card))
+		else:
+			for Hold_card in On_Hand:
+				Hold_card.legal(false)
+			for Hold_card in On_Hold:
+				Hold_card.legal(true)
+		return
+	
 	for c in On_Hand:
 		c.legal(Legality_Check(c))
 		if On_Hold.size()>0 and not Legality_Check(On_Hold[0]):

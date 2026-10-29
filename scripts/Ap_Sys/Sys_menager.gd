@@ -1,6 +1,7 @@
 extends Node
 
 var QL = q_load.new()
+var SJ = Save_Json.new()
 var Card_Style = "Default"
 
 func _ready() -> void:
