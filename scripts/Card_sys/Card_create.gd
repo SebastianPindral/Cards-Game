@@ -26,6 +26,7 @@ func Create(j,i) -> void:
 		_:
 			N = str(j)
 	front.texture = QuickLoad.get_icons(str(N)+"_"+str(C))
+	back.texture = QuickLoad.get_icons("Back")
 	set_size()
 
 func set_size():
