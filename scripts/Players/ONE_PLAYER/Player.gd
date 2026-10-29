@@ -5,6 +5,7 @@ class_name Base_Hand
 
 var typ = ""#typ gracza
 var On_Hand = []#karty na rece
+var On_Hold = []#karty podniesione do grupowego rzucenia
 var numer
 func set_this(t,num=0):
 	typ = t
@@ -23,16 +24,32 @@ func set_this(t,num=0):
 
 func take_cards(cards:Array):
 	for c in cards:
-		c.Used.connect(Use_Card.bind(c),CONNECT_DEFERRED | CONNECT_ONE_SHOT)
+		c.Used.connect(Use_Card,CONNECT_DEFERRED | CONNECT_ONE_SHOT)
+		c.Holdered.connect(holded_cards,CONNECT_DEFERRED)
 		On_Hand.append(c)
 		c.legal(GM.Legality_Check(c))
 	sort_hand(true)
 	hand.set_visual(On_Hand,typ)
 
-func Use_Card(card):
-	if GM.throw_card(card):
-		On_Hand.erase(card)
-		hand.set_visual(On_Hand,typ)
+func Use_Card():
+	for c in On_Hand:
+		if c.is_hold[1]:
+			On_Hold.append(c)
+			break
+	GM.throw_card(On_Hold)
+	for H in On_Hold:
+		H.disconnect("Holdered", holded_cards)
+		On_Hand.erase(H)
+		H.reset()
+	On_Hold.clear()
+	hand.set_visual(On_Hand,typ)
+
+func holded_cards(card):
+	if card.is_hold[0]:
+		On_Hold.append(card)
+	else: 
+		On_Hold.erase(card)
+	GM.Can_Hold(On_Hand,On_Hold)
 
 func play():
 	if typ == "host":
@@ -54,8 +71,11 @@ func play():
 				c.Use() #rzucenie karty
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
 	elif typ == "player":
-		for c in On_Hand:
-			c.legal(GM.Legality_Check(c))
+		Check_Hand()
+
+func Check_Hand():
+	for c in On_Hand:
+		c.legal(GM.Legality_Check(c))
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

@@ -4,10 +4,10 @@ extends Area2D
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and GM.Turn == 1:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				Click()
-				get_viewport().set_input_as_handled()
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			Click_card()
+			get_viewport().set_input_as_handled()
 
-func Click():
-	GM.Deal_Stack_Cards(0)
+func Click_card():
+	if GM.Stack.size()>0:
+		GM.Deal_Stack_Cards(0)

@@ -20,10 +20,14 @@ func set_game():
 
 func send(i):
 	var t = []
-	if Stack.size()>0:
-		for x in range(min(i, Stack.size()) - 1, -1, -1):
-			t.append(Stack[x])
-			Stack.remove_at(x)
+	for x in range(min(i, Stack.size()) - 1, -1, -1):
+		t.append(Stack[x])
+		Stack.remove_at(x)
+	if game_rule["Deal_Stack_Cards"] >= Stack.size():
+		for card_of_dis in range(Discarded.size()-2,-1,-1):
+			Stack.append(Discarded[card_of_dis])
+			Discarded.remove_at(card_of_dis)
+		shuffle()
 	return t
 
 func Player_count():	return player_count
@@ -36,9 +40,10 @@ func change_rotation_direct():
 	table.spin.Re_Direct()
 
 func shuffle():
-	Stack.shuffle()
-	SMen.reorder_Stack(Stack)
-	table.stack.Set_Stack(Stack)
+	if Stack.size()>1:
+		Stack.shuffle()
+		SMen.reorder_Stack(Stack)
+		table.stack.Set_Stack(Stack)
 
 func Next_Turn():
 	if not Rotation_direct:
@@ -53,6 +58,6 @@ func Next_Turn():
 	Actor_play(Turn)
 
 func Legality_Check(_card)->bool:return false
-func throw_card(_card) -> bool:return false
+func throw_card(_card):pass
 func card_function(_card):pass
 func Deal_Stack_Cards(_id):pass
