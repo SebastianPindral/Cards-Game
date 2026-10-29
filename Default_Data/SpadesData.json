@@ -9,6 +9,11 @@
 		false,
 		"czy moze byc ujemny wynik czy zaokragla do 0"
 	],
+	"zero mistakes stack?": [
+		"M3",
+		false,
+		"czy za kazdy blad przy licytacji 0 sa ujemne punkty?"
+	],
 	"OCL_name_list": [
 		[
 			"Player Count:",

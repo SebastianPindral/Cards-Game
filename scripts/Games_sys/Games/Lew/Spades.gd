@@ -1,15 +1,17 @@
 extends trick_taking
 class_name Spades
 
-var spades_count = {"of penalty":0,"of count":0,"End var":0}
+var spades_count = {"of penalty":0,"of count":0,"End var":0,"blind bid":0,"0 bid":0}
 # 4 lub 2 osob
 
 func config_character2(Data):
 	Order_choice_list = {"Numbers":["0","1","2","3","4","5","6","7","8","9","10","11","12","13"]}
 	player_count = Data["OCL_name_list"][0][1]
+	spades_count["blind bid"] = Data["OCL_name_list"][1][1]
+	spades_count["0 bid"] = Data["OCL_name_list"][2][1]
 	spades_count["of penalty"] = Data["OCL_name_list"][3][1]
 	spades_count["of count"] = Data["OCL_name_list"][4][1]
-	spades_count["End var"] = Data["OCL_name_list"][5][1]
+	spades_count["End var"] = Data["OCL_name_list"][5][1] # do ilu sie gra
 	Turn = player_count-1
 	Atut = 1 # Pik
 	color_blocked = 1
@@ -42,16 +44,12 @@ func After_loop():
 	# Tu podliczyc punkty
 	var score = []# ta tablica przechowuje punkty w kolejnosci graczy (0 player) - (1,2,3 host)
 	for i in range(player_count):
-		var calc = auction[i][0] - auction[i][1]
-		if calc < 0:
-			if not ch("M1"): calc = -auction[i][1] * 10
-			else: calc *= 10
-		if calc >= 0: 
-			full_score[i][1] += calc
-			if full_score[i][1] >= spades_count["of count"]:
-				full_score[i][0] -= spades_count["of penalty"]
-				full_score[i][1] -= spades_count["of count"]
-			calc = (auction[i][1] * 10) + calc
+		var calc
+		if auction[i][0] != 0:
+			calc = normal_card_collect(i)
+		else:
+			calc = zero_card_collect(i)
+	
 		calc += full_score[i][0]
 		if not ch("M2") and calc<0: calc = 0
 		score.append(calc)
@@ -59,8 +57,35 @@ func After_loop():
 	
 	GM.score_board.Data_update(score)
 	
-	for i in player_count:
+	for i in range(player_count):
 		if full_score[i][0] >= spades_count["End var"]: End_Game()
+
+func normal_card_collect(player_index):
+	var calc = auction[player_index][0] - auction[player_index][1]
+	if calc < 0:
+		if not ch("M1"): calc = -auction[player_index][1] * 10 # Part contract
+		else: calc *= 10
+	if calc >= 0: 
+		full_score[player_index][1] += calc
+		if full_score[player_index][1] >= spades_count["of count"]:
+			full_score[player_index][0] -= spades_count["of penalty"]
+			full_score[player_index][1] -= spades_count["of count"]
+		calc = (auction[player_index][1] * 10) + calc
+	return calc
+
+func zero_card_collect(player_index):
+	var calc = auction[player_index][0]
+	if not ch("M3"):
+		if calc == 0:
+			calc = spades_count["0 bid"]
+		else:
+			calc = - spades_count["0 bid"]
+	else:
+		if calc == 0:
+			calc = spades_count["0 bid"]
+		else:
+			calc = - spades_count["0 bid"] * calc
+	return calc
 
 func End_Game():
 	for i in GM.Players.size():
