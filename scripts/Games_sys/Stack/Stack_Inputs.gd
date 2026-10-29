@@ -10,5 +10,4 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 				get_viewport().set_input_as_handled()
 
 func Click():
-	if table.Stack.size()>0:
-		GMaster.Deal_Stack_Cards(0)
+	GMaster.Deal_Stack_Cards(0)

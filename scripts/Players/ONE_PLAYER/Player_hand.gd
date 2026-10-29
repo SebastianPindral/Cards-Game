@@ -2,7 +2,7 @@ extends Node2D
 @onready var player: Base_Hand = $".."
 
 var holder = []
-func set_visual(On_Hand,typ,_numer):
+func set_visual(On_Hand,typ):
 	if On_Hand.size()==0:return
 	else:
 		if holder.size() < On_Hand.size():

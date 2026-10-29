@@ -24,9 +24,10 @@ func set_game(players_count,card_count):
 
 func send(i):
 	var t = []
-	for x in range(min(i, Stack.size()) - 1, -1, -1):
-		t.append(Stack[x])
-		Stack.remove_at(x)
+	if Stack.size()>0:
+		for x in range(min(i, Stack.size()) - 1, -1, -1):
+			t.append(Stack[x])
+			Stack.remove_at(x)
 	return t
 
 func Card_is_Used(c):

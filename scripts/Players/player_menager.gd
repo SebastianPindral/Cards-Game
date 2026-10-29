@@ -21,3 +21,6 @@ func deal_cards(pid,count):
 
 func Actor_poz(index):
 	return Actors[index-1].global_position
+
+func Actor_play(index):
+	Actors[index-1].play()

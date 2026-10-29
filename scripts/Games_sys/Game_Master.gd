@@ -30,9 +30,9 @@ func Next_Turn():
 		if Turn < Players.size():
 			Turn += 1
 		else: Turn = 1
-		get_tree().call_group("Cursor_target", "set_cursor_target",Turn)
 	else:
 		if Turn > 1:
 			Turn -= 1
 		else: Turn = Players.size()
-		get_tree().call_group("Cursor_target", "set_cursor_target",Turn)
+	get_tree().call_group("Cursor_target", "set_cursor_target",Turn)
+	get_tree().call_group("Player_menager", "Actor_play",Turn)
