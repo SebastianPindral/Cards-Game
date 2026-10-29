@@ -3,12 +3,14 @@ extends Control
 @onready var settings: Button = $VBoxContainer/Settings
 @onready var quit: Button = $VBoxContainer/Quit
 @onready var ui: Control = $"../UI"
+@onready var go_to_menu: Button = $VBoxContainer/GoToMenu
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	resume.pressed.connect(_on_play_pressed)
 	settings.pressed.connect(_on_settings_pressed)
 	quit.pressed.connect(_on_quit_pressed)
+	go_to_menu.pressed.connect(_on_menu_pressed)
 	set_v(false)
 
 func set_v(boolean):
@@ -29,6 +31,9 @@ func _on_play_pressed():
 
 func _on_settings_pressed():
 	pass
+
+func _on_menu_pressed():
+	SMen.change_scene("res://scens/Main_Menu.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()

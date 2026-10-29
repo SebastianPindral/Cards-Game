@@ -15,6 +15,8 @@ func set_Deal_Stack_Number(adding,vari):
 var Stack = []
 var Discarded = [] # zuzyte karty
 
+var ranking = []
+
 func send(i,breaking = false):
 	var t = []
 	for x in range(min(i, Stack.size()) - 1, -1, -1):
@@ -25,7 +27,7 @@ func send(i,breaking = false):
 		Reset_Stack(1)
 	return t
 
-func Reset_Stack(left_on_discard):
+func Reset_Stack(left_on_discard:int = 0):
 	for card_of_dis in range(Discarded.size()-left_on_discard-1,-1,-1):
 		Stack.append(Discarded[card_of_dis])
 		Discarded.remove_at(card_of_dis)
@@ -52,7 +54,7 @@ func Start_Game(t):
 func new_game(game_type):
 	match game_type:
 		"Makao":	Game = Makao.new()
-		"Piki" :	Game = Piki.new()
+		"Spades" :	Game = Spades.new()
 		_:
 			print("Blad wczytania gry")
 			get_tree().quit()

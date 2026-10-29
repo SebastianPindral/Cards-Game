@@ -96,10 +96,7 @@ func play():
 				if (randi()% 100 + 1) <= 0:GM.Game.Knock_Knock(numer)
 				xx.Use() #rzucenie karty
 				await get_tree().process_frame
-				if xx.Data["Number"]==11:
-					GM.Game.Obj_Order["Numbers"].get_children()[0].click()
-				if xx.Data["Number"]==14:
-					GM.Game.Obj_Order["Colors"].get_children()[0].click()
+				GM.Game.Enemy_SI(xx)
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
 	elif typ == "player":
 		Check_Hand()

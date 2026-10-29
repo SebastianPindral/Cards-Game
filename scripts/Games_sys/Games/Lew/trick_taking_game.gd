@@ -14,6 +14,17 @@ func _init() -> void:
 	Throw_conditions.append(base_conditions)
 	Order["Tricks"] = 0
 
+func set_game():
+	Who_Starts_game()
+	change_rotation_direct()
+	The_Deal()
+	Next_Turn()
+
+func The_Deal():
+	GM.shuffle()
+	for i in range(0,4):
+		GM.deal_cards(i,13)
+
 func set_poz_on_discard(c,dis_poz):
 	var Actor_poz = (GM.Actor_poz(Turn) - GM.table.dis_node.global_position).angle()  
 	var distance = 100
@@ -26,12 +37,27 @@ func get_choise(Order_value,Order_type):pass
 
 func Check_Hand(When,numer,Hand):pass
 func Who_Starts_game():pass
-func set_game():pass
 func Throw_card(c):pass
+func end_check():pass
+func End_Game():pass
 
-
+func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
+	
+	#tutaj podliczenie punktow za lewe
+	
+	GM.Reset_Stack()
+	if GM.Players[0][0].On_Hand.size()==0:
+		
+		# Tutaj zakonczenie pelnego rozdania rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
+		
+		The_Deal()
 
 func After_Turn():
 	Next_Turn()
+	if GM.Discarded.size() >= player_count:#koniec petli
+		await SMen.wait_with_pause(0.5)
+		End_loop()
+	else:#jeden ruch w petli
+		pass
 
 func Legality_Check(c)->bool:return true

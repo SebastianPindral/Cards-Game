@@ -42,6 +42,12 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
 	c.where_is("Discard",dis_poz)
 
+func Enemy_SI(xx):
+	if xx.Data["Number"]==11:
+		GM.Game.Obj_Order["Numbers"].get_children()[0].click()
+	if xx.Data["Number"]==14:
+		GM.Game.Obj_Order["Colors"].get_children()[0].click()
+
 func Check_Hand(When,numer,Hand):
 	if When == 0:
 		if ch("M10").has(true):
@@ -76,12 +82,17 @@ func Knock_Knock(num=0):# Wcisniecie przycisku "Knock"
 func set_game():
 	Who_Starts_game()
 	change_rotation_direct()
-	GM.shuffle()
+	The_Deal()
 	var one = GM.send(1)
 	GM.table.Cards_is_Used(one)
+	
+	Next_Turn()
+
+func The_Deal():
+	GM.shuffle()
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
-	Next_Turn()
+
 
 func Who_Starts_game():
 	Turn = randi_range(0,player_count-1)
@@ -148,6 +159,7 @@ func stack_combo(vari):
 	if not Throw_conditions.has(getter):
 		Throw_conditions.append(getter)
 
+var ifend=0
 func Throw_card(c):
 	if not ch("M16")[0] or not Throw_conditions.has(Choice_color): #brak efektu kart rzuconych na Asa
 		match c.Data["Number"]:
@@ -189,10 +201,9 @@ func Throw_card(c):
 	if not ch("M3") and (c.Data["Number"] in [2,3,4] or 
 		(c.Data["Number"] == 13 and c.Data["Color"] == 1)):
 		Throw_conditions.append(nope)
-	end_check(c)
-
-var ifend=0
-func end_check(c):
+	
+	#Koncowe sprawdzenie
+	
 	if ( (c.Data["Number"] != 14 and Turn == Order["Colors"][0]) or 
 		 (ch("M5") and c.Data["Number"] != 14) ) and Throw_conditions.has(Choice_color):
 		Order["Colors"][1] = 0
@@ -208,17 +219,35 @@ func end_check(c):
 	if first_card:
 		first_card = false
 	elif GM.Players[Turn][0].On_Hand.size() == 0 and GM.Players[Turn][1] != -PI:
-		GM.Players[Turn][1] = -PI
-		ifend+=1
+		end_check()
 	
 	first_save[1] = false
 	Active_card = c
+	End_Game()
+
+func end_check():
+	GM.Players[Turn][1] = -PI
+	ifend+=1
+	GM.ranking.append([GM.Players[Turn][0],0])
+
+func End_Game():
 	if ch("M6"):
 		if ifend == player_count-1:
-			get_tree().quit()
+			for p in GM.Players:
+				if not GM.ranking.has(p):
+					GM.ranking.append([p[0],p[0].On_Hand.size()])
+					break
+			SMen.change_scene("res://scens/Leader_Board.tscn")
 	else:
 		if ifend == 1:
-			get_tree().quit()
+			var xx = []
+			for p in GM.Players:
+				if GM.Players[Turn][0] == p[0]:continue
+				xx.append([p[0],p[0].On_Hand.size()])
+			xx.sort_custom(func(a, b): return a[1] < b[1])
+			for p in xx:
+				GM.ranking.append(p)
+			SMen.change_scene("res://scens/Leader_Board.tscn")
 
 func Get_from_Stack(id):
 	if wait_count >= 0 and not first_save[1]:
