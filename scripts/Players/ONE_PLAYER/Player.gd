@@ -10,19 +10,16 @@ var numer = 0
 func set_this(t,num=0):
 	typ = t
 	add_to_group(t)
-	var HostHand = load("res://scripts/Players/ONE_PLAYER/Host_hand.gd")
-	var PlayerHand = load("res://scripts/Players/ONE_PLAYER/Player_hand.gd")
-	match typ:
-		"player":
-			hand.set_script(PlayerHand)
-			global_position = Vector2(1000,850)
-		"host":
-			hand.set_script(HostHand)
-			numer = num
-			match numer:
-				1:global_position = Vector2(100,450)
-				2:global_position = Vector2(1000,100)
-				3:global_position = Vector2(1800,450)
+	numer = num
+	match numer:
+		0:	global_position = Vector2(900,850)
+		1:
+			global_position = Vector2(100,450)
+			rotation = PI/2
+		2:	global_position = Vector2(900,100)
+		3:
+			global_position = Vector2(1800,450)
+			rotation = -PI/2
 
 func take_cards(cards:Array):
 	for c in cards:
