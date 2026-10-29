@@ -50,8 +50,8 @@ func _on_back_pressed():
 	var nodee = get_node("HBoxContainer/VBC0")
 	var count = nodee.get_child_count()
 	if count <= 2:return 
-	for i in range(count - 2, 0, -1):
-		var child = nodee.get_child(i)
+	for ii in range(count - 2, 0, -1):
+		var child = nodee.get_child(ii)
 		nodee.remove_child(child)
 		child.queue_free()
 		
