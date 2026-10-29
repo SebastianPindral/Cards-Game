@@ -36,20 +36,23 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
 	c.where_is("Discard",dis_poz)
 
-func set_game():
+func set_game(plc):
+	player_count = plc
+	change_rotation_direct()
 	GM.shuffle()
 	var one = GM.send(1)
 	GM.Active_card = one[0]
 	GM.table.Cards_is_Used(one)
-	for i in range(0,GM.player_count):
+	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
+	Next_Turn()
 
 func set_choise_obj(Order_obj,Order_type):
 	Obj_Order[Order_type] = Order_obj
 
 func get_choise(Order_value,Order_type):
 	if Order.has(Order_type):
-		Order[Order_type] = [GM.Turn,Order_value]
+		Order[Order_type] = [Turn,Order_value]
 		GM.table.get_node("Order_info").set_label(Order_type,Order_value)
 		stop()
 	else:
@@ -63,8 +66,11 @@ func Before_Throw(c):
 		Obj_Order["Colors"].visible = true
 		await sig_to_con
 
+func After_Turn():
+	Next_Turn()
+
 func shift_turn():
-	GM.Turn_move(1,not GM.Rotation_direct)
+	Turn_move(1,not Rotation_direct)
 
 func set_order_state(ord,order_type):
 	if Order[order_type][1] == 0:
@@ -76,7 +82,7 @@ func set_order_state(ord,order_type):
 
 func back_move(order_name:String):
 	if ch(order_name):
-		GM.Turn_move(2,not GM.Rotation_direct)
+		Turn_move(2,not Rotation_direct)
 
 func true_except_orders(order_num,c,num:int):
 	return (ch(order_num)[1] and c.Data["Number"] == num 
@@ -106,14 +112,14 @@ func Throw_card(c):
 						back_move("M12")
 					2:
 						if ch("M18"):
-							for id in range(1,GM.player_count+1):
-								if id == GM.Turn:continue
+							for id in range(1,player_count+1):
+								if id == Turn:continue
 								id -= 1
 								GM.deal_cards(id,1)
 					3: back_move("M13")
 	
 	match c.Data["Number"]:
-		5: if ch("M4"):GM.change_rotation_direct()
+		5: if ch("M4"):change_rotation_direct()
 		10:
 			if ch("M15").has(true):shift_turn()
 			if ch("M15")[1]:
@@ -133,13 +139,13 @@ func Throw_card(c):
 
 var ifend=0
 func end_check(c):
-	if ( (c.Data["Number"] != 14 and GM.Turn == Order["Colors"][0]) or 
+	if ( (c.Data["Number"] != 14 and Turn == Order["Colors"][0]) or 
 		 (ch("M5") and c.Data["Number"] != 14) ) and Throw_conditions.has(Choice_color):
 		Order["Colors"][1] = 0
 		GM.table.get_node("Order_info").set_label("",0)
 		Throw_conditions.erase(Choice_color)
 		if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
-	if c.Data["Number"] != 11 and GM.Turn == Order["Numbers"][0] and Throw_conditions.has(num_order):
+	if c.Data["Number"] != 11 and Turn == Order["Numbers"][0] and Throw_conditions.has(num_order):
 		Order["Numbers"][1] = 0
 		GM.table.get_node("Order_info").set_label("",0)
 		Throw_conditions.erase(num_order)
@@ -147,12 +153,12 @@ func end_check(c):
 		
 	if first_card:
 		first_card = false
-	elif GM.Players[GM.Turn-1][0].On_Hand.size() == 0 and GM.Players[GM.Turn-1][1] != -PI:
-		GM.Players[GM.Turn-1][1] = -PI
+	elif GM.Players[Turn-1][0].On_Hand.size() == 0 and GM.Players[Turn-1][1] != -PI:
+		GM.Players[Turn-1][1] = -PI
 		ifend+=1
 	
 	if ch("M6"):
-		if ifend == GM.player_count-1:
+		if ifend == player_count-1:
 			get_tree().quit()
 	else:
 		if ifend == 1:
@@ -163,7 +169,7 @@ func Get_from_Stack(id):
 		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"])
 	
 	# 4 - karta stop
-	GM.Players[GM.Turn-1][1] = wait_count
+	GM.Players[Turn-1][1] = wait_count
 	wait_count = 0
 	
 	GM.set_Deal_Stack_Number(false,1)
@@ -174,6 +180,7 @@ func Get_from_Stack(id):
 		shift_turn()
 	
 	clear_conditions()
+	Next_Turn()
 
 func clear_conditions():
 	Throw_conditions.erase(getter)

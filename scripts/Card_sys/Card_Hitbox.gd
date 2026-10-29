@@ -33,7 +33,7 @@ func exiter():
 		card.is_hold[1] = false
 
 func Click_card():
-	if GM.Turn == 1 and card.legality:
+	if GM.Game.Turn == 1 and card.legality:
 		card.Use()
 
 func hold_card():

@@ -6,7 +6,7 @@ func _init() -> void:
 	mouse_exited.connect(exiter)
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and GM.Turn == 1:
+	if event is InputEventMouseButton and GM.Game.Turn == 1:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			Click_card()
 			get_viewport().set_input_as_handled()
