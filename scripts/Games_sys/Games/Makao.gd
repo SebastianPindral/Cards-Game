@@ -3,7 +3,7 @@ class_name Makao
 var base_conditions = func() -> bool: return (GM.Active_card.Data["Number"] == GM.card.Data["Number"] 
 											or GM.Active_card.Data["Color"] == GM.card.Data["Color"])
 var getter = func() -> bool: 
-	return (GM.card.Data["Number"] in [2,3] or (GM.card.Data["Number"] == 13 and (GM.card.Data["Color"] in [1,2])))
+	return (GM.card.Data["Number"] in [2,3] or (GM.card.Data["Number"] == 13 and (GM.card.Data["Color"] == 1)))
 
 var stopper = func() -> bool: 
 	return GM.card.Data["Number"] == 4
@@ -25,7 +25,7 @@ func _init() -> void:
 	GM.Deck_size["count_numer"] = 13
 	GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
 	GM.Deck_size["count_jockers"] = 0
-	GM.game_rule["Start_Cards"] = 5#dac mozliwosc dostosowania
+	GM.game_rule["Start_Cards"] = 4#dac mozliwosc dostosowania
 	GM.game_rule["Deal_Stack_Cards"] = 1
 	Throw_conditions.append(base_conditions)
 	Order["Colors"] = [0,0] # pierwsza jest tura urzycia a 2 rzadana wartosc
@@ -37,6 +37,7 @@ func set_choise_obj(Order_obj,Order_type):
 func get_choise(Order_value,Order_type):
 	if Order.has(Order_type):
 		Order[Order_type] = [GM.Turn,Order_value]
+		GM.table.get_node("Order_info").set_label(Order_type,Order_value)
 		stop()
 	else:
 		print("Error - Order Makao")
@@ -58,6 +59,7 @@ func Throw_card(c):
 	elif c.Data["Number"] == 4:
 		if characteristics["M1"] or wait_count == 0:
 			wait_count -= 1
+			GM.table.get_node("Order_info").set_label2("",wait_count)
 		if not Throw_conditions.has(stopper):
 			Throw_conditions.append(stopper)
 	elif c.Data["Number"] == 5 and characteristics["M4"]:
@@ -68,6 +70,7 @@ func Throw_card(c):
 			GM.set_Deal_Stack_Number(characteristics["M1"],5)
 			if characteristics["M12"]:
 				GM.Turn_move(2,not GM.Rotation_direct)
+			if not Throw_conditions.has(getter):	Throw_conditions.append(getter)
 		elif c.Data["Color"] == 2 and characteristics["M19"]:
 			for id in range(1,GM.player_count+1):
 				if id == GM.Turn:continue
@@ -75,8 +78,6 @@ func Throw_card(c):
 				GM.deal_cards(id,1)
 		elif c.Data["Color"] == 3 and characteristics["M13"]:
 			GM.Turn_move(2,not GM.Rotation_direct)
-		if not Throw_conditions.has(getter):
-			Throw_conditions.append(getter)
 	elif c.Data["Number"] == 10 and characteristics["M15"]:#Shift 10
 		GM.Turn_move(1,not GM.Rotation_direct)
 	elif c.Data["Number"] == 12 and characteristics["M14"]:#Shift Q
@@ -136,7 +137,7 @@ func Get_from_Stack(id):
 	wait_count = 0
 	
 	GM.set_Deal_Stack_Number(false,1)
-	
+	GM.table.get_node("Order_info").set_label2("",wait_count)
 	#Dobieranie do skutku
 	if (characteristics["M2"] and Order["Colors"][1]==0 and Order["Numbers"][1]==0 and 
 		not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):

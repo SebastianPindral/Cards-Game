@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Base_Hand
 @onready var hand: Node2D = $Hand
+@onready var conture: Node2D = $conture
+var info_point_place
 
 var typ = ""#typ gracza
 var On_Hand = []#karty na rece
@@ -21,6 +23,23 @@ func set_poz(dis: float, index: int):
 	var angle = angle_step * index + PI
 	position =  GM.Dis_poz + Vector2(0, -dis).rotated(angle)
 	rotation = (position - GM.Dis_poz).angle() - PI/2
+	draw_conture(dis,angle_step)
+	add_info_point()
+
+func add_info_point():
+	var new = load("res://Prefabs/UI/point_info.tscn").instantiate()
+	info_point_place = new
+	conture.add_child(new)
+
+func draw_conture(dis:float,angle_step):
+	var new = Line2D.new()
+	var con_width = 2*(dis*0.68)*tan(angle_step/2)
+	new.points = [Vector2(con_width/2.0,0),Vector2(-con_width/2.0,0)]
+	new.width = 10
+	new.default_color = Color(1, 1, 1)
+	conture.add_child(new)
+	new.z_index = -4096 
+	new.z_as_relative = false
 
 func take_cards(cards:Array):
 	if cards.size()>0:GM.last_take_card = cards[-1]
@@ -100,6 +119,6 @@ func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 func set_label(_vari=0):
 	var turn = GM.Players[numer][1]
 	if turn != 0 and turn != -PI:
-		$Label.text = str(turn)
+		info_point_place.label.text = str(turn)
 	else:
-		$Label.text = ""
+		info_point_place.label.text = ""

@@ -44,4 +44,4 @@ camera={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0, 0.217548, 1.20327e-07, 1)
+environment/defaults/default_clear_color=Color(0.16952, 0.166676, 0.146749, 1)

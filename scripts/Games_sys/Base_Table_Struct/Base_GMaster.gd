@@ -24,7 +24,9 @@ var last_take_card#ostatnia karta dobrane ze stosu
 
 func set_game():
 	shuffle()
-	table.Cards_is_Used(send(1))
+	var one = send(1)
+	Active_card = one[0]
+	table.Cards_is_Used(one)
 	for i in range(0,player_count):
 		deal_cards(i,game_rule["Start_Cards"])
 
