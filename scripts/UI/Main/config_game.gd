@@ -47,10 +47,19 @@ func _on_start_pressed():
 	SMen.change_scene("res://scens/Cards_Games.tscn")
 
 func _on_back_pressed():
+	var nodee = get_node("HBoxContainer/VBC0")
+	var count = nodee.get_child_count()
+	if count <= 2:return 
+	for i in range(count - 2, 0, -1):
+		var child = nodee.get_child(i)
+		nodee.remove_child(child)
+		child.queue_free()
+		
 	for j in range(1,5):
 		var nodi = get_node("HBoxContainer/VBC" + str(j))
 		for ch in nodi.get_children():
 			nodi.remove_child(ch)
+			ch.queue_free()
 		get_node("HBoxContainer/VBC" + str(i))
 	config_list.clear()
 	visible = false
