@@ -60,6 +60,17 @@ func ch(text): return characteristics[text]
 func The_Deal():pass
 
 func Legality_Check(_card)->bool:return false
+
+func Can_Hold(On_Hand,On_Hold):
+	if On_Hold.size()<=0:
+		for Hold_card in On_Hand:
+			Hold_card.legal(Legality_Check(Hold_card))
+	else:
+		for Hold_card in On_Hand:
+			Hold_card.legal(false)
+		for Hold_card in On_Hold:
+			Hold_card.legal(true)
+
 func set_choise_obj(Order_obj,Order_type):	Obj_Order[Order_type] = Order_obj
 func get_choise(_Order_value,_Order_type):pass # odebranie warunku z kola wyboru
 func set_game(): pass #wywolane po uruchomieniu gry
@@ -96,8 +107,8 @@ func Turn_move(value):
 				Turn -= 1
 			else: Turn = player_count-1
 
-func Get_Turn(value) -> int:
-	var local_turn = Turn
+func Get_Turn(value,local) -> int:
+	var local_turn = local
 	var u_value = abs(value)
 	var rot_dir = (not Rotation_direct) if value < 0 else (Rotation_direct)
 	for x in u_value:
@@ -113,6 +124,9 @@ func Get_Turn(value) -> int:
 
 func back_move():	Turn_move(-2)
 func shift_turn():	Turn_move(-1)
+
+func Set_Turn(i):
+	Turn = i
 
 func Next_Turn():
 	if GM.Players[Turn][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture

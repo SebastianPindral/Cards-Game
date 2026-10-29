@@ -4,9 +4,14 @@ const SCORE_STATE = preload("res://Prefabs/UI/Score_State.tscn")
 func _ready() -> void:
 	position = Vector2(1600,50)
 	await GM.players
-	for i in GM.Game.player_count:
+	create_board()
+
+func create_board():
+	var counter = GM.Game.player_count if not GM.Game.ch("M4") else GM.Game.player_count/2
+	for i in counter:
+		var name_text = str(GM.Players[i][0].typ) + str(GM.Players[i][0].numer) if not GM.Game.ch("M4") else "Team "+str(i+1)
 		var obj = SCORE_STATE.instantiate()
-		obj.get_child(0).get_child(0).text = str(GM.Players[i][0].typ) + str(GM.Players[i][0].numer) 
+		obj.get_child(0).get_child(0).text = name_text
 		obj.get_child(0).get_child(1).text = str(0)
 		add_child(obj)
 

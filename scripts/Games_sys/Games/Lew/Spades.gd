@@ -2,7 +2,6 @@ extends trick_taking
 class_name Spades
 
 var spades_count = {"of penalty":0,"of count":0,"End var":0,"blind bid":0,"0 bid":0}
-# 4 lub 2 osob
 
 func get_value(index,Data): return Data["OCL_name_list"][index][2][Data["OCL_name_list"][index][1]]
 
@@ -38,24 +37,43 @@ func auction_loop_Turn():
 # ------------- AUCTION ------------------
 
 func After_Trick():
-	var local_turn = Get_Turn(1)
+	var local_turn = Get_Turn(1,Turn)
 	auction[local_turn][0] += 1
 	GM.Players[local_turn][0].set_label(false,str(auction[local_turn][0])+"/"+str(auction[local_turn][1]))
 
 func After_loop():
 	# Tu podliczyc punkty
 	var score = []# ta tablica przechowuje punkty w kolejnosci graczy (0 player) - (1,2,3 host)
+	if ch("M4") and player_count == 4:
+		if auction[1][1] != 0 and auction[3][1] != 0:
+			auction[1][1] += auction[3][1]
+			auction[1][0] += auction[3][0]
+		if auction[0][1] != 0 and auction[2][1] != 0:
+			auction[0][1] += auction[2][1]
+			auction[0][0] += auction[2][0]
+		
 	for i in range(player_count):
 		var calc
-		if auction[i][0] != 0:
+		if auction[i][1] != 0:
+			if ch("M4") and player_count == 4:
+				if (i >= 2 and auction[i - 2][1] == 0) or (i<2 and auction[i + 2][1] == 0):pass
+				elif i >= 2:
+					score.append(full_score[i-2][0])
+					continue
 			calc = normal_card_collect(i)
 		else:
 			calc = zero_card_collect(i)
+		
+		if i >= 2:	i -= 2
 	
 		calc += full_score[i][0]
 		if not ch("M2") and calc<0: calc = 0
 		score.append(calc)
 		full_score[i][0] = calc
+		
+	if ch("M4"):
+		score.remove_at(1)
+		score.remove_at(0)
 	
 	GM.score_board.Data_update(score)
 	

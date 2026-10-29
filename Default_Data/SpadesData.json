@@ -1,4 +1,14 @@
 {
+	"Last win start new": [
+		"M5",
+		false,
+		"ten kto wygrywa ostatnia lewe zaczyna nastepna petle gry"
+	],
+	"Team Play": [
+		"M4",
+		true,
+		"jesli false to kazdy gra sam"
+	],
 	"Part contract": [
 		"M1",
 		false,

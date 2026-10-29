@@ -7,6 +7,8 @@ var color_broken = false
 var color_blocked
 var Atut
 
+var starting_queue
+
 func _init() -> void:
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 13
@@ -17,6 +19,7 @@ func _init() -> void:
 
 func set_game():
 	Who_Starts_game()
+	starting_queue = Turn
 	change_rotation_direct()
 	The_Deal()
 	Next_Turn()
@@ -64,6 +67,9 @@ func Before_Throw(c):
 		Active_card = c
 
 func Throw_card(c):
+	for lewa in GM.Discarded:
+		lewa.legal(false)
+	GM.Discarded[calc_tt_win()].legal(true)
 	if c.Data["Color"] == Atut:
 		color_broken = true
 
@@ -85,7 +91,12 @@ func calc_tt_win():
 	return max0[0]
 
 func give_turn_winner(winner:int):
-	Turn_move(winner)
+	if not ch("M5") and GM.Players[0][0].On_Hand.size()==0:
+		starting_queue = Get_Turn(1,starting_queue)
+		Set_Turn(starting_queue)
+	else:
+		Turn_move(winner)
+
 
 func After_Trick():pass #po kazdej lewie
 func After_loop():pass # po kazdej petli
