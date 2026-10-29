@@ -1,8 +1,14 @@
 {
 	"Pik Back move": [
 		"M1",
-		false,
-		"piki cofaja"
+		true,
+		"piki cofaja (OK)"
+	],
+	"Multi Throw": [
+		"M2",
+		1,
+		"rzucenie 4 kart na raz lub 3 jesli to '9' ",
+		"rzucenie kilku kart na raz, dowolnie ilu (OK)"
 	],
 	"OCL_name_list": [
 		[

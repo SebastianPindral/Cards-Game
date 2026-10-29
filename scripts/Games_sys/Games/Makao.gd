@@ -230,6 +230,7 @@ func End_Game():
 			SMen.change_scene("res://scens/Leader_Board.tscn")
 
 func Get_from_Stack(id):
+	GM.send(0)
 	if wait_count >= 0 and not first_save[1]:
 		
 		GM.Players[id][0].set_info_color(Color(0.3,0.3,0.3))
@@ -294,27 +295,8 @@ func Legality_Check(c)->bool:
 		and wait_count >= 0 and Order["Numbers"][1]==0 and ch("M8")):	return true
 	return SHelp.if_in_loop(Throw_conditions)
 
-func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
-	if not ch("M11") or (not ch("M7")[1] and first_save[1]): 
-		if On_Hold.size()<=0:
-			for Hold_card in On_Hand:
-				Hold_card.legal(Legality_Check(Hold_card))
-		else:
-			for Hold_card in On_Hand:
-				Hold_card.legal(false)
-			for Hold_card in On_Hold:
-				Hold_card.legal(true)
-		return
-	
-	for c in On_Hand:
-		c.legal(Legality_Check(c))
-		if On_Hold.size()>0 and not Legality_Check(On_Hold[0]):
-			for Hold_card in On_Hold:
-				Hold_card.reset(Legality_Check(Hold_card))
-			On_Hold.clear()
-			return
-		for Hold_card in On_Hold:
-			if Hold_card.Data["Number"] == c.Data["Number"]:
-				c.legal(true)
-				break
-			c.legal(false)
+func Can_Hold_bool()->bool:
+	return (not ch("M11") or (not ch("M7")[1] and first_save[1]))
+
+func Can_Hold_when(Hold_card,c)->bool:
+	return (Hold_card.Data["Number"] == c.Data["Number"])

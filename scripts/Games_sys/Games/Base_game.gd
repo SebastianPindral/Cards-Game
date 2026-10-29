@@ -74,15 +74,33 @@ func The_Deal():pass
 
 func Legality_Check(_card)->bool:return false
 
-func Can_Hold(On_Hand,On_Hold):
-	if On_Hold.size()<=0:
-		for Hold_card in On_Hand:
-			Hold_card.legal(Legality_Check(Hold_card))
-	else:
-		for Hold_card in On_Hand:
-			Hold_card.legal(false)
+func Can_Hold_bool()->bool:return true # czy w ogule mozna podnosic wiecej kart i dlaczego
+func Can_Hold_when(_Hold_card,_c)->bool:return false # pod jakim warunkiem karta moze byc podnieciona
+
+func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
+	if Can_Hold_bool():
+		if On_Hold.size()<=0:
+			for Hold_card in On_Hand:
+				Hold_card.legal(Legality_Check(Hold_card))
+		else:
+			for Hold_card in On_Hand:
+				Hold_card.legal(false)
+			for Hold_card in On_Hold:
+				Hold_card.legal(true)
+		return
+	
+	for c in On_Hand:
+		c.legal(Legality_Check(c))
+		if On_Hold.size()>0 and not Legality_Check(On_Hold[0]):
+			for Hold_card in On_Hold:
+				Hold_card.reset(Legality_Check(Hold_card))
+			On_Hold.clear()
+			return
 		for Hold_card in On_Hold:
-			Hold_card.legal(true)
+			if Can_Hold_when(Hold_card,c):
+				c.legal(true)
+				break
+			c.legal(false)
 
 func set_choise_obj(Order_obj,Order_type):	Obj_Order[Order_type] = Order_obj
 func get_choise(_Order_value,_Order_type):pass # odebranie warunku z kola wyboru

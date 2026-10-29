@@ -8,6 +8,7 @@ func _init() -> void:
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 6
 	GM.Deck_size["count_jockers"] = 0
+	GM.game_rule["Deal_Stack_Cards"] = -1
 	
 	Throw_conditions.append(starter)
 
@@ -16,7 +17,7 @@ func set_game():
 		p[0].sort_style = false
 	
 	The_Deal()
-	
+	change_rotation_direct()
 	Set_Turn(Who_have_card(2,9))
 	shift_turn()
 	Next_Turn()
@@ -50,6 +51,13 @@ func Throw_card(c):
 		end_check()
 	
 	End_Game()
+
+
+func Can_Hold_bool()->bool:
+	return not ch("M2").has(true)
+
+func Can_Hold_when(Hold_card,c)->bool:
+	return (Hold_card.Data["Number"] == c.Data["Number"])
 
 func Legality_Check(c)->bool:
 	card = c

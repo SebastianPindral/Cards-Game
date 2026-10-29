@@ -63,7 +63,6 @@ func new_game(game_type):
 			get_tree().quit()
 
 func Deal_Stack_Cards(id):
-	send(0)
 	Game.Get_from_Stack(id)
 
 func card_function(c):#obslurzyc karty funkcyjne
