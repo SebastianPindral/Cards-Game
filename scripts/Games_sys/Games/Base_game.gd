@@ -25,7 +25,10 @@ var card #aktualnie testowana karta
 
 var was_emited = false
 func catch_signal():
-	if was_emited: return
+	if was_emited: 
+		was_emited = false
+		return
+	was_emited = false
 	await sig_to_con
 
 func throw_signal():

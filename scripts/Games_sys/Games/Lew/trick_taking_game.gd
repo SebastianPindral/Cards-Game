@@ -12,7 +12,7 @@ func _init() -> void:
 	GM.Deck_size["count_numer"] = 13
 	GM.Deck_size["count_jockers"] = 0
 	GM.game_rule["Start_Cards"] = 13
-	GM.game_rule["Deal_Stack_Cards"] = 0
+	GM.game_rule["Deal_Stack_Cards"] = -1
 	Throw_conditions.append(base_conditions)
 
 func set_game():
@@ -44,7 +44,7 @@ func Check_have_color(Hand):
 func Start_Player_Turn(_numer,Hand):
 	if auction_var < player_count:# tura licytacji kazdego gracza
 		auction_loop_Turn()
-	if GM.Discarded.size() == 0:# pierwsza karta z lewy
+	elif GM.Discarded.size() == 0:# pierwsza karta z lewy
 		await catch_signal()
 		Active_card = null
 		Throw_conditions = [base_conditions]
@@ -100,23 +100,23 @@ func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 	
 	GM.Reset_Stack()
 	throw_signal()
-	was_emited = true
 	if GM.Players[0][0].On_Hand.size()==0:
 		# Tutaj zakonczenie pelnego rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
 		color_broken = false
-		
-		The_Deal()
+		Active_card = null
+		Throw_conditions = [base_conditions]
 		
 		After_loop()
 		auction_var = 0
 		auction_bool = false
 		auction.clear()
+		
+		The_Deal()
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy
 		await SMen.wait_with_pause(0.5) 
 		End_loop()
-		
 	else:#jeden ruch w petli
 		pass
 	Next_Turn()

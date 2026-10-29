@@ -29,7 +29,7 @@ func where_is(isin,target_poz):
 		face_Up()
 	elif isin == "host" or isin == "Stack":
 		face_Down()
-	
+	reset()
 	shadow_position = target_poz
 
 func legal(bol):
@@ -54,12 +54,12 @@ func reset(r:bool = true):
 	$Area2D/CollisionShape2D.shape.size = size
 	
 	is_hold[0] = false
+	is_hold[1] = false
 	if not r:
 		$Area2D.exiter()
 	legal(r)
 
 func Use():
-	reset()
 	Used.emit()
 
 func holder():
