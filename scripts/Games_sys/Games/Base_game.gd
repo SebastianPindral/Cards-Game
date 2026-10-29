@@ -11,7 +11,7 @@ var Throw_conditions = []
 var Obj_Order = {}
 var Order = {}
 
-var auction = []
+var auction = {}
 var auction_var = 0
 var auction_bool = true
 
@@ -78,10 +78,12 @@ func Turn_move(value):
 				Turn -= 1
 			else: Turn = player_count-1
 
-func Get_Turn(value,RD_Local) -> int:
+func Get_Turn(value) -> int:
 	var local_turn = Turn
-	for x in value:
-		if not RD_Local:
+	var u_value = abs(value)
+	var rot_dir = (not Rotation_direct) if value < 0 else (Rotation_direct)
+	for x in u_value:
+		if not rot_dir:
 			if local_turn < player_count-1:
 				local_turn += 1
 			else: local_turn = 0

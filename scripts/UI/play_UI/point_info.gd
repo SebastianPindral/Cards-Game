@@ -1,7 +1,7 @@
 extends Polygon2D
 @onready var label: Label = $Label
 
-var radius: float = 40.0
+var radius: float = 60.0
 var points_count: int = 64
 var new
 func _ready():
@@ -12,7 +12,7 @@ func _ready():
 	create_polygon(new,radius*0.9,Color(0.3,0.3,0.3))
 	add_child(new)
 	move_child(label, get_child_count() - 1)
-	label.position = Vector2(-radius,-radius)
+	label.position = Vector2(-radius,-radius*0.7)
 	label.size.x = radius*2.0
 
 

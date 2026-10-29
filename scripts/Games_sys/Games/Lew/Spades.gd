@@ -14,20 +14,27 @@ func Enemy_SI(xx):
 	if typeof(xx) is int:
 		GM.Game.Obj_Order["Numbers"].get_children()[Turn].click()
 
+# ------------- AUCTION --------------------
 func get_choise(Order_value,_Order_type):
-	auction.append([0,Order_value])
-	GM.Players[Turn][0].set_label(false,Order_value)
+	auction[Turn] = [0,Order_value]
+	GM.Players[Turn][0].set_label(false,"0/"+str(Order_value))
+	auction_bool = true
 	After_Turn()
 
 func auction_loop_Turn():
 	Obj_Order["Numbers"].visible = true
 	auction_var += 1
 	auction_bool = false
+# ------------- AUCTION ------------------
 
 func After_Trick(_win):
-	pass
+	var local_turn = Get_Turn(1)
+	auction[local_turn][0] += 1
+	GM.Players[local_turn][0].set_label(false,str(auction[local_turn][0])+"/"+str(auction[local_turn][1]))
 	#tutaj przypisac punkty wygranemu i dac mu rozpoczac kolejna kolejke
 
 func After_loop():
+	# Tu podliczyc punkty
+	
 	auction_var = 0
 	auction.clear()

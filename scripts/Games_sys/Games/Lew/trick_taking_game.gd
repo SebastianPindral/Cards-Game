@@ -115,9 +115,6 @@ func After_Turn():
 		End_loop()
 	else:#jeden ruch w petli
 		pass
-	if auction_var == player_count:
-		auction_var += 1
-		auction_bool = true
 	Next_Turn()
 
 func Legality_Check(c)->bool:

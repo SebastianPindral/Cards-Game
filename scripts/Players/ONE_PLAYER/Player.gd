@@ -84,7 +84,7 @@ func play():
 		Check_Hand()
 		var x = 0
 		var xx = 0
-		if GM.Game is Spades and GM.Game.auction_var <= GM.Game.player_count:
+		if not GM.Game.auction_bool:
 			x = 2
 		elif On_Hand.size()>0: 
 			for c in On_Hand:
@@ -124,7 +124,7 @@ func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 
 func set_label(ifit = false,vari = 0):
 	if ifit: vari = GM.Players[numer][1]
-	if vari != -PI:
+	if typeof(vari) == TYPE_STRING or vari != -PI:
 		info_point_place.label.text = str(vari)
 	else:
 		info_point_place.label.text = ""
