@@ -117,6 +117,14 @@ func play():
 	elif typ == "player":
 		Check_Hand()
 
+func Hand_Face_Down():
+	for c in On_Hand:
+		c.face_Down()
+
+func Hand_Face_Up():
+	for c in On_Hand:
+		c.face_Up()
+
 func Check_Hand():
 	await GM.Game.Start_Player_Turn(numer,On_Hand)
 	for c in On_Hand:

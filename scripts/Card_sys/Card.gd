@@ -44,8 +44,6 @@ func legal(bol):
 func face_Down():
 	front.visible = false
 	back.visible = true
-	
-	face_Up()
 
 func face_Up():
 	front.visible = true

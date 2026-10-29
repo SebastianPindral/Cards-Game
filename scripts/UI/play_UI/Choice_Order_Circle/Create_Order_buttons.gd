@@ -19,7 +19,7 @@ func set_button(dist,Choice_count,f:Color,path,i:String=""):
 	normal_color = f
 	hover_color = f.darkened(0.3)
 	icon = load("res://assets/Card_fragment/"+path+i+".png")
-	if path == "Numbers/":
+	if path != "Colors/":
 		module = Color(0,0,0)
 	Choice_name = i
 

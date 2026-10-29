@@ -48,7 +48,7 @@ func Start_loop_card():pass
 
 func Start_Player_Turn(_numer,Hand):
 	if auction_var < player_count:# tura licytacji kazdego gracza
-		auction_loop_Turn()
+		await auction_loop_Turn()
 	elif GM.Discarded.size() == 0:# pierwsza karta z lewy
 		Active_card = null
 		Throw_conditions = [base_conditions]
@@ -119,13 +119,13 @@ func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 		Active_card = null
 		Throw_conditions = [base_conditions]
 		
+		The_Deal()
+		Who_Starts_game()
+		
 		After_loop()
 		auction_var = 0
 		auction_bool = false
 		auction.clear()
-		
-		The_Deal()
-		Who_Starts_game()
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy

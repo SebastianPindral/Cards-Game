@@ -2,6 +2,7 @@ extends Node
 signal Stack_number(arg)
 signal players()
 
+var actual_game_type
 var table #wskaznik na stol
 var score_board #tablica wynikow w UI
 var Players = []
@@ -78,12 +79,13 @@ func Start_Game(t):
 	Game.set_game()
 
 func new_game(game_type):
+	actual_game_type = game_type
 	match game_type:
-		"Makao":	Game = Makao.new()
-		"Spades":	Game = Spades.new()
-		"Pan":		Game = Pan.new()
-		"Sapers":	Game = Sapers.new()
-		"Hearts":	Game = Hearts.new()
+		"Makao":	Game = Makao.new()	#poprawki
+		"Spades":	Game = Spades.new()	#Zrobione
+		"Pan":		Game = Pan.new()	#Zrobione
+		"Sapers":	Game = Sapers.new()	#nie zaczete
+		"Hearts":	Game = Hearts.new()	#W trakcie
 		_:
 			print("Blad wczytania gry")
 			get_tree().quit()

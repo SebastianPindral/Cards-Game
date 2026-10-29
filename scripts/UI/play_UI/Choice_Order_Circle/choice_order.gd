@@ -1,18 +1,16 @@
 extends Control
 const ORDER_BUTTONS = preload("res://Prefabs/UI/order_buttons.tscn")
+
+var Game_Ch_Circle = {"Makao":["Colors","Numbers"],"Spades":["YN","Numbers"],"Hearts":["26"]}
 var Orders = {}
 var Choise
 var radius = 250
 
 func _ready() -> void:
 	Choise = GM.Game.Order_choice_list
-	if GM.Game is Makao:
-		Choice_Circle("Colors")
-		Choice_Circle("Numbers")
-	elif GM.Game is Spades:
-		Choice_Circle("Numbers")
-	elif GM.Game is Hearts:
-		Choice_Circle("Numbers")
+	if Game_Ch_Circle.has(GM.actual_game_type):
+		for x1 in Game_Ch_Circle[GM.actual_game_type]:
+			Choice_Circle(x1)
 
 func Choice_Circle(type):
 	var a1 = Control.new()
@@ -33,6 +31,7 @@ func Choise_emit(value,type):
 	Orders[type].visible = false
 	if value == "Q": value = 12
 	elif value == "clear": value = 0
+	elif value == "Y": value = 1
 	elif type =="Colors": value = Choise[type].find(value)
 	GM.Game.get_choise(int(value),type)
 
