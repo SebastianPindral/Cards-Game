@@ -18,7 +18,17 @@ var Rotation_direct = true
 var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
 
-func _init() -> void:sig_to_con.emit()
+var was_emited = false
+func catch_signal():
+	if was_emited: return
+	await sig_to_con
+
+func throw_signal():
+	was_emited = true
+	sig_to_con.emit()
+
+func Who_Starts_game():
+	Turn = randi_range(0,player_count-1)
 
 func characteristic(text,state):	characteristics[text] = state #zapisywanie ustawien
 func config_character(_Data):pass #wywolane po zaakceptowaniu ustawien
@@ -40,9 +50,9 @@ func Enemy_SI(_xx):pass
 
 func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
-func Who_Starts_game():Turn = 0
 func Can_from_Stack() -> bool:return false
-func Check_Hand(_When,_numer,_Hand):pass
+func Start_Player_Turn(_numer,_Hand):pass
+func End_Player_Turn(_numer,_Hand):pass
 func Knock_Knock(_num = null):pass
 func end_check():pass #wywolane po kazdym ruchu ktory zmienia ranking
 func End_Game():pass #Wywolane kiedy gra sie konczy
@@ -51,9 +61,11 @@ func change_rotation_direct():
 	Rotation_direct = not Rotation_direct
 	GM.table.spin.Re_Direct()
 
-func Turn_move(value,RD_Local):
-	for x in value:
-		if not RD_Local:
+func Turn_move(value):
+	var u_value = abs(value)
+	var rot_dir = (not Rotation_direct) if value < 0 else (Rotation_direct)
+	for x in u_value:
+		if not rot_dir:
 			if Turn < player_count-1:
 				Turn += 1
 			else: Turn = 0
@@ -75,14 +87,14 @@ func Get_Turn(value,RD_Local) -> int:
 			else: local_turn = player_count-1
 	return local_turn
 
-func back_move():	Turn_move(2,not Rotation_direct)
-func shift_turn():	Turn_move(1,not Rotation_direct)
+func back_move():	Turn_move(-2)
+func shift_turn():	Turn_move(-1)
 
 func Next_Turn():
 	if GM.Players[Turn][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
 		GM.Players[Turn][1] -= 1 
 	else:
-		Turn_move(1,Rotation_direct)
+		Turn_move(1)
 	GM.table.cursor.set_cursor_target(Turn)
 	
 	var ptc = GM.Players[Turn][1]

@@ -42,8 +42,9 @@ func legal(bol):
 	else:	front.modulate = Color(.3,.3,.3)
 
 func face_Down():
-	front.visible = false
-	back.visible = true
+	face_Up()
+	#front.visible = false
+	#back.visible = true
 
 func face_Up():
 	front.visible = true

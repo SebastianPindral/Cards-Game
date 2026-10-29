@@ -65,8 +65,11 @@ func Use_Card():
 	On_Hold.clear()
 	hand.set_visual(On_Hand,typ)
 	
-	GM.Game.Check_Hand(1,numer,On_Hand)
+	GM.Game.End_Player_Turn(numer,On_Hand)
 	GM.throw_card(dupli)
+	
+	for c in On_Hand:
+		c.legal(false)
 
 func holded_cards(card):
 	if card.is_hold[0]:
@@ -102,7 +105,7 @@ func play():
 		Check_Hand()
 
 func Check_Hand():
-	await GM.Game.Check_Hand(0,numer,On_Hand)
+	await GM.Game.Start_Player_Turn(numer,On_Hand)
 	for c in On_Hand:
 		c.legal(GM.Game.Legality_Check(c))
 

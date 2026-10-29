@@ -1,9 +1,10 @@
 extends BaseGame
 class_name trick_taking # klasa rodzic dla gier z wykladaniem jednej karty przez wszystkich graczy na ture
-var base_conditions = func() -> bool: return ((card.Data["Color"] != Atut) or color_broken)
+var base_conditions = func() -> bool: return (color_broken or (card.Data["Color"] != color_blocked))
 var alter_conditions = func() -> bool: return (card.Data["Color"] == Active_card.Data["Color"])
 var all_can = func() -> bool: return (true)
 var color_broken = false
+var color_blocked
 var Atut
 
 func _init() -> void:
@@ -36,22 +37,27 @@ func set_poz_on_discard(c,dis_poz):
 func config_character(_Data):pass
 func get_choise(_Order_value,_Order_type):pass
 
-func Check_Hand(When,_numer,Hand):
-	if When == 0:
-		if GM.Discarded.size() == 0:
-			await GM.Game.sig_to_con
-			Active_card = null
+func Check_have_color(Hand):
+	for c in Hand:
+		if c.Data["Color"] != color_blocked:
+			return color_broken
+	return true
+
+func Start_Player_Turn(_numer,Hand):
+	if GM.Discarded.size() == 0:
+		await catch_signal()
+		Active_card = null
+		Throw_conditions = [base_conditions]
+		color_broken = Check_have_color(Hand)
+	else:
+		if Active_card == null: 
 			Throw_conditions = [base_conditions]
-		else:
-			for c in Hand:
-				if Active_card == null: return
-				if c.Data["Color"] == Active_card.Data["Color"]:
-					Throw_conditions = [alter_conditions]
-					return
-			Throw_conditions = [all_can]
-
-
-func Who_Starts_game():pass
+			return
+		for c in Hand:
+			if c.Data["Color"] == Active_card.Data["Color"]:
+				Throw_conditions = [alter_conditions]
+				return
+		Throw_conditions = [all_can]
 
 func Before_Throw(c):
 	if GM.Discarded.size() == 0:
@@ -79,24 +85,29 @@ func calc_tt_win():
 	return max0
 
 func give_turn_winner(winner:int):
-	Turn_move(winner,Rotation_direct)
+	Turn_move(winner)
 
 func After_Trick(_win):pass
 func After_loop():pass
 
+func before_new_loop():pass
+
 func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 	var win = calc_tt_win()
 	give_turn_winner(win[0])
-	After_Trick(win)
+	After_Trick(win)#podliczanie punkow i inne operacje wlasne po kazdej lewie
 	
 	GM.Reset_Stack()
-	sig_to_con.emit()
+	throw_signal()
+	was_emited = true
 	if GM.Players[0][0].On_Hand.size()==0:
 		# Tutaj zakonczenie pelnego rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
 		color_broken = false
 		After_loop()
 		
 		The_Deal()
+		
+		before_new_loop()#to ma adpowiadac za lizytacje, wymiany kart w kierkach itp
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy

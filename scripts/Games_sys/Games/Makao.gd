@@ -48,22 +48,22 @@ func Enemy_SI(xx):
 	if xx.Data["Number"]==14:
 		GM.Game.Obj_Order["Colors"].get_children()[0].click()
 
-func Check_Hand(When,numer,Hand):
-	if When == 0:
-		if ch("M10").has(true):
-			Report_Makao[numer] = false
-		
-		if ch("M19"):
-			for c in Hand:
-				if (c.Data["Number"] in [5,6,7,8,9,10,12]) and c.legality:
-					have_normal_card = true
-					return
-			have_normal_card = false
-	elif When == 1:
-		if (Hand.size() not in makao_range):
-			if Report_Makao[numer]: GM.Players[numer][0].set_info_color(Color(0.3,0.3,0.3))
-			else:
-				Report_Makao[numer] = true
+func Start_Player_Turn(numer,Hand):
+	if ch("M10").has(true):
+		Report_Makao[numer] = false
+	
+	if ch("M19"):
+		for c in Hand:
+			if (c.Data["Number"] in [5,6,7,8,9,10,12]) and c.legality:
+				have_normal_card = true
+				return
+		have_normal_card = false
+
+func End_Player_Turn(numer,Hand):
+	if (Hand.size() not in makao_range):
+		if Report_Makao[numer]: GM.Players[numer][0].set_info_color(Color(0.3,0.3,0.3))
+		else:
+			Report_Makao[numer] = true
 
 func Can_from_Stack() -> bool:
 	return (Turn == 0 and ( not ch("M19") or not have_normal_card))
@@ -94,10 +94,6 @@ func The_Deal():
 	GM.shuffle()
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
-
-
-func Who_Starts_game():
-	Turn = randi_range(0,player_count-1)
 
 func config_character(Data):
 	player_count = Data["OCL_name_list"][0][1]
