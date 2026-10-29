@@ -12,6 +12,7 @@ var Obj_Order = {}
 var Order = {}
 
 var auction = {}
+var full_score = {}
 var auction_var = 0
 var auction_bool = true
 
@@ -35,7 +36,21 @@ func Who_Starts_game():
 	Turn = randi_range(0,player_count-1)
 
 func characteristic(text,state):	characteristics[text] = state #zapisywanie ustawien
-func config_character(_Data):pass #wywolane po zaakceptowaniu ustawien
+
+func config_character(Data): #wywolane po zaakceptowaniu ustawien
+	var value
+	for x in Data:
+		if x == "OCL_name_list":continue
+		if Data[x][1] is not bool:
+			if Data[x][1] == 1:	value = [true,false]
+			elif Data[x][1] == 0:	value = [false,false]
+			elif Data[x][1] == 2:	value = [false,true]
+		else:
+			value = Data[x][1]
+		characteristic(Data[x][0],value)
+	config_character2(Data)
+
+func config_character2(_Data):pass
 
 func ch(text): return characteristics[text]
 

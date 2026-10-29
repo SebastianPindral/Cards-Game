@@ -1,8 +1,8 @@
 extends Control
 const ORDER_BUTTONS = preload("res://Prefabs/UI/order_buttons.tscn")
-var Orders = {}# {"Colors":null,"Numbers":null}
+var Orders = {}
 var Choise
-var radius = 300
+var radius = 250
 
 func _ready() -> void:
 	Choise = GM.Game.Order_choice_list

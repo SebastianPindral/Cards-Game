@@ -32,7 +32,7 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,Vector2(distance, 0).rotated(Actor_poz) + dis_poz,0, 0.2)
 	c.where_is("Discard",c.global_position)
 
-func config_character(_Data):pass
+func config_character2(_Data):pass
 func get_choise(_Order_value,_Order_type):pass
 
 func Check_have_color(Hand):
@@ -82,12 +82,12 @@ func calc_tt_win():
 		elif c.Data["Number"] > max0[1] and c.Data["Color"] == Active_card.Data["Color"] and not t_atut:
 			max0 = [i,c.Data["Number"]]
 		i += 1
-	return max0
+	return max0[0]
 
 func give_turn_winner(winner:int):
 	Turn_move(winner)
 
-func After_Trick(_win):pass #po kazdej lewie
+func After_Trick():pass #po kazdej lewie
 func After_loop():pass # po kazdej petli
 
 #to ma adpowiadac za lizytacje, wymiany kart w kierkach itp
@@ -95,8 +95,8 @@ func auction_loop_Turn():pass
 
 func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 	var win = calc_tt_win()
-	give_turn_winner(win[0])
-	After_Trick(win)#podliczanie punkow i inne operacje wlasne po kazdej lewie
+	give_turn_winner(win)
+	After_Trick()#podliczanie punkow i inne operacje wlasne po kazdej lewie
 	
 	GM.Reset_Stack()
 	throw_signal()
@@ -108,11 +108,15 @@ func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 		The_Deal()
 		
 		After_loop()
+		auction_var = 0
+		auction_bool = false
+		auction.clear()
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy
 		await SMen.wait_with_pause(0.5) 
 		End_loop()
+		
 	else:#jeden ruch w petli
 		pass
 	Next_Turn()

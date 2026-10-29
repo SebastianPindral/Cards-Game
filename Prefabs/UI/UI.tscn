@@ -88,6 +88,7 @@ theme_override_font_sizes/font_size = 35
 text = "PASS"
 
 [node name="Score_board" type="VBoxContainer" parent="UI"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 10

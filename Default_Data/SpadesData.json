@@ -1,8 +1,13 @@
 {
-	"prefab": [
-		"M0",
+	"Part contract": [
+		"M1",
 		false,
-		"..."
+		"czy za niedopelnienie kontraktu np. 5/7 jest -20 czy -70 pkt"
+	],
+	"negative score": [
+		"M2",
+		false,
+		"czy moze byc ujemny wynik czy zaokragla do 0"
 	],
 	"OCL_name_list": [
 		[

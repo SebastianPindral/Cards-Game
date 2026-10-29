@@ -95,7 +95,7 @@ func The_Deal():
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
 
-func config_character(Data):
+func config_character2(Data):
 	player_count = Data["OCL_name_list"][0][1]
 	for i in player_count:
 		Report_Makao.append(true)
@@ -103,16 +103,7 @@ func config_character(Data):
 	GM.Deck_size["count_decks"] = Data["OCL_name_list"][1][1]
 	GM.game_rule["Start_Cards"] = Data["OCL_name_list"][2][1]
 	GM.game_rule["Makao_miss_punishment"] = Data["OCL_name_list"][3][1]
-	var value
-	for x in Data:
-		if x == "OCL_name_list":continue
-		if Data[x][1] is not bool:
-			if Data[x][1] == 1:	value = [true,false]
-			elif Data[x][1] == 0:	value = [false,false]
-			elif Data[x][1] == 2:	value = [false,true]
-		else:
-			value = Data[x][1]
-		characteristic(Data[x][0],value)
+	
 	if ch("M10")[1]: makao_range.append(0)
 
 func get_choise(Order_value,Order_type):
