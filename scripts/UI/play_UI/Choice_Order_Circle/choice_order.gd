@@ -9,6 +9,8 @@ func _ready() -> void:
 	if GM.Game is Makao:
 		Choice_Circle("Colors")
 		Choice_Circle("Numbers")
+	elif GM.Game is Spades:
+		Choice_Circle("Numbers")
 
 func Choice_Circle(type):
 	var a1 = Control.new()
@@ -18,7 +20,7 @@ func Choice_Circle(type):
 	add_child(a1)
 	for x in Choise[type].size():
 		var obj = ORDER_BUTTONS.instantiate()
-		obj.name = Choise[type][x]
+		obj.name = str(Choise[type][x])
 		obj.set_button(radius,Choise[type].size(),Color.WHITE,type+"/",obj.name)
 		a1.add_child(obj)
 		split_it(obj,x,Choise[type].size())

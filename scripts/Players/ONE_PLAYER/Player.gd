@@ -10,7 +10,7 @@ var On_Hand = []#karty na rece
 var On_Hold = []#karty podniesione do grupowego rzucenia
 var numer
 func _ready() -> void:
-	GM.Stack_number.connect(set_label)
+	GM.Stack_number.connect(set_label.bind(true))
 
 func set_this(t,num=0):
 	typ = t
@@ -84,7 +84,9 @@ func play():
 		Check_Hand()
 		var x = 0
 		var xx = 0
-		if On_Hand.size()>0: 
+		if GM.Game is Spades and GM.Game.auction_var <= GM.Game.player_count:
+			x = 2
+		elif On_Hand.size()>0: 
 			for c in On_Hand:
 				if c.legality:
 					xx = c
@@ -101,6 +103,7 @@ func play():
 				await get_tree().process_frame
 				GM.Game.Enemy_SI(xx)
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
+			2:GM.Game.Enemy_SI(0)
 	elif typ == "player":
 		Check_Hand()
 
@@ -119,10 +122,10 @@ func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 		if parent:
 			parent.move_child(node, i)
 
-func set_label(_vari=0):
-	var turn = GM.Players[numer][1]
-	if turn != 0 and turn != -PI:
-		info_point_place.label.text = str(turn)
+func set_label(ifit = false,vari = 0):
+	if ifit: vari = GM.Players[numer][1]
+	if vari != -PI:
+		info_point_place.label.text = str(vari)
 	else:
 		info_point_place.label.text = ""
 

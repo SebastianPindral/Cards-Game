@@ -12,7 +12,8 @@ func _ready():
 	create_polygon(new,radius*0.9,Color(0.3,0.3,0.3))
 	add_child(new)
 	move_child(label, get_child_count() - 1)
-	label.position = Vector2(-radius*0.75,-radius)
+	label.position = Vector2(-radius,-radius)
+	label.size.x = radius*2.0
 
 
 func create_polygon(t:Polygon2D,radi:float,col):

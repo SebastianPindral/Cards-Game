@@ -1,21 +1,19 @@
 extends BaseGame
 class_name trick_taking # klasa rodzic dla gier z wykladaniem jednej karty przez wszystkich graczy na ture
-var base_conditions = func() -> bool: return (color_broken or (card.Data["Color"] != color_blocked))
-var alter_conditions = func() -> bool: return (card.Data["Color"] == Active_card.Data["Color"])
-var all_can = func() -> bool: return (true)
+var base_conditions = func() -> bool: return (color_broken or (card.Data["Color"] != color_blocked))#poczatek lewy
+var alter_conditions = func() -> bool: return (card.Data["Color"] == Active_card.Data["Color"])#dokladanie do koloru
+var all_can = func() -> bool: return (true)#dokladanie jak nie ma koloru
 var color_broken = false
 var color_blocked
 var Atut
 
 func _init() -> void:
-	Order_choice_list = {"Tricks":[0,1,2,3,4,5,6,7,8,9,10,11,12,13]}
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 13
 	GM.Deck_size["count_jockers"] = 0
 	GM.game_rule["Start_Cards"] = 13
 	GM.game_rule["Deal_Stack_Cards"] = 0
 	Throw_conditions.append(base_conditions)
-	Order["Tricks"] = 0
 
 func set_game():
 	Who_Starts_game()
@@ -44,12 +42,14 @@ func Check_have_color(Hand):
 	return true
 
 func Start_Player_Turn(_numer,Hand):
-	if GM.Discarded.size() == 0:
+	if auction_var < player_count:# tura licytacji kazdego gracza
+		auction_loop_Turn()
+	if GM.Discarded.size() == 0:# pierwsza karta z lewy
 		await catch_signal()
 		Active_card = null
 		Throw_conditions = [base_conditions]
 		color_broken = Check_have_color(Hand)
-	else:
+	else:# kolejne karty z lewy
 		if Active_card == null: 
 			Throw_conditions = [base_conditions]
 			return
@@ -87,10 +87,11 @@ func calc_tt_win():
 func give_turn_winner(winner:int):
 	Turn_move(winner)
 
-func After_Trick(_win):pass
-func After_loop():pass
+func After_Trick(_win):pass #po kazdej lewie
+func After_loop():pass # po kazdej petli
 
-func before_new_loop():pass
+#to ma adpowiadac za lizytacje, wymiany kart w kierkach itp
+func auction_loop_Turn():pass
 
 func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 	var win = calc_tt_win()
@@ -103,11 +104,10 @@ func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 	if GM.Players[0][0].On_Hand.size()==0:
 		# Tutaj zakonczenie pelnego rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
 		color_broken = false
-		After_loop()
 		
 		The_Deal()
 		
-		before_new_loop()#to ma adpowiadac za lizytacje, wymiany kart w kierkach itp
+		After_loop()
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy
@@ -115,6 +115,9 @@ func After_Turn():
 		End_loop()
 	else:#jeden ruch w petli
 		pass
+	if auction_var == player_count:
+		auction_var += 1
+		auction_bool = true
 	Next_Turn()
 
 func Legality_Check(c)->bool:

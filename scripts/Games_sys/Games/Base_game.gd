@@ -11,6 +11,10 @@ var Throw_conditions = []
 var Obj_Order = {}
 var Order = {}
 
+var auction = []
+var auction_var = 0
+var auction_bool = true
+
 var player_count
 var Turn = 0
 var Rotation_direct = true

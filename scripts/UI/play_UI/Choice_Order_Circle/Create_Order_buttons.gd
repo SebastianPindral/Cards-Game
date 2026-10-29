@@ -14,7 +14,7 @@ func set_button(dist,Choice_count,f:Color,path,i:String=""):
 	normal_size = dist
 	hover_size = dist*1.2
 	create_polygon(dist,Choice_count)
-
+	
 	fill_color = f
 	normal_color = f
 	hover_color = f.darkened(0.3)
