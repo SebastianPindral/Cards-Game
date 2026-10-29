@@ -1,6 +1,6 @@
 extends Node
 class_name BaseGame
-signal sig_to_con()
+signal sig_to_con()#sygnal wybrania warunku
 #konfiguracja gry
 var characteristics = {}
 var Order_choice_list #kolo wyboru
@@ -25,7 +25,7 @@ func ch(text): return characteristics[text]
 
 func Legality_Check(_card)->bool:return false
 func set_choise_obj(_Order_obj,_Order_type):pass
-func get_choise(_Order_value,_Order_type):pass
+func get_choise(_Order_value,_Order_type):pass # odebranie warunku z kola wyboru
 func set_game(): pass #wywolane po uruchomieniu gry
 func Before_Throw(_c): pass
 func After_Turn():pass
@@ -34,7 +34,7 @@ func Get_from_Stack(_id):pass
 func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
 func Who_Starts_game():pass
-func Can_from_Stack() -> bool:return true
+func Can_from_Stack() -> bool:return false
 func Check_Hand(_When,_numer,_Hand):pass
 func Knock_Knock(_num):pass
 

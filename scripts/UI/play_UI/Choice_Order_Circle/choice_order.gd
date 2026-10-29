@@ -1,6 +1,6 @@
 extends Control
 const ORDER_BUTTONS = preload("res://Prefabs/UI/order_buttons.tscn")
-var Orders = {	"Colors":null,"Numbers":null}
+var Orders = {}# {"Colors":null,"Numbers":null}
 var Choise
 var radius = 300
 

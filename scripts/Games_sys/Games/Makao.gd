@@ -256,7 +256,6 @@ func Get_from_Stack(id):
 		clear_conditions()
 		Next_Turn()
 
-
 func after_take_every_card(c:Array) -> bool:
 	if first_card: Active_card = c[0]
 	if c.size()==1 and (ch("M7").has(true)) and not ch("M2") and Legality_Check(c[0]):
