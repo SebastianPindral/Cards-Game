@@ -26,17 +26,10 @@ func send(i):
 			Stack.remove_at(x)
 	return t
 
-func Player_count():
-	return player_count
-
-func deal_cards(pid,count):
-	Players[pid].take_cards(send(count))
-
-func Actor_poz(index):
-	return Players[index-1].global_position
-
-func Actor_play(index):
-	Players[index-1].play()
+func Player_count():	return player_count
+func deal_cards(pid,count):	Players[pid].take_cards(send(count))
+func Actor_poz(index):	return Players[index-1].global_position
+func Actor_play(index):	Players[index-1].play()
 
 func change_rotation_direct():
 	Rotation_direct = not Rotation_direct
@@ -58,3 +51,8 @@ func Next_Turn():
 		else: Turn = player_count
 	table.cursor.set_cursor_target(Turn)
 	Actor_play(Turn)
+
+func Legality_Check(_card)->bool:return false
+func throw_card(_card) -> bool:return false
+func card_function(_card):pass
+func Deal_Stack_Cards(_id):pass

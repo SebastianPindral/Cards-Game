@@ -4,10 +4,13 @@ class_name ONE_Card
 @onready var back: Sprite2D = $Back
 
 signal Used()
+
 var shadow_position
 var Data = {"Number":0,"Color":0}
 var size = Vector2(100,150)
+
 var state = ""
+var legality = true
 
 func Start(N,C):
 	face_Down()
@@ -23,6 +26,11 @@ func where_is(isin,target_poz):
 		face_Down()
 	shadow_position = target_poz
 
+func legal(bol):
+	legality = bol
+	if bol:	front.modulate = Color(1,1,1)
+	else:	front.modulate = Color(.3,.3,.3)
+
 func face_Down():
 	front.visible = false
 	back.visible = true
@@ -33,4 +41,5 @@ func face_Up():
 
 func Use():
 	$Area2D.position = Vector2(0,0)
+	legal(true)
 	Used.emit()

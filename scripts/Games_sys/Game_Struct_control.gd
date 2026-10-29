@@ -14,6 +14,5 @@ func _ready() -> void:
 func Cards_is_Used(x:Array):
 	for one in x:
 		GM.Discarded.append(one)
-		SMen.reorder_Stack(GM.Discarded)
 		dis_node.Set_poz(one)
 		GM.card_function(one)

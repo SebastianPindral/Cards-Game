@@ -25,6 +25,7 @@ func take_cards(cards:Array):
 	for c in cards:
 		c.Used.connect(Use_Card.bind(c),CONNECT_DEFERRED | CONNECT_ONE_SHOT)
 		On_Hand.append(c)
+		c.legal(GM.Legality_Check(c))
 	sort_hand(true)
 	hand.set_visual(On_Hand,typ)
 
@@ -36,9 +37,25 @@ func Use_Card(card):
 func play():
 	if typ == "host":
 		await SMen.wait_with_pause(1)
-		match randi_range(0,1):#na razie losowo / poprawic
-			0:if On_Hand.size()>0:	On_Hand[randi_range(0,On_Hand.size()-1)].Use() #rzucenie karty
+		var x = 0
+		if On_Hand.size()>0: 
+			for c in On_Hand:
+				if GM.Legality_Check(c): 
+					x = 0
+					continue
+				else:
+					x = 1
+		else: x = 1
+		match x:#na razie losowo / poprawic
+			0:
+				var c = On_Hand[randi_range(0,On_Hand.size()-1)]
+				while not GM.Legality_Check(c):
+					c = On_Hand[randi_range(0,On_Hand.size()-1)]
+				c.Use() #rzucenie karty
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
+	elif typ == "player":
+		for c in On_Hand:
+			c.legal(GM.Legality_Check(c))
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

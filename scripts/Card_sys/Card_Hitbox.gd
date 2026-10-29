@@ -19,17 +19,17 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 				Off_Click()
 
 func enter():
-	if $"..".state == "player":
+	if card.state == "player" and card.legality:
 		SMen.Move_Anim(card,card.position-size_y,0,.1)
 		SMen.Move_Anim(self,size_y,0,.1)
 
 func exiter():
-	if $"..".state == "player":
+	if card.state == "player" and card.legality:
 		SMen.Move_Anim(card,card.shadow_position,0,.1)
 		SMen.Move_Anim(self,Vector2(0,0),0,.1)
 
 func Click():
-	if GM.Turn == 1:
+	if GM.Turn == 1 and card.legality:
 		card.Use()
 
 func Off_Click():
