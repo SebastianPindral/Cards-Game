@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dosbh7dae2lwj"]
+
+[ext_resource type="Script" path="res://scripts/UI/Main/config_one.gd" id="1_x1ntj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2skn"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Config_ONE" type="HBoxContainer"]
+offset_right = 350.0
+offset_bottom = 100.0
+theme_override_constants/separation = 5
+script = ExtResource("1_x1ntj")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(245, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OFF_ON" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_o2skn")
+text = "OFF"

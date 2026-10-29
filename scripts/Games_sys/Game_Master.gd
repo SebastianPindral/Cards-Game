@@ -1,12 +1,19 @@
 extends BGM
 
-var Game = Makao.new()
+var Game
 
 func Start_Game(t):
 	table = t
 	change_rotation_direct()
 	set_game()
 	Next_Turn()
+
+func new_game(game_type):
+	match game_type:
+		"Makao":	Game = Makao.new()
+		_:
+			print("Blad wczytania gry")
+			get_tree().quit()
 
 func Deal_Stack_Cards(id):
 	send(0)

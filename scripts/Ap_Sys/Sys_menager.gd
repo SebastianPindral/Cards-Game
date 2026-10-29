@@ -6,6 +6,12 @@ func _ready() -> void:
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
 
+func change_scene(path: String):
+	var new_scene = load(path).instantiate()
+	get_tree().root.add_child(new_scene)
+	get_tree().current_scene.queue_free()
+	get_tree().current_scene = new_scene
+
 func wait_with_pause(seconds: float) -> void:
 	while get_tree().paused:
 		await get_tree().process_frame

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cards_games"
-run/main_scene="res://scens/Cards_Games.tscn"
+run/main_scene="res://scens/Main_Menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [autoload]
