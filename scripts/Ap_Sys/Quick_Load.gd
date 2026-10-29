@@ -14,6 +14,26 @@ func get_icons(i:String):
 		return icons[i]
 	else: print("Load_error")
 
+func load_json(dir):
+	var file = FileAccess.open(dir, FileAccess.READ)
+	var content = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+	var err = json.parse(content)
+	if err != OK:
+		push_error("Błąd parsowania JSON: %s" % err)
+		return null
+
+	var data = json.get_data()
+	return data
+
+func save_json(dir,data):
+	var file = FileAccess.open(dir, FileAccess.WRITE)
+	var json_string = JSON.stringify(data, "\t")
+	file.store_string(json_string)
+	file.close()
+
 func load_icons(sets):
 	var path = "res://assets/Cards/"+sets+"/"
 	icons["Back"] = load(path+"Back.png")

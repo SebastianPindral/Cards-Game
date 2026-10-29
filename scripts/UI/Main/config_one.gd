@@ -1,4 +1,5 @@
 extends HBoxContainer
+@onready var config_game: Control = $"../../.."
 @onready var label: Label = $Label
 @onready var off_on: Button = $OFF_ON
 
@@ -17,6 +18,7 @@ func create(text0,def_state):
 
 func click():
 	button_state = not button_state
+	config_game.Data[label.text][1] = button_state
 	match button_state:
 		true:
 			var style = StyleBoxFlat.new()

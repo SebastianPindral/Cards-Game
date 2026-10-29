@@ -1,4 +1,0 @@
-2	8
-  Stack 	TRUE	#pozwala na stakowanie puli z kart: 2,3,4,K
-GetLegal	FALSE	#zmusza do dobierania kart az trafi sie taka ktora mozna legalnie rzucic (nie dotyczy dobierania po 2 i 3)
-BitLegal	TRUE	#pozwala na przebijanie kart

@@ -1,6 +1,6 @@
 extends Node
 
-var QuickLoad = q_load.new()
+var QL = q_load.new()
 
 func _ready() -> void:
 	get_viewport().physics_object_picking_sort = true

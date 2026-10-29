@@ -5,18 +5,20 @@ extends VBoxContainer
 @onready var plus: Button = $Player_count/plus
 
 @onready var label: Label = $Player_count/Label
-var count = 2
 func _ready() -> void:
 	minus.pressed.connect(minus_one)
 	plus.pressed.connect(plus_one)
-	label.text = str(count)
+	label.text = str(0)
+
+func set_it():
+	label.text = str(config_game.Data["playercount"][0])
 
 func minus_one():
-	if count > config_game.player_min_max[0]:
-		count -= 1
-		label.text = str(count)
+	if config_game.Data["playercount"][0] > config_game.Data["playercount"][1]:
+		config_game.Data["playercount"][0] -= 1
+		label.text = str(config_game.Data["playercount"][0])
 
 func plus_one():
-	if count < config_game.player_min_max[1]:
-		count += 1
-		label.text = str(count)
+	if config_game.Data["playercount"][0] < config_game.Data["playercount"][2]:
+		config_game.Data["playercount"][0] += 1
+		label.text = str(config_game.Data["playercount"][0])
