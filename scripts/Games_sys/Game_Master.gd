@@ -1,5 +1,7 @@
 extends BGM
 
+var Game = Makao.new()
+
 func Start_Game(t):
 	table = t
 	change_rotation_direct()

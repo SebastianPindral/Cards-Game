@@ -54,20 +54,20 @@ func play():
 	if typ == "host":
 		await SMen.wait_with_pause(1)
 		var x = 0
+		var xx = 0
 		if On_Hand.size()>0: 
 			for c in On_Hand:
 				if GM.Legality_Check(c): 
+					xx = c
+					On_Hold.append(c)
 					x = 0
-					continue
+					break
 				else:
 					x = 1
 		else: x = 1
 		match x:#na razie losowo / poprawic
 			0:
-				var c = On_Hand[randi_range(0,On_Hand.size()-1)]
-				while not GM.Legality_Check(c):
-					c = On_Hand[randi_range(0,On_Hand.size()-1)]
-				c.Use() #rzucenie karty
+				xx.Use() #rzucenie karty
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
 	elif typ == "player":
 		Check_Hand()

@@ -16,7 +16,7 @@ func Click_card():
 		GM.Deal_Stack_Cards(0)
 
 func enter():
-	QuickLoad.set_cursor_icon(1)
+	SMen.QuickLoad.set_cursor_icon(1)
 
 func exiter():
-	QuickLoad.set_cursor_icon()
+	SMen.QuickLoad.set_cursor_icon()

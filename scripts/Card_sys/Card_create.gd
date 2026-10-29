@@ -25,8 +25,8 @@ func Create(j,i) -> void:
 			C = "BLACK"
 		_:
 			N = str(j)
-	front.texture = QuickLoad.get_icons(str(N)+"_"+str(C))
-	back.texture = QuickLoad.get_icons("Back")
+	front.texture = SMen.QuickLoad.get_icons(str(N)+"_"+str(C))
+	back.texture = SMen.QuickLoad.get_icons("Back")
 	set_size()
 
 func set_size():

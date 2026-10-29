@@ -1,8 +1,11 @@
 extends Node
 
+var QuickLoad = q_load.new()
+
 func _ready() -> void:
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 func wait_with_pause(seconds: float) -> void:
 	while get_tree().paused:

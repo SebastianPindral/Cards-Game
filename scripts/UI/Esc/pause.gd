@@ -23,7 +23,7 @@ func _on_play_pressed():
 	visible = false
 
 func _on_settings_pressed():
-	visible = false
+	pass
 
 func _on_quit_pressed():
 	get_tree().quit()
