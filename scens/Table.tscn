@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bng0ypwk6v0mq"]
+[gd_scene load_steps=4 format=3 uid="uid://bng0ypwk6v0mq"]
 
-[ext_resource type="Script" path="res://scripts/Game_Sys/create_all_cards.gd" id="1_ay4xy"]
+[ext_resource type="Script" path="res://scripts/Game_Sys/Card_Menager.gd" id="1_ay4xy"]
 [ext_resource type="PackedScene" uid="uid://gvnr3or1pnyf" path="res://Prefabs/UI.tscn" id="2_647ui"]
+[ext_resource type="Script" path="res://scripts/Players/player_menager.gd" id="3_sns78"]
 
 [node name="Table" type="Node2D"]
 
@@ -12,3 +13,6 @@ script = ExtResource("1_ay4xy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="Players" type="Node2D" parent="."]
+script = ExtResource("3_sns78")

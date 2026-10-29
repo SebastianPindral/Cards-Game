@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4b5niow73ule"]
+
+[ext_resource type="Script" path="res://scripts/Base_Classes/Base_Hand.gd" id="1_rve74"]
+
+[node name="Player" type="Node2D"]
+
+[node name="Hand" type="Node2D" parent="."]
+script = ExtResource("1_rve74")

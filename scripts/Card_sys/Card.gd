@@ -5,8 +5,7 @@ class_name ONE_Card
 #Color: Pik / Trefl / Kier / Karo
 #Number: 2-10,J,Q,K,A,Joker
 var Data = {"Number":0,"Color":0}
-var fliped = false
-
+var size = Vector2(100,150)
 func Start(N,C):
 	face_Down()
 	Data["Number"] = N

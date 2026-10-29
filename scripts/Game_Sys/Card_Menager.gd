@@ -25,5 +25,12 @@ func _ready() -> void:
 					N = str(j)
 			add_child(item)
 			item.Start(N,C)
-			item.position = Vector2(100,130)
+			item.position = Vector2(900,400)
 			Deck.append(item)
+
+func send(i):
+	var t = []
+	for x in range(0,i):
+		t.append(Deck[x])
+		Deck.remove_at(x)
+	return t
