@@ -1,28 +1,25 @@
 {
 	"K kier everyone +1": [
-		"M20",
+		"M19",
 		false,
 		"K kier zmusza pozostałych graczy aby dobrali karte (OK)"
 	],
 	"Q is Shild": [
-		"M19",
-		false,
-		"Q pozwalają na neutralizację/pominięcie negatywnych efektow 2,3,4,K"
+		"M18",
+		0,
+		"Q pozwalają na neutralizację negatywnych efektow 2,3,4,K",
+		"Q pozwalają na pominięcie kolejki razem z negatywnymi efektami 2,3,4,K"
 	],
 	"cut in line": [
-		"M18",
+		"M17",
 		false,
 		"pozwala do wskoczenie w kolejkę jesli ma sie karte o tym samym kolorze i wartosci"
 	],
-	"As block": [
-		"M17",
-		false,
-		"As nie mozna rzucic na niego kart funkcyjnych"
-	],
-	"As debility": [
+	"As Debility/Block": [
 		"M16",
-		false,
-		"As mozna rzucic na niego karty funkcyjne ale jako zwykłe karty"
+		0,
+		"As mozna rzucic na niego karty funkcyjne ale jako zwykłe karty",
+		"As nie mozna rzucic na niego kart funkcyjnych"
 	],
 	"Shift 10": [
 		"M15",
@@ -83,7 +80,7 @@
 	"As color change": [
 		"M5",
 		true,
-		"pozwala na zmiane koloru dowolna karta"
+		"pozwala na zmiane koloru dowolna karta (OK)"
 	],
 	"BitLegal": [
 		"M3",

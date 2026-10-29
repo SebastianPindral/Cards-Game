@@ -68,7 +68,7 @@ func Throw_card(c):
 			GM.set_Deal_Stack_Number(characteristics["M1"],5)
 			if characteristics["M12"]:
 				GM.Turn_move(2,not GM.Rotation_direct)
-		elif c.Data["Color"] == 2 and characteristics["M20"]:
+		elif c.Data["Color"] == 2 and characteristics["M19"]:
 			for id in range(1,GM.player_count+1):
 				if id == GM.Turn:continue
 				id -= 1
@@ -104,7 +104,8 @@ func Throw_card(c):
 
 var ifend=0
 func end_check(c):
-	if  c.Data["Number"] != 14 and GM.Turn == Order["Colors"][0] and Throw_conditions.has(Choice_color):
+	if ( (c.Data["Number"] != 14 and GM.Turn == Order["Colors"][0]) or 
+		 (characteristics["M5"] and c.Data["Number"] != 14) ) and Throw_conditions.has(Choice_color):
 		Order["Colors"][1] = 0
 		Throw_conditions.erase(Choice_color)
 		if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
