@@ -29,7 +29,7 @@ func exiter():
 		SMen.Move_Anim(self,Vector2(0,0),0,.1)
 
 func Click():
-	if GMaster.Turn == 1:
+	if GM.Turn == 1:
 		card.Use()
 
 func Off_Click():

@@ -10,6 +10,6 @@ func Set_Stack(S):
 	var offset = S[0].size.x/50
 	for c in S:
 		Stack_Pos.x += offset
-		SMen.Move_Anim(c,Stack_Pos,0,0.3)
+		SMen.Move_Anim(c,Stack_Pos,0,0.1)
 	area_2d.position = Stack_Pos
 	$Area2D/CollisionShape2D.shape.size = S[0].size

@@ -12,4 +12,4 @@ func _ready() -> void:
 			add_child(item)
 			item.Start(j,i)
 			item.position = Vector2(-500,-500)
-			table.Stack.append(item)
+			GM.Stack.append(item)

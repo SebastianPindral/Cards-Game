@@ -29,16 +29,16 @@ func take_cards(cards:Array):
 	hand.set_visual(On_Hand,typ)
 
 func Use_Card(card):
-	get_tree().call_group("Table", "Card_is_Used", card)
-	On_Hand.erase(card)
-	hand.set_visual(On_Hand,typ)
+	if GM.throw_card(card):
+		On_Hand.erase(card)
+		hand.set_visual(On_Hand,typ)
 
 func play():
 	if typ == "host":
 		await SMen.wait_with_pause(1)
 		match randi_range(0,1):#na razie losowo / poprawic
-			0:if On_Hand.size()>0:	On_Hand[randi_range(0,On_Hand.size())].Use() #rzucenie karty
-			1:GMaster.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
+			0:if On_Hand.size()>0:	On_Hand[randi_range(0,On_Hand.size()-1)].Use() #rzucenie karty
+			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

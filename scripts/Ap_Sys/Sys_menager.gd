@@ -9,6 +9,12 @@ func wait_with_pause(seconds: float) -> void:
 		await get_tree().process_frame
 	await get_tree().create_timer(seconds).timeout
 
+
+func reorder_Stack(tab):
+	var parent = tab[0].get_parent()
+	for i in range(tab.size()):
+		parent.move_child(tab[i], i)
+
 func Resize(sprite,target_size):
 	var tex_size = sprite.texture.get_size()
 	sprite.scale = target_size / tex_size

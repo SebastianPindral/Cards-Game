@@ -18,7 +18,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 
 QuickLoad="*res://scripts/Ap_Sys/Quick_Load.gd"
 SMen="*res://scripts/Ap_Sys/Sys_menager.gd"
-GMaster="*res://scripts/Games_sys/Game_Master.gd"
+GM="*res://scripts/Games_sys/Game_Master.gd"
 
 [display]
 

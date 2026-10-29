@@ -8,7 +8,7 @@ func _ready():
 	SMen.Resize(self,self_size)
 
 func set_cursor_target(target):
-	var Actor_poz = get_tree().get_nodes_in_group("Player_menager")[0].Actor_poz(target) - get_parent().global_position
+	var Actor_poz = GM.Actor_poz(target) - get_parent().global_position
 	var distance = spin.self_size.x * .6
 	var angle_to_cursor = Actor_poz.angle()  
 	SMen.Move_Anim(self,Vector2(distance, 0).rotated(angle_to_cursor),angle_to_cursor - PI/2, 0.5)
