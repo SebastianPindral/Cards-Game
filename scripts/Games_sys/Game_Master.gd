@@ -14,25 +14,24 @@ func Deal_Stack_Cards(id):
 	Game.Get_from_Stack()
 	Next_Turn()
 
-func card_function(card):#obslurzyc karty funkcyjne
-	Game.Throw_card(card)
-	Active_card = card
+func card_function(c):#obslurzyc karty funkcyjne
+	Game.Throw_card(c)
+	Active_card = c
 
-func throw_card(card):
-	table.Cards_is_Used(card)
+func throw_card(c):
+	table.Cards_is_Used(c)
 	SMen.reorder_Stack(Discarded)
 	Next_Turn()
 
-func Legality_Check(card)->bool:
-	if (Active_card.Data["Number"] == card.Data["Number"] or Active_card.Data["Color"] == card.Data["Color"]):
-		return true
-	else: return false
+func Legality_Check(c)->bool:
+	card = c
+	return SHelp.if_in_loop(Throw_conditions)
 
 func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych
-	for card in On_Hand:
-		card.legal(Legality_Check(card))
+	for c in On_Hand:
+		c.legal(Legality_Check(c))
 		for Hold_card in On_Hold:
-			if Hold_card.Data["Number"] == card.Data["Number"]:
-				card.legal(true)
+			if Hold_card.Data["Number"] == c.Data["Number"]:
+				c.legal(true)
 				break
-			card.legal(false)
+			c.legal(false)

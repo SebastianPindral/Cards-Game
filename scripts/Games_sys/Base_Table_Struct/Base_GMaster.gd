@@ -10,13 +10,14 @@ var player_count = 4
 var Turn = 0 # false jesli gracz nie moze nic robic
 var Rotation_direct = true
 
-#====================================================================================
-var Throw_conditions = []# nieokreslona ilosc warunkow do spelnienia aby rzucic karta
-#====================================================================================
+# nieokreslona ilosc warunkow do spelnienia aby rzucic karta
+var Throw_conditions = [func() -> bool: return (Active_card.Data["Number"] == card.Data["Number"] 
+						or Active_card.Data["Color"] == card.Data["Color"])]
 
 var Stack = []
 var Discarded = [] # zuzyte karty
 var Active_card
+var card #aktualnie testowana karta
 
 func set_game():
 	shuffle()
