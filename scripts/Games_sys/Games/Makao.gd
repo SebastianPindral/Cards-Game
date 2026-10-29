@@ -31,7 +31,6 @@ func set_choise_obj(Order_obj,Order_type):
 func get_choise(Order_value,Order_type):
 	if Order.has(Order_type):
 		Order[Order_type] = [GM.Turn,Order_value]
-		print(Order_type," : ",Order[Order_type])
 		stop()
 	else:
 		print("Error - Order Makao")
@@ -73,17 +72,17 @@ func Throw_card(c):
 	elif c.Data["Number"] == 11:#J
 		if Order["Numbers"][1] == 0:
 			Throw_conditions.erase(num_order)
+			if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
 		elif not Throw_conditions.has(num_order):
 			Throw_conditions.append(num_order)
 			Throw_conditions.erase(base_conditions)
-			print("J")
 	elif c.Data["Number"] == 14:#A
 		if Order["Colors"][1] == 0:
 			Throw_conditions.erase(Choice_color)
+			if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
 		elif not Throw_conditions.has(Choice_color):
 			Throw_conditions.append(Choice_color)
 			Throw_conditions.erase(base_conditions)
-			print("A")
 	
 	if not characteristics["M3"] and (c.Data["Number"] in [2,3,4] or 
 		(c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2))):
@@ -117,11 +116,12 @@ func end_check(c):
 func Get_from_Stack(id):
 	if wait_count >= 0:
 		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"])
-	GM.set_Deal_Stack_Number(false,1)
 	
 	# 4 - karta stop
 	GM.Players[GM.Turn-1][1] = wait_count
 	wait_count = 0
+	
+	GM.set_Deal_Stack_Number(false,1)
 	
 	#Dobieranie do skutku
 	if (characteristics["M2"] and Order["Colors"][1]==0 and Order["Numbers"][1]==0 and 

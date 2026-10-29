@@ -97,9 +97,9 @@ func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 		if parent:
 			parent.move_child(node, i)
 
-func set_label(vari=0):
-	vari = GM.Players[numer][1]
-	if vari != 0 and vari != -PI:
-		$Label.text = str(vari)
+func set_label(_vari=0):
+	var turn = GM.Players[numer][1]
+	if turn != 0 and turn != -PI:
+		$Label.text = str(turn)
 	else:
 		$Label.text = ""
