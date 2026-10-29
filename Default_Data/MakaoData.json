@@ -49,8 +49,9 @@
 	],
 	"reporting last card": [
 		"M10",
-		false,
-		"zglaszenie jesli po rzucie zostanie ci jedna karta"
+		0,
+		"zglaszenie jesli po rzucie zostanie ci jedna karta",
+		"zglaszenie jesli po rzucie nie masz kart"
 	],
 	"everything on Q": [
 		"M9",

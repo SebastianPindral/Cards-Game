@@ -35,7 +35,7 @@ func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
 func Who_Starts_game():pass
 func Can_from_Stack() -> bool:return true
-func Check_Hand(_numer,_Hand):pass
+func Check_Hand(_When,_numer,_Hand):pass
 func Knock_Knock(_num):pass
 
 func stop():	sig_to_con.emit()
@@ -47,46 +47,42 @@ func change_rotation_direct():
 func Turn_move(value,RD_Local):
 	for x in value:
 		if not RD_Local:
-			if Turn < player_count:
+			if Turn < player_count-1:
 				Turn += 1
-			else: Turn = 1
+			else: Turn = 0
 		else:
-			if Turn > 1:
+			if Turn > 0:
 				Turn -= 1
-			else: Turn = player_count
+			else: Turn = player_count-1
 
 func Get_Turn(value,RD_Local) -> int:
 	var local_turn = Turn
 	for x in value:
 		if not RD_Local:
-			if local_turn < player_count:
+			if local_turn < player_count-1:
 				local_turn += 1
-			else: local_turn = 1
+			else: local_turn = 0
 		else:
-			if local_turn > 1:
+			if local_turn > 0:
 				local_turn -= 1
-			else: local_turn = player_count
+			else: local_turn = player_count-1
 	return local_turn
 
-func back_move(order_name:String):
-	if ch(order_name):
-		Turn_move(2,not Rotation_direct)
-
-func shift_turn():
-	Turn_move(1,not Rotation_direct)
+func back_move():	Turn_move(2,not Rotation_direct)
+func shift_turn():	Turn_move(1,not Rotation_direct)
 
 func Next_Turn():
-	if GM.Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
-		GM.Players[Turn-1][1] -= 1 
+	if GM.Players[Turn][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
+		GM.Players[Turn][1] -= 1 
 	else:
 		Turn_move(1,Rotation_direct)
 	GM.table.cursor.set_cursor_target(Turn)
 	
-	var ptc = GM.Players[Turn-1][1]
+	var ptc = GM.Players[Turn][1]
 	if ptc == -PI:
 		Next_Turn()
 	elif ptc < 0: # jest mniejszy od zera jesli gracz musi czekac i nic nie robic
-		GM.Players[Turn-1][1] += 1
+		GM.Players[Turn][1] += 1
 		GM.Stack_number.emit(GM.game_rule["Deal_Stack_Cards"])
 		Next_Turn()
 	elif ptc == 0:

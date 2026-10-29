@@ -20,6 +20,7 @@ var first_card = true #zabezpieczenie przy rozpoczeciu gry
 
 var first_save = [false,false,true] #pierwsza karta dobrana ze stosu mozna rzucic ale nie trzeba
 var Report_Makao = [] 
+var makao_range = [1]
 var have_normal_card = false
 
 func _init() -> void:
@@ -41,25 +42,36 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
 	c.where_is("Discard",dis_poz)
 
-func Check_Hand(numer,Hand):
-	if ch("M10"):
-		if Hand.size() in [1,2]:
+func Check_Hand(When,numer,Hand):
+	if When == 0:
+		if ch("M10").has(true):
 			Report_Makao[numer] = false
-		else:
-			Report_Makao[numer] = true
-	
-	if ch("M19"):
-		for c in Hand:
-			if (c.Data["Number"] in [5,6,7,8,9,10,12]) and c.legality:
-				have_normal_card = true
-				return
-		have_normal_card = false
+		
+		if ch("M19"):
+			for c in Hand:
+				if (c.Data["Number"] in [5,6,7,8,9,10,12]) and c.legality:
+					have_normal_card = true
+					return
+			have_normal_card = false
+	elif When == 1:
+		if (Hand.size() not in makao_range):
+			if Report_Makao[numer]: GM.Players[numer][0].set_info_color(Color(0.3,0.3,0.3))
+			else:
+				Report_Makao[numer] = true
 
 func Can_from_Stack() -> bool:
-	return (Turn == 1 and ( not ch("M19") or not have_normal_card))
+	return (Turn == 0 and ( not ch("M19") or not have_normal_card))
 
 func Knock_Knock(num=0):# Wcisniecie przycisku "Knock"
-	if ch("M10"): Report_Makao[num] = true
+	if ch("M10").has(true): 
+		if not Report_Makao[num]: 
+			GM.Players[num][0].set_info_color(Color.RED)
+			Report_Makao[num] = true
+		for id in range(0,player_count):
+			if not Report_Makao[id] and num != id:
+				GM.deal_cards(id,GM.game_rule["Makao_miss_punishment"])
+				Report_Makao[id] = true
+				GM.Players[id][0].set_info_color(Color(0.3,0.3,0.3))
 
 func set_game():
 	Who_Starts_game()
@@ -92,6 +104,7 @@ func config_character(Data):
 		else:
 			value = Data[x][1]
 		characteristic(Data[x][0],value)
+	if ch("M10")[1]: makao_range.append(0)
 
 func set_choise_obj(Order_obj,Order_type):
 	Obj_Order[Order_type] = Order_obj
@@ -149,15 +162,15 @@ func Throw_card(c):
 				match c.Data["Color"]:
 					1:
 						stack_combo(5)
-						back_move("M12")
+						if ch("M12"):back_move()
 					2:
 						if ch("M18"):
 							for id in range(0,player_count):
-								if (id+1) == Turn or GM.Players[id][1] == -PI:continue
+								if (id) == Turn or GM.Players[id][1] == -PI:continue
 								GM.deal_cards(id,1)
 						else:
 							stack_combo(5)
-					3: back_move("M13")
+					3: if ch("M12"):back_move()
 	
 	match c.Data["Number"]:
 		5: if ch("M4"):change_rotation_direct()
@@ -194,8 +207,8 @@ func end_check(c):
 		
 	if first_card:
 		first_card = false
-	elif GM.Players[Turn-1][0].On_Hand.size() == 0 and GM.Players[Turn-1][1] != -PI:
-		GM.Players[Turn-1][1] = -PI
+	elif GM.Players[Turn][0].On_Hand.size() == 0 and GM.Players[Turn][1] != -PI:
+		GM.Players[Turn][1] = -PI
 		ifend+=1
 	
 	first_save[1] = false
@@ -209,6 +222,10 @@ func end_check(c):
 
 func Get_from_Stack(id):
 	if wait_count >= 0 and not first_save[1]:
+		
+		GM.Players[id][0].set_info_color(Color(0.3,0.3,0.3))
+		Report_Makao[id] = true
+		
 		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"],first_save[2])# true oznacza ze first_save dziala
 	
 	if first_save[0]:# wywolane po dobraniu pierwszej karty jesli mozna ja legalnie rzucic
@@ -226,7 +243,7 @@ func Get_from_Stack(id):
 		first_save[1] = false
 		first_save[2] = true
 		# 4 - karta stop
-		GM.Players[Turn-1][1] = wait_count
+		GM.Players[Turn][1] = wait_count
 		wait_count = 0
 		
 		GM.set_Deal_Stack_Number(false,1)

@@ -33,8 +33,8 @@ func Reset_Stack(left_on_discard):
 
 func Player_count():	return Game.player_count
 func deal_cards(pid,count,breaking0 = false):	Players[pid][0].take_cards(send(count,breaking0))
-func Actor_poz(index):	return Players[index-1][0].global_position
-func Actor_play(index):	Players[index-1][0].play()
+func Actor_poz(index):	return Players[index][0].global_position
+func Actor_play(index):	Players[index][0].play()
 
 func shuffle():
 	if Stack.size()>1:

@@ -65,6 +65,7 @@ func Use_Card():
 	On_Hold.clear()
 	hand.set_visual(On_Hand,typ)
 	
+	GM.Game.Check_Hand(1,numer,On_Hand)
 	GM.throw_card(dupli)
 
 func holded_cards(card):
@@ -92,7 +93,7 @@ func play():
 		else: x = 1
 		match x:#na razie losowo / poprawic
 			0:
-				if (randi()% 100 + 1) <= 70:GM.Game.Knock_Knock(numer)
+				if (randi()% 100 + 1) <= 0:GM.Game.Knock_Knock(numer)
 				xx.Use() #rzucenie karty
 				await get_tree().process_frame
 				if xx.Data["Number"]==11:
@@ -106,7 +107,7 @@ func play():
 func Check_Hand():
 	for c in On_Hand:
 		c.legal(GM.Game.Legality_Check(c))
-	GM.Game.Check_Hand(numer,On_Hand)
+	GM.Game.Check_Hand(0,numer,On_Hand)
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 
@@ -124,3 +125,6 @@ func set_label(_vari=0):
 		info_point_place.label.text = str(turn)
 	else:
 		info_point_place.label.text = ""
+
+func set_info_color(col):
+	info_point_place.set_info_color(col)
