@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://gvnr3or1pnyf"]
+
+[ext_resource type="Script" path="res://scripts/UI/Esc/pause.gd" id="1_lrbym"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Pause" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_lrbym")
+
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(6.01634e-09, 0.26907, 2.40654e-07, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 250.0
+offset_right = 1100.0
+offset_bottom = 489.0
+alignment = 1
+
+[node name="Resume" type="Button" parent="Pause/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Pause/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Pause/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Quit"

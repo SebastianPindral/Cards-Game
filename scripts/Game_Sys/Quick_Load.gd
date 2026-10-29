@@ -8,26 +8,16 @@ func get_icons(i:String):
 
 func load_icons(sets):
 	var path = "res://assets/Cards/"+sets+"/"
-	
 	icons["Back"] = load(path+"Back.png")
-	icons["Front"] = load(path+"Front.png")
 	
-	var dir = DirAccess.open(path + "Colors/")
+	path = path + "Fronts/"
+	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if file_name.ends_with(".png"):
 				var index = file_name.get_basename() 
-				icons[index] = load(path + "Colors/" + file_name)
+				icons[index] = load(path + file_name)
 			file_name = dir.get_next()
 	
-	dir = DirAccess.open(path + "Numbers/")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".png"):
-				var index = file_name.get_basename() 
-				icons[index] = load(path + "Numbers/" + file_name)
-			file_name = dir.get_next()
