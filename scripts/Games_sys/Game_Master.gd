@@ -11,9 +11,11 @@ func Start_Game(t):
 func Deal_Stack_Cards(id):
 	send(0)
 	deal_cards(id,game_rule["Deal_Stack_Cards"])
+	Game.Get_from_Stack()
 	Next_Turn()
 
 func card_function(card):#obslurzyc karty funkcyjne
+	Game.Throw_card(card)
 	Active_card = card
 
 func throw_card(card):

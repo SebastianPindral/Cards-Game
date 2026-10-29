@@ -12,7 +12,6 @@ func wait_with_pause(seconds: float) -> void:
 		await get_tree().process_frame
 	await get_tree().create_timer(seconds).timeout
 
-
 func reorder_Stack(tab):
 	var parent = tab[0].get_parent()
 	for i in range(tab.size()):

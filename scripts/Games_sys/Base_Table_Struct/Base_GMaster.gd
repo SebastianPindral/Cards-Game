@@ -10,6 +10,10 @@ var player_count = 4
 var Turn = 0 # false jesli gracz nie moze nic robic
 var Rotation_direct = true
 
+#====================================================================================
+var Throw_conditions = []# nieokreslona ilosc warunkow do spelnienia aby rzucic karta
+#====================================================================================
+
 var Stack = []
 var Discarded = [] # zuzyte karty
 var Active_card
