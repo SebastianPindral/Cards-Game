@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5817v8qf51na"]
+
+[ext_resource type="Texture2D" uid="uid://6v7d1p6sp7t5" path="res://assets/Cards/Default/Back.png" id="1_3wnli"]
+[ext_resource type="Script" path="res://scripts/Card_sys/Card.gd" id="1_tdciy"]
+[ext_resource type="Texture2D" uid="uid://ditre7kd6e075" path="res://assets/Cards/Default/Front.png" id="2_4y0t3"]
+[ext_resource type="Script" path="res://scripts/Card_sys/Card_create.gd" id="4_bt65v"]
+[ext_resource type="Script" path="res://scripts/Card_sys/Card_Hitbox.gd" id="5_ipvej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyqvc"]
+size = Vector2(130, 202)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_tdciy")
+
+[node name="Creator" type="Node2D" parent="."]
+script = ExtResource("4_bt65v")
+
+[node name="Front" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_4y0t3")
+
+[node name="Num1" type="Sprite2D" parent="Front"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-24, -42)
+
+[node name="Num2" type="Sprite2D" parent="Front"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(24, 42)
+flip_h = true
+flip_v = true
+
+[node name="Back" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("1_3wnli")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("5_ipvej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vyqvc")

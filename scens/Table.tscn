@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bng0ypwk6v0mq"]
+
+[ext_resource type="Script" path="res://scripts/Game_Sys/create_all_cards.gd" id="1_ay4xy"]
+
+[node name="Table" type="Node2D"]
+
+[node name="Create_All_Cards" type="Node2D" parent="."]
+script = ExtResource("1_ay4xy")
