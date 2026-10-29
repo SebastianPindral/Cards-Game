@@ -125,5 +125,4 @@ func Legality_Check(c)->bool:
 	card = c
 	return SHelp.if_in_loop(Throw_conditions)
 
-func end_check():pass
 func End_Game():pass
