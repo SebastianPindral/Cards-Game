@@ -1,4 +1,4 @@
-extends Node
+extends BaseGame
 class_name Makao
 var getter = func() -> bool: return (GM.card.Data["Number"] == 2 or GM.card.Data["Number"] == 3)
 var stopper = func() -> bool: return GM.card.Data["Number"] == 4

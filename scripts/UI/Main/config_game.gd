@@ -7,6 +7,7 @@ const CONFIG_ONE = preload("res://Prefabs/UI_and_Main/config_one.tscn")
 var type
 var i = 1
 var config_list = []
+var player_min_max = [0,0]
 func _ready() -> void:
 	back.pressed.connect(_on_back_pressed)
 	start.pressed.connect(_on_start_pressed)
@@ -16,6 +17,9 @@ func set_config_options(t):
 	type = t
 	var file = FileAccess.open("res://Data/"+type+"List.txt", FileAccess.READ)
 	if file:
+		var min_max = file.get_line().split("\t")
+		player_min_max[0] = int(min_max[0])
+		player_min_max[1] = int(min_max[1])
 		while not file.eof_reached():
 			var line = file.get_line()
 			var parts = line.split("\t")
@@ -31,6 +35,9 @@ func set_config_options(t):
 
 func _on_start_pressed():
 	GM.new_game(type)
+	GM.player_count = int($HBoxContainer/VBC0/VBoxContainer/Player_count/Label.text)
+	for bu in config_list:
+		GM.Game.characteristic(bu.label.text,bu.button_state)
 	SMen.change_scene("res://scens/Cards_Games.tscn")
 
 func _on_back_pressed():
