@@ -21,6 +21,12 @@ var nope = func() -> bool: return false
 var wait_count = 0
 var first_card = true
 func _init() -> void:
+	GM.Deck_size["count_colors"] = 4
+	GM.Deck_size["count_numer"] = 13
+	GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
+	GM.Deck_size["count_jockers"] = 0
+	GM.game_rule["Start_Cards"] = 5#dac mozliwosc dostosowania
+	GM.game_rule["Deal_Stack_Cards"] = 1
 	Throw_conditions.append(base_conditions)
 	Order["Colors"] = [0,0] # pierwsza jest tura urzycia a 2 rzadana wartosc
 	Order["Numbers"] = [0,0]
@@ -56,11 +62,17 @@ func Throw_card(c):
 			Throw_conditions.append(stopper)
 	elif c.Data["Number"] == 5 and characteristics["M4"]:
 		GM.change_rotation_direct()
-	elif c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2):#K
-		if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
-		GM.set_Deal_Stack_Number(characteristics["M1"],5)
-		if c.Data["Color"] == 1 and characteristics["M12"]:
-			GM.Turn_move(2,not GM.Rotation_direct)
+	elif c.Data["Number"] == 13:#K
+		if c.Data["Color"] == 1:
+			if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
+			GM.set_Deal_Stack_Number(characteristics["M1"],5)
+			if characteristics["M12"]:
+				GM.Turn_move(2,not GM.Rotation_direct)
+		elif c.Data["Color"] == 2 and characteristics["M20"]:
+			for id in range(1,GM.player_count+1):
+				if id == GM.Turn:continue
+				id -= 1
+				GM.deal_cards(id,1)
 		elif c.Data["Color"] == 3 and characteristics["M13"]:
 			GM.Turn_move(2,not GM.Rotation_direct)
 		if not Throw_conditions.has(getter):
@@ -83,7 +95,8 @@ func Throw_card(c):
 		elif not Throw_conditions.has(Choice_color):
 			Throw_conditions.append(Choice_color)
 			Throw_conditions.erase(base_conditions)
-	
+	elif c.Data["Number"] == 13  and c.Data["Color"] == 1:#A
+		pass
 	if not characteristics["M3"] and (c.Data["Number"] in [2,3,4] or 
 		(c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2))):
 		Throw_conditions.append(nope)

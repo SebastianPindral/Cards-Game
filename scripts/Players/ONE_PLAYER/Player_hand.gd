@@ -14,5 +14,5 @@ func set_visual(On_Hand,typ):
 	var start = -( float(On_Hand.size()-1) / 2)*weight
 	for x in On_Hand.size():
 		holder[x].position = Vector2(start+weight*x,0)
-		SMen.Move_Anim(On_Hand[x],holder[x].global_position,get_parent().rotation,0.1)
+		SMen.Move_Anim(On_Hand[x],holder[x].global_position,get_parent().rotation,0.2)
 		On_Hand[x].where_is(typ,holder[x].global_position)

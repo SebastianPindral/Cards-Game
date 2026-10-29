@@ -66,6 +66,19 @@ func Turn_move(value,RD_Local):
 				Turn -= 1
 			else: Turn = player_count
 
+func Get_Turn(value,RD_Local) -> int:
+	var local_turn = Turn
+	for x in value:
+		if not RD_Local:
+			if local_turn < player_count:
+				local_turn += 1
+			else: local_turn = 1
+		else:
+			if local_turn > 1:
+				local_turn -= 1
+			else: local_turn = player_count
+	return local_turn
+
 func Next_Turn():
 	if Players[Turn-1][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture
 		Players[Turn-1][1] -= 1
