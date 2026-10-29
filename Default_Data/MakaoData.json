@@ -95,19 +95,30 @@
 		true,
 		"pozwala na stakowanie puli z kart: 2,3,4,K (OK)"
 	],
-	"playercount": [
-		4,
-		2,
-		8
-	],
-	"decksize": [
-		1,
-		1,
-		3
-	],
-	"starthand": [
-		3,
-		3,
-		8
+	"OCL_name_list": [
+		[
+			"Player Count:",
+			5,
+			2,
+			8
+		],
+		[
+			"Deck Size:",
+			2,
+			1,
+			3
+		],
+		[
+			"Start Hand Size:",
+			5,
+			4,
+			8
+		],
+		[
+			"Makao miss punishment:",
+			3,
+			3,
+			6
+		]
 	]
 }

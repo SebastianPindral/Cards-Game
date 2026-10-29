@@ -77,11 +77,12 @@ func holded_cards(card):
 func play():
 	if typ == "host":
 		await SMen.wait_with_pause(1)
+		Check_Hand()
 		var x = 0
 		var xx = 0
 		if On_Hand.size()>0: 
 			for c in On_Hand:
-				if GM.Game.Legality_Check(c): 
+				if c.legality:
 					xx = c
 					On_Hold.append(c)
 					x = 0
@@ -102,6 +103,7 @@ func play():
 		Check_Hand()
 
 func Check_Hand():
+	GM.Game.hand_count(On_Hand.size()) #to jednak srednio bo co jesli nie rzuci kart, nadal dostalby report? 
 	for c in On_Hand:
 		c.legal(GM.Game.Legality_Check(c))
 

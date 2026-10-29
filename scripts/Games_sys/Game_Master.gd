@@ -5,7 +5,6 @@ var table #wskaznik na stol
 var Players = []
 var Deck_size = {"count_colors":4,"count_numer":13,"count_decks":1,"count_jockers":0}
 var Dis_poz = Vector2(900,450) #Srodek stolu
-var player_count = 4
 
 var game_rule = {"Start_Cards":5,"Deal_Stack_Cards":1}
 func set_Deal_Stack_Number(adding,vari):
@@ -32,7 +31,7 @@ func Reset_Stack(left_on_discard):
 		Discarded.remove_at(card_of_dis)
 	shuffle()
 
-func Player_count():	return player_count
+func Player_count():	return Game.player_count
 func deal_cards(pid,count,breaking0 = false):	Players[pid][0].take_cards(send(count,breaking0))
 func Actor_poz(index):	return Players[index-1][0].global_position
 func Actor_play(index):	Players[index-1][0].play()
@@ -48,7 +47,7 @@ var Game
 
 func Start_Game(t):
 	table = t
-	Game.set_game(player_count)
+	Game.set_game()
 
 func new_game(game_type):
 	match game_type:

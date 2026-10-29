@@ -19,8 +19,12 @@ var wait_count = 0
 var first_card = true #zabezpieczenie przy rozpoczeciu gry
 
 var first_save = [false,false,true] #pierwsza karta dobrana ze stosu mozna rzucic ale nie trzeba
-
+var Report_Makao = [false,false] # 1- czy ma jedna karte/ 2- czy to zglosil
 func _init() -> void:
+	Order_choice_list = {
+	"Colors":["clear","Pik","Kier","Trefl","Karo"],
+	"Numbers":["clear","5","6","7","8","9","10","Q"]
+	}
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 13
 	#GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
@@ -35,8 +39,16 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
 	c.where_is("Discard",dis_poz)
 
-func set_game(plc):
-	player_count = plc
+func hand_count(count):
+	if count in [1,2]:
+		Report_Makao[0] = true
+		Report_Makao[1] = false
+	else:
+		Report_Makao[0] = false
+		Report_Makao[1] = false
+
+func set_game():
+	Who_Starts_game()
 	change_rotation_direct()
 	GM.shuffle()
 	var one = GM.send(1)
@@ -44,6 +56,25 @@ func set_game(plc):
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
 	Next_Turn()
+
+func Who_Starts_game():
+	Turn = randi_range(0,player_count-1)
+
+func config_character(Data):
+	player_count = Data["OCL_name_list"][0][1]
+	GM.Deck_size["count_decks"] = Data["OCL_name_list"][1][1]
+	GM.game_rule["Start_Cards"] = Data["OCL_name_list"][2][1]
+	GM.game_rule["Makao_miss_punishment"] = Data["OCL_name_list"][3][1]
+	var value
+	for x in Data:
+		if x == "OCL_name_list":continue
+		if Data[x][1] is not bool:
+			if Data[x][1] == 1:	value = [true,false]
+			elif Data[x][1] == 0:	value = [false,false]
+			elif Data[x][1] == 2:	value = [false,true]
+		else:
+			value = Data[x][1]
+		characteristic(Data[x][0],value)
 
 func set_choise_obj(Order_obj,Order_type):
 	Obj_Order[Order_type] = Order_obj
@@ -65,6 +96,7 @@ func Before_Throw(c):
 		await sig_to_con
 
 func After_Turn():
+	
 	Next_Turn()
 
 func set_order_state(ord,order_type):
@@ -189,7 +221,7 @@ func Get_from_Stack(id):
 		
 		clear_conditions()
 		Next_Turn()
-	
+
 
 func after_take_every_card(c:Array) -> bool:
 	if first_card: Active_card = c[0]

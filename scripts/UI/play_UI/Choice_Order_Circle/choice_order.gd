@@ -1,13 +1,11 @@
 extends Control
 const ORDER_BUTTONS = preload("res://Prefabs/UI/order_buttons.tscn")
 var Orders = {	"Colors":null,"Numbers":null}
-var Choise = {
-	"Colors":["clear","Pik","Kier","Trefl","Karo"],
-	"Numbers":["clear","5","6","7","8","9","10","Q"]
-	}
+var Choise
 var radius = 300
 
 func _ready() -> void:
+	Choise = GM.Game.Order_choice_list
 	if GM.Game is Makao:
 		Choice_Circle("Colors")
 		Choice_Circle("Numbers")

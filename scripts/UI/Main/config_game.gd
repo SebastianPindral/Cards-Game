@@ -4,9 +4,7 @@ extends Control
 
 @onready var back: Button = $HBoxContainer/VBC0/Back
 @onready var start: Button = $HBoxContainer/VBC0/Start
-@onready var playerc
-@onready var Deckc
-@onready var handc
+var Set_value = []
 const SET_SOME_COUNT = preload("res://Prefabs/Main/set_some_count.tscn")
 
 const CONFIG_ONE = preload("res://Prefabs/Main/config_one.tscn")
@@ -17,27 +15,20 @@ var Data
 func _ready() -> void:
 	back.pressed.connect(_on_back_pressed)
 	start.pressed.connect(_on_start_pressed)
-	playerc = SET_SOME_COUNT.instantiate()
-	Deckc = SET_SOME_COUNT.instantiate()
-	handc = SET_SOME_COUNT.instantiate()
-	vbc_0.add_child(playerc)
-	vbc_0.add_child(Deckc)
-	vbc_0.add_child(handc)
-	vbc_0.move_child(playerc,1)
-	vbc_0.move_child(Deckc,2)
-	vbc_0.move_child(handc,3)
-	
+
 func set_config_options(t):
 	type = t
 	Data = SMen.SJ.load_json(type)
-	playerc.set_it("playercount","Player Count:")
-	Deckc.set_it("decksize","Deck Size:")
-	handc.set_it("starthand","Start Hand Size:")
+	
+	for j in range(0,Data["OCL_name_list"].size()):
+		var x = SET_SOME_COUNT.instantiate()
+		Set_value.append(x)
+		vbc_0.add_child(x)
+		vbc_0.move_child(x,j+1)
+		x.set_it(j,Data["OCL_name_list"][j][0])
 	
 	var sorted_keys = Data.keys()
-	sorted_keys.erase("playercount")
-	sorted_keys.erase("decksize")
-	sorted_keys.erase("starthand")
+	sorted_keys.erase("OCL_name_list")
 	sorted_keys.sort_custom(func(a, b):return Data[a][0] < Data[b][0])
 	
 	for x in sorted_keys:
@@ -51,19 +42,7 @@ func set_config_options(t):
 
 func _on_start_pressed():
 	GM.new_game(type)
-	GM.player_count = Data["playercount"][0]
-	GM.Deck_size["count_decks"] = Data["decksize"][0]
-	GM.game_rule["Start_Cards"] = Data["starthand"][0]
-	var value
-	for x in Data:
-		if x == "playercount" or x == "decksize":continue
-		if Data[x][1] is not bool:
-			if Data[x][1] == 1:	value = [true,false]
-			elif Data[x][1] == 0:	value = [false,false]
-			elif Data[x][1] == 2:	value = [false,true]
-		else:
-			value = Data[x][1]
-		GM.Game.characteristic(Data[x][0],value)
+	GM.Game.config_character(Data)
 	SMen.SJ.save_json(type,Data)
 	SMen.change_scene("res://scens/Cards_Games.tscn")
 

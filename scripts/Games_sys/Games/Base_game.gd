@@ -3,6 +3,7 @@ class_name BaseGame
 signal sig_to_con()
 #konfiguracja gry
 var characteristics = {}
+var Order_choice_list #kolo wyboru
 
 # nieokreslona ilosc warunkow do spelnienia aby rzucic karta
 var Throw_conditions = []
@@ -17,21 +18,23 @@ var Rotation_direct = true
 var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
 
-func characteristic(text,state):	characteristics[text] = state
+func characteristic(text,state):	characteristics[text] = state #zapisywanie ustawien
+func config_character(_Data):pass #wywolane po zaakceptowaniu ustawien
 
 func ch(text): return characteristics[text]
 
 func Legality_Check(_card)->bool:return false
 func set_choise_obj(_Order_obj,_Order_type):pass
 func get_choise(_Order_value,_Order_type):pass
-func set_game(_plc): pass
+func set_game(): pass #wywolane po uruchomieniu gry
 func Before_Throw(_c): pass
 func After_Turn():pass
 func Throw_card(_c): pass
 func Get_from_Stack(_id):pass
 func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
-
+func Who_Starts_game():pass
+func hand_count(_count):pass
 
 func stop():	sig_to_con.emit()
 
