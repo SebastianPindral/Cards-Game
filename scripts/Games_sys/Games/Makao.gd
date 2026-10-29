@@ -78,6 +78,11 @@ func back_move(order_name:String):
 	if ch(order_name):
 		GM.Turn_move(2,not GM.Rotation_direct)
 
+func true_except_orders(order_num,c,num:int):
+	return (ch(order_num)[1] and c.Data["Number"] == num 
+	and not Throw_conditions.has(Choice_color) and not Throw_conditions.has(num_order) 
+	and (base_conditions.call() or (ch("M8") and c.Data["Number"] == 12)))
+
 func stack_combo(vari):
 	if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
 	GM.set_Deal_Stack_Number(ch("M1"),vari)
@@ -108,11 +113,18 @@ func Throw_card(c):
 					3: back_move("M13")
 	
 	match c.Data["Number"]:
-		5:	if ch("M4"):		GM.change_rotation_direct()
-		10:	if ch("M15"):		shift_turn()
-		12:	if ch("M14")[0]:	shift_turn()
-		11:	set_order_state(num_order,"Numbers")
-		14:	set_order_state(Choice_color,"Colors")
+		5: if ch("M4"):GM.change_rotation_direct()
+		10:
+			if ch("M15").has(true):shift_turn()
+			if ch("M15")[1]:
+				wait_count = 0
+				GM.set_Deal_Stack_Number(false,1)
+				clear_conditions()
+		12:
+			if ch("M14")[0]:shift_turn()
+		11:set_order_state(num_order,"Numbers")
+		14:set_order_state(Choice_color,"Colors")
+	
 	
 	if not ch("M3") and (c.Data["Number"] in [2,3,4] or 
 		(c.Data["Number"] == 13 and c.Data["Color"] == 1)):
@@ -159,17 +171,27 @@ func Get_from_Stack(id):
 	#Dobieranie do skutku
 	if (ch("M2") and Order["Colors"][1]==0 and Order["Numbers"][1]==0 and 
 		not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):
-		GM.Turn_move(1,not GM.Rotation_direct)
+		shift_turn()
 	
+	clear_conditions()
+
+func clear_conditions():
 	Throw_conditions.erase(getter)
 	Throw_conditions.erase(stopper)
 	Throw_conditions.erase(nope)
 
 func Legality_Check(c)->bool:
 	GM.card = c
+	
+	#przy spelnieniu warunku mazna rzucic nawet mimo puli z kart funkcyjnych
+	if true_except_orders("M15",c,10):	return true
+	if true_except_orders("M14",c,12):	return true
+	
+	#warunek zakazujacy kart funkcyjnych na Asa
 	if (ch("M16")[1] and Throw_conditions.has(Choice_color)
 	 and (c.Data["Number"] in [2,3,4] or (c.Data["Number"] == 13 and c.Data["Color"] in [1,2]))): return false
 	
+	#warunki :dama na wszystko/wszystko na dame
 	if GM.Active_card.Data["Number"] == 12 and ch("M9"):	return true
 	if (GM.card.Data["Number"] == 12 and GM.game_rule["Deal_Stack_Cards"]==1 
 		and wait_count >= 0 and Order["Numbers"][1]==0 and ch("M8")):	return true

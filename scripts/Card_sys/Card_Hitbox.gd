@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	get_viewport().set_input_as_handled()
-	if event is InputEventMouseButton and $"..".state == "player":
+	if event is InputEventMouseButton and card.state == "player":
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			Click_card()
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:

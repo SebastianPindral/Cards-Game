@@ -19,13 +19,13 @@
 		"M15",
 		0,
 		"10 nie zurzywa tury, trzeba rzucic jeszcze raz (OK)",
-		"10 nie zurzywa tury i pozwalają na neutralizację negatywnych efektow 2,3,4,K"
+		"10 nie zurzywa tury i pozwalają na neutralizację negatywnych efektow 2,3,4,K (OK)"
 	],
 	"Shift Q": [
 		"M14",
 		0,
 		"Q nie zurzywa tury, trzeba rzucic jeszcze raz (OK)",
-		"Q pozwalają na pominięcie kolejki razem z negatywnymi efektami 2,3,4,K"
+		"Q pozwalają na pominięcie kolejki razem z negatywnymi efektami 2,3,4,K (OK)"
 	],
 	"K TREFL": [
 		"M13",
