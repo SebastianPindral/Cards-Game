@@ -34,7 +34,9 @@ func Get_from_Stack(_id):pass
 func set_poz_on_discard(_c,_dis_poz):pass
 func after_take_every_card(_c:Array) -> bool:return false
 func Who_Starts_game():pass
-func hand_count(_count):pass
+func Can_from_Stack() -> bool:return true
+func Check_Hand(_numer,_Hand):pass
+func Knock_Knock(_num):pass
 
 func stop():	sig_to_con.emit()
 

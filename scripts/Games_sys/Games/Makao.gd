@@ -19,7 +19,9 @@ var wait_count = 0
 var first_card = true #zabezpieczenie przy rozpoczeciu gry
 
 var first_save = [false,false,true] #pierwsza karta dobrana ze stosu mozna rzucic ale nie trzeba
-var Report_Makao = [false,false] # 1- czy ma jedna karte/ 2- czy to zglosil
+var Report_Makao = [] 
+var have_normal_card = false
+
 func _init() -> void:
 	Order_choice_list = {
 	"Colors":["clear","Pik","Kier","Trefl","Karo"],
@@ -39,13 +41,25 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
 	c.where_is("Discard",dis_poz)
 
-func hand_count(count):
-	if count in [1,2]:
-		Report_Makao[0] = true
-		Report_Makao[1] = false
-	else:
-		Report_Makao[0] = false
-		Report_Makao[1] = false
+func Check_Hand(numer,Hand):
+	if ch("M10"):
+		if Hand.size() in [1,2]:
+			Report_Makao[numer] = false
+		else:
+			Report_Makao[numer] = true
+	
+	if ch("M19"):
+		for c in Hand:
+			if (c.Data["Number"] in [5,6,7,8,9,10,12]) and c.legality:
+				have_normal_card = true
+				return
+		have_normal_card = false
+
+func Can_from_Stack() -> bool:
+	return (Turn == 1 and ( not ch("M19") or not have_normal_card))
+
+func Knock_Knock(num=0):# Wcisniecie przycisku "Knock"
+	if ch("M10"): Report_Makao[num] = true
 
 func set_game():
 	Who_Starts_game()
@@ -62,6 +76,9 @@ func Who_Starts_game():
 
 func config_character(Data):
 	player_count = Data["OCL_name_list"][0][1]
+	for i in player_count:
+		Report_Makao.append(true)
+		
 	GM.Deck_size["count_decks"] = Data["OCL_name_list"][1][1]
 	GM.game_rule["Start_Cards"] = Data["OCL_name_list"][2][1]
 	GM.game_rule["Makao_miss_punishment"] = Data["OCL_name_list"][3][1]

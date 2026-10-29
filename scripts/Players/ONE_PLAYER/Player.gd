@@ -92,6 +92,7 @@ func play():
 		else: x = 1
 		match x:#na razie losowo / poprawic
 			0:
+				if (randi()% 100 + 1) <= 70:GM.Game.Knock_Knock(numer)
 				xx.Use() #rzucenie karty
 				await get_tree().process_frame
 				if xx.Data["Number"]==11:
@@ -103,9 +104,9 @@ func play():
 		Check_Hand()
 
 func Check_Hand():
-	GM.Game.hand_count(On_Hand.size()) #to jednak srednio bo co jesli nie rzuci kart, nadal dostalby report? 
 	for c in On_Hand:
 		c.legal(GM.Game.Legality_Check(c))
+	GM.Game.Check_Hand(numer,On_Hand)
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

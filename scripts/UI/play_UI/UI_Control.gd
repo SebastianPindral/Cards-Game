@@ -7,8 +7,7 @@ func _ready() -> void:
 	pass_button.pressed.connect(pass_b)
 
 func knock_b():
-	pass
-
+	GM.Game.Knock_Knock()
 
 func pass_b():
 	pass

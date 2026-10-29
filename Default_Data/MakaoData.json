@@ -1,4 +1,9 @@
 {
+	"Must Throw Normal": [
+		"M19",
+		false,
+		"obowiazek rzucienia karty jesli ma niefunkcyjna. nie mozna wtedy dobierac ze stosu (OK)"
+	],
 	"K kier everyone +1": [
 		"M18",
 		false,
