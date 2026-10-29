@@ -2,13 +2,17 @@ extends BaseGame
 class_name Makao
 var base_conditions = [func() -> bool: return (GM.Active_card.Data["Number"] == GM.card.Data["Number"] 
 						or GM.Active_card.Data["Color"] == GM.card.Data["Color"])]
-var getter = func() -> bool: return (GM.card.Data["Number"] == 2 or GM.card.Data["Number"] == 3 or (GM.card.Data["Number"] == 13 and (GM.card.Data["Color"] == 1 or GM.card.Data["Color"] == 2)))
+var getter = func() -> bool: return (GM.card.Data["Number"] in [2,3] or (GM.card.Data["Number"] == 13 
+								and (GM.card.Data["Color"] in [1,2])))
 var stopper = func() -> bool: return GM.card.Data["Number"] == 4
 
-var jopek = func() -> bool: return GM.card.Data["Number"] == 11 #J
+var num_order = func() -> bool: return GM.card.Data["Number"] in [11,Order[0]] #J
 var all_can_in = func() -> bool: return GM.card.Data["Number"] == 12 #Q
-var Choose_color = func() -> bool: return GM.card.Data["Number"] == 14 #A
+var Choose_color = func() -> bool: return GM.card.Data["Number"] in [14,Order[1]] #A
 
+var last_card_check = func() -> bool: return (GM.last_take_card.Data["Number"] == GM.card.Data["Number"] 
+						or GM.last_take_card.Data["Color"] == GM.card.Data["Color"])
+						
 var wait_count = 0
 var first_card = true
 func _init() -> void:
@@ -32,9 +36,11 @@ func Throw_card(c):
 		GM.set_Deal_Stack_Number(characteristics["M1"],5)
 		if c.Data["Color"] == 1 and characteristics["M12"]:
 			GM.Turn_move(2,not GM.Rotation_direct)
-			print("hgfhfghfg")
+		elif c.Data["Color"] == 3 and characteristics["M13"]:
+			GM.Turn_move(2,not GM.Rotation_direct)
 		if not Throw_conditions.has(getter):
 			Throw_conditions.append(getter)
+	
 	end_check()
 
 var ifend=0
@@ -53,19 +59,27 @@ func end_check():
 			get_tree().quit()
 
 func Get_from_Stack(id):
-	if wait_count==0:
+	if wait_count >= 0:
 		GM.deal_cards(id,GM.game_rule["Deal_Stack_Cards"])
+		GM.set_Deal_Stack_Number(false,1)
+	
+	# 4 - karta stop
 	GM.Players[GM.Turn-1][1] = wait_count
 	wait_count = 0
-	GM.set_Deal_Stack_Number(false,1)
-	Throw_conditions.erase(getter)
-	Throw_conditions.erase(stopper)
+	
+	#Dobieranie do skutku
+	if (characteristics["M2"] and Order[0]==0 and Order[1]==0 and 
+		not Throw_conditions.has(getter) and not Throw_conditions.has(stopper)):
+		GM.Turn_move(1,not GM.Rotation_direct)
+	
+	if Throw_conditions.has(getter):Throw_conditions.erase(getter)
+	if Throw_conditions.has(stopper):Throw_conditions.erase(stopper)
 
 func Legality_Check(c)->bool:
 	GM.card = c
 	if GM.Active_card.Data["Number"] == 12 and characteristics["M9"]:	return true
 	if (GM.card.Data["Number"] == 12 and GM.game_rule["Deal_Stack_Cards"]==1 
-		and wait_count >= 0 and Order==0 and characteristics["M8"]):	return true
+		and wait_count >= 0 and Order[0]==0 and characteristics["M8"]):	return true
 	return SHelp.if_in_loop(Throw_conditions)
 
 func Can_Hold(On_Hand,On_Hold):#oznacza nielegalnym karty nie pasujące do tych podniesionych

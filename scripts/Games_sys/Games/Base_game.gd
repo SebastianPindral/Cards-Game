@@ -5,7 +5,7 @@ var characteristics = {}
 # nieokreslona ilosc warunkow do spelnienia aby rzucic karta
 var Throw_conditions = []
 #rzadanie liczby lub coloru
-var Order = 0
+var Order = [0,0]
 
 func characteristic(text,state):
 	characteristics[text] = state

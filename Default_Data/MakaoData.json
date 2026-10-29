@@ -12,12 +12,12 @@
 	"K TREFL": [
 		"M13",
 		false,
-		"K TREFL wykonuje ruch wstecz"
+		"K TREFL wykonuje ruch wstecz (OK)"
 	],
 	"K PIK": [
 		"M12",
 		false,
-		"K Pik wykonuje ruch wstecz"
+		"K Pik wykonuje ruch wstecz (OK)"
 	],
 	"the same numbers at once": [
 		"M11",
@@ -32,12 +32,12 @@
 	"everything on Q": [
 		"M9",
 		false,
-		"wszystko mozna rzucic na dame"
+		"wszystko mozna rzucic na dame (OK)"
 	],
 	"Q on everything": [
 		"M8",
 		false,
-		"dame mozna rzucic na wszystko"
+		"dame mozna rzucic na wszystko (OK)"
 	],
 	"first card save": [
 		"M7",
@@ -47,12 +47,13 @@
 	"last win": [
 		"M6",
 		true,
-		"true- gra sie konczy gdy ostatnia osoba ma jeszcze karty/false- gra sie konczy gdy pierwsza osoba pozbedzie się kart"
+		"true- gra sie konczy gdy ostatnia osoba ma jeszcze karty/false- 
+		gra sie konczy gdy pierwsza osoba pozbedzie się kart (OK)"
 	],
 	"5 ReDirect": [
 		"M4",
 		true,
-		"odwraca kolejke"
+		"odwraca kolejke (OK)"
 	],
 	"As Bit": [
 		"M5",
@@ -67,12 +68,13 @@
 	"GetLegal": [
 		"M2",
 		true,
-		"zmusza do dobierania kart az trafi sie taka ktora mozna legalnie rzucic (nie dotyczy dobierania po 2 , 3 , 4 i K)"
+		"zmusza do dobierania kart az trafi sie taka ktora mozna legalnie rzucic 
+		(nie dotyczy dobierania po funkcyjnych poza 5 (OK)"
 	],
 	"Stack": [
 		"M1",
 		true,
-		"pozwala na stakowanie puli z kart: 2,3,4,K"
+		"pozwala na stakowanie puli z kart: 2,3,4,K (OK)"
 	],
 	"playercount": [
 		4,

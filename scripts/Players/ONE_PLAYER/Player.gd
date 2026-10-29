@@ -23,6 +23,7 @@ func set_poz(dis: float, index: int):
 	rotation = (position - GM.Dis_poz).angle() - PI/2
 
 func take_cards(cards:Array):
+	GM.last_take_card = cards[-1]
 	for c in cards:
 		c.Used.connect(Use_Card,CONNECT_DEFERRED)
 		c.Holdered.connect(holded_cards)

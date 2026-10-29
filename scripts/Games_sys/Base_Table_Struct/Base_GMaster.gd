@@ -20,6 +20,7 @@ var Stack = []
 var Discarded = [] # zuzyte karty
 var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
+var last_take_card#ostatnia karta dobrane ze stosu
 
 func set_game():
 	shuffle()
