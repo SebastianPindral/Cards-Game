@@ -20,16 +20,29 @@ var last_card_check = func() -> bool: return (GM.last_take_card.Data["Number"] =
 var nope = func() -> bool: return false
 var wait_count = 0
 var first_card = true
+
 func _init() -> void:
 	GM.Deck_size["count_colors"] = 4
 	GM.Deck_size["count_numer"] = 13
-	GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
+	#GM.Deck_size["count_decks"] = 1#dac mozliwosc dostosowania
 	GM.Deck_size["count_jockers"] = 0
 	GM.game_rule["Start_Cards"] = 4#dac mozliwosc dostosowania
 	GM.game_rule["Deal_Stack_Cards"] = 1
 	Throw_conditions.append(base_conditions)
 	Order["Colors"] = [0,0] # pierwsza jest tura urzycia a 2 rzadana wartosc
 	Order["Numbers"] = [0,0]
+
+func set_poz_on_discard(c,dis_poz):
+	SMen.Move_Anim(c,dis_poz,randf_range(-PI, PI),.2)
+	c.where_is("Discard",dis_poz)
+
+func set_game():
+	GM.shuffle()
+	var one = GM.send(1)
+	GM.Active_card = one[0]
+	GM.table.Cards_is_Used(one)
+	for i in range(0,GM.player_count):
+		GM.deal_cards(i,GM.game_rule["Start_Cards"])
 
 func set_choise_obj(Order_obj,Order_type):
 	Obj_Order[Order_type] = Order_obj
@@ -51,36 +64,38 @@ func Before_Throw(c):
 		await sig_to_con
 
 func Throw_card(c):
-	if c.Data["Number"] in [2,3]:
-		if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
-		GM.set_Deal_Stack_Number(characteristics["M1"],c.Data["Number"])
-		if not Throw_conditions.has(getter):
-			Throw_conditions.append(getter)
-	elif c.Data["Number"] == 4:
-		if characteristics["M1"] or wait_count == 0:
-			wait_count -= 1
-			GM.table.get_node("Order_info").set_label2("",wait_count)
-		if not Throw_conditions.has(stopper):
-			Throw_conditions.append(stopper)
-	elif c.Data["Number"] == 5 and characteristics["M4"]:
-		GM.change_rotation_direct()
-	elif c.Data["Number"] == 13:#K
-		if c.Data["Color"] == 1:
+	if characteristics["M16"] != 1 or not Throw_conditions.has(Choice_color): #brak efektu kart rzuconych na Asa
+		if c.Data["Number"] in [2,3]:
 			if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
-			GM.set_Deal_Stack_Number(characteristics["M1"],5)
-			if characteristics["M12"]:
+			GM.set_Deal_Stack_Number(characteristics["M1"],c.Data["Number"])
+			if not Throw_conditions.has(getter):
+				Throw_conditions.append(getter)
+		elif c.Data["Number"] == 4:
+			if characteristics["M1"] or wait_count == 0:
+				wait_count -= 1
+				GM.table.get_node("Order_info").set_label2("",wait_count)
+			if not Throw_conditions.has(stopper):
+				Throw_conditions.append(stopper)
+		elif c.Data["Number"] == 13:#K
+			if c.Data["Color"] == 1:
+				if GM.game_rule["Deal_Stack_Cards"]==1: GM.game_rule["Deal_Stack_Cards"]=0
+				GM.set_Deal_Stack_Number(characteristics["M1"],5)
+				if characteristics["M12"]:
+					GM.Turn_move(2,not GM.Rotation_direct)
+				if not Throw_conditions.has(getter):	Throw_conditions.append(getter)
+			elif c.Data["Color"] == 2 and characteristics["M18"]:
+				for id in range(1,GM.player_count+1):
+					if id == GM.Turn:continue
+					id -= 1
+					GM.deal_cards(id,1)
+			elif c.Data["Color"] == 3 and characteristics["M13"]:
 				GM.Turn_move(2,not GM.Rotation_direct)
-			if not Throw_conditions.has(getter):	Throw_conditions.append(getter)
-		elif c.Data["Color"] == 2 and characteristics["M19"]:
-			for id in range(1,GM.player_count+1):
-				if id == GM.Turn:continue
-				id -= 1
-				GM.deal_cards(id,1)
-		elif c.Data["Color"] == 3 and characteristics["M13"]:
-			GM.Turn_move(2,not GM.Rotation_direct)
+	
+	if c.Data["Number"] == 5 and characteristics["M4"]:
+			GM.change_rotation_direct()
 	elif c.Data["Number"] == 10 and characteristics["M15"]:#Shift 10
 		GM.Turn_move(1,not GM.Rotation_direct)
-	elif c.Data["Number"] == 12 and characteristics["M14"]:#Shift Q
+	elif c.Data["Number"] == 12 and characteristics["M14"] == 1:#Shift Q
 		GM.Turn_move(1,not GM.Rotation_direct)
 	elif c.Data["Number"] == 11:#J
 		if Order["Numbers"][1] == 0:
@@ -96,10 +111,9 @@ func Throw_card(c):
 		elif not Throw_conditions.has(Choice_color):
 			Throw_conditions.append(Choice_color)
 			Throw_conditions.erase(base_conditions)
-	elif c.Data["Number"] == 13  and c.Data["Color"] == 1:#A
-		pass
+	
 	if not characteristics["M3"] and (c.Data["Number"] in [2,3,4] or 
-		(c.Data["Number"] == 13 and (c.Data["Color"] == 1 or c.Data["Color"] == 2))):
+		(c.Data["Number"] == 13 and c.Data["Color"] == 1)):
 		Throw_conditions.append(nope)
 	end_check(c)
 
@@ -108,10 +122,12 @@ func end_check(c):
 	if ( (c.Data["Number"] != 14 and GM.Turn == Order["Colors"][0]) or 
 		 (characteristics["M5"] and c.Data["Number"] != 14) ) and Throw_conditions.has(Choice_color):
 		Order["Colors"][1] = 0
+		GM.table.get_node("Order_info").set_label("",0)
 		Throw_conditions.erase(Choice_color)
 		if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
 	if c.Data["Number"] != 11 and GM.Turn == Order["Numbers"][0] and Throw_conditions.has(num_order):
 		Order["Numbers"][1] = 0
+		GM.table.get_node("Order_info").set_label("",0)
 		Throw_conditions.erase(num_order)
 		if not Throw_conditions.has(base_conditions):Throw_conditions.append(base_conditions)
 		
@@ -149,6 +165,9 @@ func Get_from_Stack(id):
 
 func Legality_Check(c)->bool:
 	GM.card = c
+	if (characteristics["M16"] == 2 and Throw_conditions.has(Choice_color)
+	 and (c.Data["Number"] in [2,3,4] or (c.Data["Number"] == 13 and c.Data["Color"] in [1,2]))): return false
+	
 	if GM.Active_card.Data["Number"] == 12 and characteristics["M9"]:	return true
 	if (GM.card.Data["Number"] == 12 and GM.game_rule["Deal_Stack_Cards"]==1 
 		and wait_count >= 0 and Order["Numbers"][1]==0 and characteristics["M8"]):	return true

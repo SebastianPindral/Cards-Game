@@ -11,7 +11,7 @@ func default_load(path):
 	var json = JSON.new()
 	var err = json.parse(content)
 	if err != OK:
-		push_error("Błąd parsowania JSON: %s" % err)
+		print("Błąd parsowania JSON: %s" % err)
 		return null
 
 	var data = json.get_data()
@@ -32,7 +32,7 @@ func load_json(path):
 	var json = JSON.new()
 	var err = json.parse(content)
 	if err != OK:
-		push_error("Błąd parsowania JSON: %s" % err)
+		print("Błąd parsowania JSON: %s" % err)
 		return null
 
 	var data = json.get_data()

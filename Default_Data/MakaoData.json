@@ -1,14 +1,8 @@
 {
 	"K kier everyone +1": [
-		"M19",
+		"M18",
 		false,
 		"K kier zmusza pozostałych graczy aby dobrali karte (OK)"
-	],
-	"Q is Shild": [
-		"M18",
-		0,
-		"Q pozwalają na neutralizację negatywnych efektow 2,3,4,K",
-		"Q pozwalają na pominięcie kolejki razem z negatywnymi efektami 2,3,4,K"
 	],
 	"cut in line": [
 		"M17",
@@ -18,18 +12,20 @@
 	"As Debility/Block": [
 		"M16",
 		0,
-		"As mozna rzucic na niego karty funkcyjne ale jako zwykłe karty",
-		"As nie mozna rzucic na niego kart funkcyjnych"
+		"As mozna rzucic na niego karty funkcyjne ale jako zwykłe karty (OK)",
+		"As nie mozna rzucic na niego kart funkcyjnych (OK)"
 	],
 	"Shift 10": [
 		"M15",
-		false,
-		"10 nie zurzywa tury, trzeba rzucic jeszcze raz (OK)"
+		0,
+		"10 nie zurzywa tury, trzeba rzucic jeszcze raz (OK)",
+		"10 nie zurzywa tury i pozwalają na neutralizację negatywnych efektow 2,3,4,K"
 	],
 	"Shift Q": [
 		"M14",
-		false,
-		"Q nie zurzywa tury, trzeba rzucic jeszcze raz (OK)"
+		0,
+		"Q nie zurzywa tury, trzeba rzucic jeszcze raz (OK)",
+		"Q pozwalają na pominięcie kolejki razem z negatywnymi efektami 2,3,4,K"
 	],
 	"K TREFL": [
 		"M13",
@@ -102,5 +98,10 @@
 		4,
 		2,
 		8
+	],
+	"decksize": [
+		1,
+		1,
+		3
 	]
 }

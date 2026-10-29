@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyqkyq6p5cfsk"]
+
+[ext_resource type="Script" path="res://scripts/UI/Main/Player_count_config.gd" id="1_icn0k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb35h"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghilk"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer"]
+script = ExtResource("1_icn0k")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="Player_count" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="minus" type="Button" parent="Player_count"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_xb35h")
+text = " - "
+
+[node name="Label" type="Label" parent="Player_count"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="plus" type="Button" parent="Player_count"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_ghilk")
+text = " + "

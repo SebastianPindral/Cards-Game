@@ -5,7 +5,7 @@ var Game
 func Start_Game(t):
 	table = t
 	change_rotation_direct()
-	set_game()
+	Game.set_game()
 	Next_Turn()
 
 func new_game(game_type):
@@ -25,7 +25,7 @@ func card_function(c):#obslurzyc karty funkcyjne
 	Active_card = c
 
 func throw_card(c:Array):
-	await Game.Before_Throw(c[-1])
+	if c.size()>0:await Game.Before_Throw(c[-1])
 	table.Cards_is_Used(c)
 	SMen.reorder_Stack(Discarded)
 	Next_Turn()

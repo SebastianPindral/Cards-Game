@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8mphbtug38l7"]
+[gd_scene load_steps=5 format=3 uid="uid://c8mphbtug38l7"]
 
 [ext_resource type="Script" path="res://scripts/UI/Main/Main_Panel.gd" id="1_3si76"]
 [ext_resource type="Script" path="res://scripts/UI/Main/choose_game.gd" id="2_xh5tv"]
 [ext_resource type="Script" path="res://scripts/UI/Main/config_game.gd" id="3_kbp4h"]
 [ext_resource type="PackedScene" uid="uid://bo7eg2mm0qlak" path="res://Prefabs/Main/Base_button.tscn" id="4_48ibi"]
-[ext_resource type="Script" path="res://scripts/UI/Main/Player_count_config.gd" id="5_yrr5q"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb35h"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghilk"]
-bg_color = Color(0, 1, 0, 1)
 
 [node name="Main_Menu" type="CanvasLayer"]
 
@@ -107,42 +100,10 @@ theme_override_constants/separation = 25
 [node name="VBC0" type="VBoxContainer" parent="Config_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_constants/separation = 300
+theme_override_constants/separation = 150
 
 [node name="Back" parent="Config_game/HBoxContainer/VBC0" instance=ExtResource("4_48ibi")]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Config_game/HBoxContainer/VBC0"]
-layout_mode = 2
-script = ExtResource("5_yrr5q")
-
-[node name="Label" type="Label" parent="Config_game/HBoxContainer/VBC0/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Player Count:"
-
-[node name="Player_count" type="HBoxContainer" parent="Config_game/HBoxContainer/VBC0/VBoxContainer"]
-layout_mode = 2
-
-[node name="minus" type="Button" parent="Config_game/HBoxContainer/VBC0/VBoxContainer/Player_count"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_xb35h")
-text = " - "
-
-[node name="Label" type="Label" parent="Config_game/HBoxContainer/VBC0/VBoxContainer/Player_count"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="plus" type="Button" parent="Config_game/HBoxContainer/VBC0/VBoxContainer/Player_count"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_ghilk")
-text = " + "
 
 [node name="Start" type="Button" parent="Config_game/HBoxContainer/VBC0"]
 layout_mode = 2

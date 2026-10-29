@@ -22,25 +22,20 @@ var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
 var last_take_card#ostatnia karta dobrane ze stosu
 
-func set_game():
-	shuffle()
-	var one = send(1)
-	Active_card = one[0]
-	table.Cards_is_Used(one)
-	for i in range(0,player_count):
-		deal_cards(i,game_rule["Start_Cards"])
-
 func send(i):
 	var t = []
 	for x in range(min(i, Stack.size()) - 1, -1, -1):
 		t.append(Stack[x])
 		Stack.remove_at(x)
 	if game_rule["Deal_Stack_Cards"] >= Stack.size():
-		for card_of_dis in range(Discarded.size()-2,-1,-1):
-			Stack.append(Discarded[card_of_dis])
-			Discarded.remove_at(card_of_dis)
-		shuffle()
+		Reset_Stack(1)
 	return t
+
+func Reset_Stack(left_on_discard):
+	for card_of_dis in range(Discarded.size()-left_on_discard-1,-1,-1):
+		Stack.append(Discarded[card_of_dis])
+		Discarded.remove_at(card_of_dis)
+	shuffle()
 
 func Player_count():	return player_count
 func deal_cards(pid,count):	Players[pid][0].take_cards(send(count))
