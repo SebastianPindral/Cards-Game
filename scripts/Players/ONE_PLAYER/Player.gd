@@ -102,9 +102,9 @@ func play():
 		Check_Hand()
 
 func Check_Hand():
+	await GM.Game.Check_Hand(0,numer,On_Hand)
 	for c in On_Hand:
 		c.legal(GM.Game.Legality_Check(c))
-	GM.Game.Check_Hand(0,numer,On_Hand)
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

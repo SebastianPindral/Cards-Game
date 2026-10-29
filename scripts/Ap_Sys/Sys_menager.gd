@@ -29,7 +29,10 @@ func Resize(sprite,target_size):
 	var tex_size = sprite.texture.get_size()
 	sprite.scale = target_size / tex_size
 
+var tween = {}
 func Move_Anim(obj,final_poz,final_rad,speed):
-	var tween = create_tween()
-	tween.parallel().tween_property(obj, "position", final_poz, speed)
-	tween.parallel().tween_property(obj, "rotation", final_rad, speed)
+	if tween.has(obj) and tween[obj].is_running():
+		tween[obj].kill()
+	tween[obj] = create_tween()
+	tween[obj].parallel().tween_property(obj, "position", final_poz, speed)
+	tween[obj].parallel().tween_property(obj, "rotation", final_rad, speed)

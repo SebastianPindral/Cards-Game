@@ -31,33 +31,38 @@ func set_poz_on_discard(c,dis_poz):
 	SMen.Move_Anim(c,Vector2(distance, 0).rotated(Actor_poz) + dis_poz,0, 0.2)
 	c.where_is("Discard",c.global_position)
 
-func config_character(Data):pass
-func set_choise_obj(Order_obj,Order_type):pass
-func get_choise(Order_value,Order_type):pass
+func config_character(_Data):pass
+func get_choise(_Order_value,_Order_type):pass
 
-func Check_Hand(When,numer,Hand):pass
+func Check_Hand(_When,_numer,_Hand):pass
+
 func Who_Starts_game():pass
-func Throw_card(c):pass
+func Throw_card(_c):pass
 func end_check():pass
 func End_Game():pass
 
+func After_Trick():pass
+func After_loop():pass
+
 func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
-	
 	#tutaj podliczenie punktow za lewe
-	
+	Active_card = null
+	sig_to_con.emit()
+	After_Trick()
 	GM.Reset_Stack()
+	
 	if GM.Players[0][0].On_Hand.size()==0:
-		
-		# Tutaj zakonczenie pelnego rozdania rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
+		# Tutaj zakonczenie pelnego rozdania/wylorzenie ostatniej karty z reki i podliczenie punktow
+		After_loop()
 		
 		The_Deal()
 
 func After_Turn():
 	Next_Turn()
-	if GM.Discarded.size() >= player_count:#koniec petli
-		await SMen.wait_with_pause(0.5)
+	if GM.Discarded.size() >= player_count:#koniec lewy
+		await SMen.wait_with_pause(0.5) 
 		End_loop()
 	else:#jeden ruch w petli
 		pass
 
-func Legality_Check(c)->bool:return true
+func Legality_Check(_c)->bool:return true

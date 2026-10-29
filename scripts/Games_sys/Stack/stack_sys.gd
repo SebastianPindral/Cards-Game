@@ -12,7 +12,7 @@ func Set_Stack(S):
 	var offset = S[0].size.x/50
 	for c in S:
 		Stack_Pos.x += offset
-		SMen.Move_Anim(c,Stack_Pos,0,0.1)
+		SMen.Move_Anim(c,Stack_Pos,0,0.2)
 		c.where_is("Stack",Stack_Pos)
 	area_2d.position = Stack_Pos
 	$Label.position = Stack_Pos-Vector2(-S[0].size.x/2,S[0].size.x/2)

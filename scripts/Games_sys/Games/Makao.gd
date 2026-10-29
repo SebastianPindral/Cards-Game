@@ -82,8 +82,10 @@ func Knock_Knock(num=0):# Wcisniecie przycisku "Knock"
 func set_game():
 	Who_Starts_game()
 	change_rotation_direct()
-	The_Deal()
+	GM.shuffle()
 	var one = GM.send(1)
+	Active_card = one[0]
+	The_Deal()
 	GM.table.Cards_is_Used(one)
 	
 	Next_Turn()
@@ -117,14 +119,11 @@ func config_character(Data):
 		characteristic(Data[x][0],value)
 	if ch("M10")[1]: makao_range.append(0)
 
-func set_choise_obj(Order_obj,Order_type):
-	Obj_Order[Order_type] = Order_obj
-
 func get_choise(Order_value,Order_type):
 	if Order.has(Order_type):
 		Order[Order_type] = [Turn,Order_value]
 		GM.table.get_node("Order_info").set_label(Order_type,Order_value)
-		stop()
+		sig_to_con.emit()
 	else:
 		print("Error - Order Makao")
 
@@ -137,7 +136,6 @@ func Before_Throw(c):
 		await sig_to_con
 
 func After_Turn():
-	
 	Next_Turn()
 
 func set_order_state(ord,order_type):

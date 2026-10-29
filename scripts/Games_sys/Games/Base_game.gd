@@ -18,6 +18,8 @@ var Rotation_direct = true
 var Active_card # karta na szczycie stosu
 var card #aktualnie testowana karta
 
+func _init() -> void:sig_to_con.emit()
+
 func characteristic(text,state):	characteristics[text] = state #zapisywanie ustawien
 func config_character(_Data):pass #wywolane po zaakceptowaniu ustawien
 
@@ -26,7 +28,7 @@ func ch(text): return characteristics[text]
 func The_Deal():pass
 
 func Legality_Check(_card)->bool:return false
-func set_choise_obj(_Order_obj,_Order_type):pass
+func set_choise_obj(Order_obj,Order_type):	Obj_Order[Order_type] = Order_obj
 func get_choise(_Order_value,_Order_type):pass # odebranie warunku z kola wyboru
 func set_game(): pass #wywolane po uruchomieniu gry
 func Before_Throw(_c): pass
@@ -44,9 +46,6 @@ func Check_Hand(_When,_numer,_Hand):pass
 func Knock_Knock(_num = null):pass
 func end_check():pass #wywolane po kazdym ruchu ktory zmienia ranking
 func End_Game():pass #Wywolane kiedy gra sie konczy
-
-
-func stop():	sig_to_con.emit()
 
 func change_rotation_direct():
 	Rotation_direct = not Rotation_direct
