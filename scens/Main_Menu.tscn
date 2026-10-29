@@ -102,7 +102,7 @@ offset_left = 60.0
 offset_top = 40.0
 offset_right = 1860.0
 offset_bottom = 1040.0
-theme_override_constants/separation = 40
+theme_override_constants/separation = 25
 
 [node name="VBC0" type="VBoxContainer" parent="Config_game/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -151,17 +151,21 @@ text = "Start"
 icon_alignment = 1
 
 [node name="VBC1" type="VBoxContainer" parent="Config_game/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="VBC2" type="VBoxContainer" parent="Config_game/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="VBC3" type="VBoxContainer" parent="Config_game/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="VBC4" type="VBoxContainer" parent="Config_game/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBC5" type="VBoxContainer" parent="Config_game/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2

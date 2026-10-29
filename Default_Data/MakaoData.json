@@ -1,4 +1,14 @@
 {
+	"Shift 10": [
+		"M15",
+		false,
+		"10 nie zurzywa tury, trzeba rzucic jeszcze raz"
+	],
+	"Shift Q": [
+		"M14",
+		false,
+		"Q nie zurzywa tury, trzeba rzucic jeszcze raz"
+	],
 	"K TREFL": [
 		"M13",
 		false,

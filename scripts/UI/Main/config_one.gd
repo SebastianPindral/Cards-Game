@@ -5,7 +5,7 @@ extends Control
 
 var Config_text = ""
 var button_state = true
-var shadow_size = Vector2(100,350)
+var shadow_size = Vector2(130,300)
 
 func _ready() -> void:
 	button.pressed.connect(click)

@@ -27,7 +27,7 @@ func take_cards(cards:Array):
 		c.Used.connect(Use_Card,CONNECT_DEFERRED)
 		c.Holdered.connect(holded_cards)
 		On_Hand.append(c)
-		c.legal(GM.Legality_Check(c))
+		c.legal(GM.Game.Legality_Check(c))
 	sort_hand(true)
 	hand.set_visual(On_Hand,typ)
 
@@ -53,7 +53,7 @@ func holded_cards(card):
 		On_Hold.append(card)
 	else: 
 		On_Hold.erase(card)
-	GM.Can_Hold(On_Hand,On_Hold)
+	GM.Game.Can_Hold(On_Hand,On_Hold)
 
 func play():
 	if typ == "host":
@@ -62,7 +62,7 @@ func play():
 		var xx = 0
 		if On_Hand.size()>0: 
 			for c in On_Hand:
-				if GM.Legality_Check(c): 
+				if GM.Game.Legality_Check(c): 
 					xx = c
 					On_Hold.append(c)
 					x = 0
@@ -79,7 +79,7 @@ func play():
 
 func Check_Hand():
 	for c in On_Hand:
-		c.legal(GM.Legality_Check(c))
+		c.legal(GM.Game.Legality_Check(c))
 
 func sort_hand(oper): # oper-false sortuj rosnaco / oper-true sortuj kolorami
 	if oper: On_Hand.sort_custom(func(a, b): return (a.Data["Color"] < b.Data["Color"] 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/UI/Main/config_one.gd" id="1_x1ntj"]
 
 [node name="Control" type="Control"]
-custom_minimum_size = Vector2(350, 100)
+custom_minimum_size = Vector2(300, 130)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -14,7 +14,7 @@ script = ExtResource("1_x1ntj")
 rotation = 1.5708
 
 [node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(350, 100)
+custom_minimum_size = Vector2(300, 130)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.002
@@ -33,4 +33,5 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
+flat = true
 autowrap_mode = 2

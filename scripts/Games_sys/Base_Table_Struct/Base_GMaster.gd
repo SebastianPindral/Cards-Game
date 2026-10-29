@@ -16,9 +16,6 @@ func set_Deal_Stack_Number(adding,vari):
 	else:		game_rule["Deal_Stack_Cards"] = vari
 	Stack_number.emit(game_rule["Deal_Stack_Cards"])
 
-# nieokreslona ilosc warunkow do spelnienia aby rzucic karta
-var Throw_conditions = []
-
 var Stack = []
 var Discarded = [] # zuzyte karty
 var Active_card # karta na szczycie stosu
@@ -85,7 +82,6 @@ func Next_Turn():
 	elif Players[Turn-1][1] == 0:
 		Actor_play(Turn)
 
-func Legality_Check(_card)->bool:return false
 func throw_card(_card):pass
 func card_function(_card):pass
 func Deal_Stack_Cards(_id):pass
