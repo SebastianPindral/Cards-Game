@@ -2,7 +2,7 @@ extends Node2D
 @onready var player: Base_Hand = $"."
 
 func set_visual(On_Hand,_numer):
-	var weight = On_Hand[0].size.x/2
+	var weight = On_Hand[0].size.x/4
 	var height = 850.0
 	var hand_center = 950.0 - (float(On_Hand.size())/2)*weight
 	for x in On_Hand.size():

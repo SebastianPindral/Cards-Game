@@ -4,7 +4,22 @@ extends Node2D
 @onready var back: Sprite2D = $"../Back"
 @onready var cs: CollisionShape2D = $"../Area2D/CollisionShape2D"
 
-func Create(N,C) -> void:
+func Create(j,i) -> void:
+	var N
+	var C
+	match i:
+		1: C = "Pik"
+		2: C = "Trefl"
+		3: C = "Kier"
+		4: C = "Karo"
+	match j:
+		11: N = "J"
+		12: N = "Q"
+		13: N = "K"
+		14: N = "A"
+		15: N = "Joker"# na razie pomijany
+		_:
+			N = str(j)
 	front.texture = QuickLoad.get_icons(str(N)+"_"+str(C))
 	set_size()
 

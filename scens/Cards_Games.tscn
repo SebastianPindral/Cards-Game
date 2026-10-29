@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bng0ypwk6v0mq"]
+
+[ext_resource type="PackedScene" uid="uid://gvnr3or1pnyf" path="res://Prefabs/UI.tscn" id="1_0qilm"]
+[ext_resource type="Script" path="res://scripts/Games_sys/Card_Set.gd" id="2_l2gtn"]
+[ext_resource type="Script" path="res://scripts/Players/player_menager.gd" id="3_61xn3"]
+[ext_resource type="PackedScene" uid="uid://bv35nhhf776fr" path="res://Prefabs/Table.tscn" id="4_xy5jr"]
+
+[node name="Cards_Games" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CanvasLayer" parent="." instance=ExtResource("1_0qilm")]
+
+[node name="Deck" type="Node2D" parent="."]
+script = ExtResource("2_l2gtn")
+
+[node name="Players" type="Node2D" parent="."]
+script = ExtResource("3_61xn3")
+
+[node name="Table" parent="." instance=ExtResource("4_xy5jr")]

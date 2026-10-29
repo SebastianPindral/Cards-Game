@@ -29,5 +29,4 @@ texture = ExtResource("1_3wnli")
 script = ExtResource("5_ipvej")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource("RectangleShape2D_vyqvc")

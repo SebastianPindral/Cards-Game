@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Cards_games"
-run/main_scene="res://scens/Table.tscn"
+run/main_scene="res://scens/Cards_Games.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [autoload]
 
-QuickLoad="*res://scripts/Game_Sys/Quick_Load.gd"
-GMen="*res://scripts/Game_Sys/Game_menager.gd"
+QuickLoad="*res://scripts/Ap_Sys/Quick_Load.gd"
+SMen="*res://scripts/Ap_Sys/Sys_menager.gd"
 
 [display]
 
