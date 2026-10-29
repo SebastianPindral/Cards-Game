@@ -1,14 +1,14 @@
 extends Node
 
-var Player_count = 4
+var Players = {"1": true,"2": true,"3": true,"4": true}
 
 var Turn = 1 # false jesli gracz nie moze nic robic
 
-func Set_Players():
-	return Player_count
+func Player_count():
+	return Players.size()
 
 func Next_Turn():
-	if Turn < Player_count:
+	if Turn < Players:
 		Turn += 1
 	else: Turn = 1
 	print(Turn)

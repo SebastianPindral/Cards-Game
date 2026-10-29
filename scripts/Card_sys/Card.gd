@@ -17,6 +17,10 @@ func Start(N,C):
 
 func where_is(isin,target_poz):
 	state = isin
+	if isin == "player" or isin == "Discard":
+		face_Up()
+	elif isin == "host":
+		face_Down()
 	shadow_position = target_poz
 
 func face_Down():

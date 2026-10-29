@@ -8,7 +8,5 @@ func set_visual(On_Hand,typ,_numer):
 	var hand_center = 950.0 - (float(On_Hand.size())/2)*weight
 	for x in On_Hand.size():
 		var poz = Vector2(hand_center+weight*x,height)
-		#SMen.Move_Anim(On_Hand[x],poz,0,1.1)
-		On_Hand[x].position = poz # do poprawy
-		On_Hand[x].face_Up()
+		SMen.Move_Anim(On_Hand[x],poz,0,0.1)
 		On_Hand[x].where_is(typ,poz)
