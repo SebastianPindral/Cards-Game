@@ -1,0 +1,24 @@
+{
+	"J_Karo, -10": [
+		"M1",
+		false,
+		"J karo daje -10 do wyniku"
+	],
+	"negative score": [
+		"M2",
+		false,
+		"czy moze byc ujemny wynik czy zaokragla do 0"
+	],
+	"OCL_name_list": [
+		[
+			"Player Count:",
+			1,
+			[2,4]
+		],
+		[
+			"End var",
+			1,
+			[50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200]
+		]
+	]
+}

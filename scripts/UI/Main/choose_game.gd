@@ -5,7 +5,7 @@ extends Control
 
 const BASE_BUTTON = preload("res://Prefabs/Main/Base_button.tscn")
 
-var games_list = ["Makao","Pan","Sapers","Spades"]#,"Hearts","Plans","Bridge"]
+var games_list = ["Makao","Pan","Sapers","Hearts","Spades"]#,"Plans","Bridge"]
 var i = 2
 func _ready() -> void:
 	back.pressed.connect(_on_back_pressed)

@@ -18,10 +18,10 @@ func _init() -> void:
 	Throw_conditions.append(base_conditions)
 
 func set_game():
-	Who_Starts_game()
-	starting_queue = Turn
 	change_rotation_direct()
 	The_Deal()
+	Who_Starts_game()
+	starting_queue = Turn
 	Next_Turn()
 
 func The_Deal():
@@ -44,13 +44,15 @@ func Check_have_color(Hand):
 			return color_broken
 	return true
 
+func Start_loop_card():pass
+
 func Start_Player_Turn(_numer,Hand):
 	if auction_var < player_count:# tura licytacji kazdego gracza
 		auction_loop_Turn()
 	elif GM.Discarded.size() == 0:# pierwsza karta z lewy
-		await catch_signal()
 		Active_card = null
 		Throw_conditions = [base_conditions]
+		Start_loop_card()
 		color_broken = Check_have_color(Hand)
 	else:# kolejne karty z lewy
 		if Active_card == null: 
@@ -123,6 +125,7 @@ func End_loop():#funkcja wywolywana kiedy wszyscy wylorza lewe
 		auction.clear()
 		
 		The_Deal()
+		Who_Starts_game()
 
 func After_Turn():
 	if GM.Discarded.size() >= player_count:#koniec lewy

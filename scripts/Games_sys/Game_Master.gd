@@ -45,6 +45,8 @@ func send_from_disc(i = Discarded.size(),left_on_discard:int = 0,front_back:bool
 	
 	for card_of_dis in for_direct:
 		t.append(Discarded[card_of_dis])
+	for_direct.sort_custom(func(a, b): return a > b)
+	for card_of_dis in for_direct:
 		Discarded.remove_at(card_of_dis)
 	return t
 
@@ -81,6 +83,7 @@ func new_game(game_type):
 		"Spades":	Game = Spades.new()
 		"Pan":		Game = Pan.new()
 		"Sapers":	Game = Sapers.new()
+		"Hearts":	Game = Hearts.new()
 		_:
 			print("Blad wczytania gry")
 			get_tree().quit()

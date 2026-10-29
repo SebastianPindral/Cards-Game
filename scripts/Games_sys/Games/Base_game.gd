@@ -42,6 +42,7 @@ func Who_have_card(color,number):
 			if c.Data["Color"] == color and c.Data["Number"] == number:
 				return i
 		i+=1
+	return 0
 
 func Who_Starts_game():
 	Turn = randi_range(0,player_count-1)
@@ -164,7 +165,8 @@ func back_move():	Turn_move(-2)
 func shift_turn():	Turn_move(-1)
 
 func Set_Turn(i):
-	Turn = i
+	if typeof(i) == TYPE_INT:
+		Turn = i
 
 func Next_Turn():
 	if GM.Players[Turn][1] > 0:# jest wiekszy od zera jesli gracz ma wykonac wiecej jak jedna ture

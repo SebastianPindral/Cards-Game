@@ -11,6 +11,8 @@ func _ready() -> void:
 		Choice_Circle("Numbers")
 	elif GM.Game is Spades:
 		Choice_Circle("Numbers")
+	elif GM.Game is Hearts:
+		Choice_Circle("Numbers")
 
 func Choice_Circle(type):
 	var a1 = Control.new()

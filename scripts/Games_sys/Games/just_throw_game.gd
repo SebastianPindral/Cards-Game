@@ -16,7 +16,7 @@ func After_Turn():
 	Next_Turn()
 
 func Can_from_Stack() -> bool:return false
-func Get_from_Stack(id):pass
+func Get_from_Stack(_id):pass
 
 
 func Legality_Check(_card)->bool:return false

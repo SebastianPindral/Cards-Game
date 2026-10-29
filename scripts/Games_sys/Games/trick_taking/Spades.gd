@@ -19,11 +19,11 @@ func config_character2(Data):
 	for i in range(player_count):
 		full_score[i] = [0,0] # 0-wynik , 1- overflow
 
+# ------------- AUCTION --------------------
 func Enemy_SI(xx):
 	if typeof(xx) is int:
 		GM.Game.Obj_Order["Numbers"].get_children()[Turn].click()
 
-# ------------- AUCTION --------------------
 func get_choise(Order_value,_Order_type):
 	auction[Turn] = [0,Order_value]
 	GM.Players[Turn][0].set_label(false,"0/"+str(Order_value))
@@ -77,9 +77,6 @@ func After_loop():
 	
 	GM.score_board.Data_update(score)
 	
-	var score_d = full_score.duplicate()
-	score_d.sort_custom(func(a, b): return a[0] < b[0])
-	if (score_d[0] - score_d[1]) > spades_count["End var"]: End_Game()
 	for i in range(player_count):
 		if full_score[i][0] >= spades_count["End var"]: End_Game()
 
