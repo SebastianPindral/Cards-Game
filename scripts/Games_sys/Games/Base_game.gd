@@ -12,6 +12,8 @@ var Order = {}
 
 func characteristic(text,state):	characteristics[text] = state
 
+func ch(text): return characteristics[text]
+
 func Legality_Check(_card)->bool:return false
 func set_choise_obj(_Order_obj,_Order_type):pass
 func get_choise(_Order_value,_Order_type):pass
