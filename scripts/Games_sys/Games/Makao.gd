@@ -86,35 +86,33 @@ func stack_combo(vari):
 
 func Throw_card(c):
 	if not ch("M16")[0] or not Throw_conditions.has(Choice_color): #brak efektu kart rzuconych na Asa
-		if c.Data["Number"] in [2,3]:
-			stack_combo(c.Data["Number"])
-		elif c.Data["Number"] == 4:
-			if ch("M1") or wait_count == 0:
-				wait_count -= 1
-				GM.table.get_node("Order_info").set_label2("",wait_count)
-			if not Throw_conditions.has(stopper):	Throw_conditions.append(stopper)
-		elif c.Data["Number"] == 13:#K
-			if c.Data["Color"] == 1:
-				stack_combo(5)
-				back_move("M12")
-			elif c.Data["Color"] == 2 and ch("M18"):
-				for id in range(1,GM.player_count+1):
-					if id == GM.Turn:continue
-					id -= 1
-					GM.deal_cards(id,1)
-			elif c.Data["Color"] == 3:
-				back_move("M13")
+		match c.Data["Number"]:
+			2,3:
+				stack_combo(c.Data["Number"])
+			4:
+				if ch("M1") or wait_count == 0:
+					wait_count -= 1
+					GM.table.get_node("Order_info").set_label2("",wait_count)
+				if not Throw_conditions.has(stopper):	Throw_conditions.append(stopper)
+			13:
+				match c.Data["Color"]:
+					1:
+						stack_combo(5)
+						back_move("M12")
+					2:
+						if ch("M18"):
+							for id in range(1,GM.player_count+1):
+								if id == GM.Turn:continue
+								id -= 1
+								GM.deal_cards(id,1)
+					3: back_move("M13")
 	
-	if c.Data["Number"] == 5 and ch("M4"):
-			GM.change_rotation_direct()
-	elif c.Data["Number"] == 10 and ch("M15"):#Shift 10
-		shift_turn()
-	elif c.Data["Number"] == 12 and ch("M14")[0]:#Shift Q
-		shift_turn()
-	elif c.Data["Number"] == 11:#J
-		set_order_state(num_order,"Numbers")
-	elif c.Data["Number"] == 14:#A
-		set_order_state(Choice_color,"Colors")
+	match c.Data["Number"]:
+		5:	if ch("M4"):		GM.change_rotation_direct()
+		10:	if ch("M15"):		shift_turn()
+		12:	if ch("M14")[0]:	shift_turn()
+		11:	set_order_state(num_order,"Numbers")
+		14:	set_order_state(Choice_color,"Colors")
 	
 	if not ch("M3") and (c.Data["Number"] in [2,3,4] or 
 		(c.Data["Number"] == 13 and c.Data["Color"] == 1)):
