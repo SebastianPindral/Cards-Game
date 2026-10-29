@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://gvnr3or1pnyf"]
+[gd_scene load_steps=3 format=3 uid="uid://gvnr3or1pnyf"]
 
 [ext_resource type="Script" path="res://scripts/UI/Esc/pause.gd" id="1_lrbym"]
+[ext_resource type="Script" path="res://scripts/UI/play_UI/choose_order.gd" id="2_0d5u6"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -54,6 +55,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Choose_order" type="Control" parent="UI"]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+script = ExtResource("2_0d5u6")

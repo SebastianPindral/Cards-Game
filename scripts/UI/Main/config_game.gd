@@ -4,7 +4,7 @@ extends Control
 @onready var start: Button = $HBoxContainer/VBC0/Start
 @onready var playerc: VBoxContainer = $HBoxContainer/VBC0/VBoxContainer
 
-const CONFIG_ONE = preload("res://Prefabs/UI_and_Main/config_one.tscn")
+const CONFIG_ONE = preload("res://Prefabs/Main/config_one.tscn")
 var type
 var i = 1
 var config_list = []

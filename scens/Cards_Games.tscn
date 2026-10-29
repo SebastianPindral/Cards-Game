@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bng0ypwk6v0mq"]
 
-[ext_resource type="PackedScene" uid="uid://gvnr3or1pnyf" path="res://Prefabs/UI_and_Main/UI.tscn" id="1_0qilm"]
+[ext_resource type="PackedScene" uid="uid://gvnr3or1pnyf" path="res://Prefabs/UI/UI.tscn" id="1_0qilm"]
 [ext_resource type="Script" path="res://scripts/Games_sys/Base_Table_Struct/Card_Set.gd" id="2_l2gtn"]
 [ext_resource type="Script" path="res://scripts/Players/player_menager.gd" id="3_61xn3"]
 [ext_resource type="PackedScene" uid="uid://bv35nhhf776fr" path="res://Prefabs/Table.tscn" id="4_xy5jr"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/UI/Main/Main_Panel.gd" id="1_3si76"]
 [ext_resource type="Script" path="res://scripts/UI/Main/choose_game.gd" id="2_xh5tv"]
 [ext_resource type="Script" path="res://scripts/UI/Main/config_game.gd" id="3_kbp4h"]
-[ext_resource type="PackedScene" uid="uid://bo7eg2mm0qlak" path="res://Prefabs/UI_and_Main/Base_button.tscn" id="4_48ibi"]
+[ext_resource type="PackedScene" uid="uid://bo7eg2mm0qlak" path="res://Prefabs/Main/Base_button.tscn" id="4_48ibi"]
 [ext_resource type="Script" path="res://scripts/UI/Main/Player_count_config.gd" id="5_yrr5q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb35h"]

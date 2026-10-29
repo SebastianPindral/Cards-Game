@@ -3,7 +3,7 @@ extends Control
 @onready var back: Button = $HBoxContainer/VBC1/Back
 @onready var start_panel: Control = $"../Start_Panel"
 
-const BASE_BUTTON = preload("res://Prefabs/UI_and_Main/Base_button.tscn")
+const BASE_BUTTON = preload("res://Prefabs/Main/Base_button.tscn")
 
 var games_list = ["Makao","Sapers"]
 var i = 2

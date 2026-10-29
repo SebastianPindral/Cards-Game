@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5817v8qf51na"]
+[gd_scene load_steps=8 format=3 uid="uid://c5817v8qf51na"]
 
 [ext_resource type="Texture2D" uid="uid://6v7d1p6sp7t5" path="res://assets/Cards/Default/Back.png" id="1_3wnli"]
 [ext_resource type="Script" path="res://scripts/Card_sys/Card.gd" id="1_tdciy"]
+[ext_resource type="Shader" path="res://Shaders/Card_border.gdshader" id="3_vwjii"]
 [ext_resource type="Script" path="res://scripts/Card_sys/Card_create.gd" id="4_bt65v"]
 [ext_resource type="Script" path="res://scripts/Card_sys/Card_Hitbox.gd" id="5_ipvej"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qluy0"]
+shader = ExtResource("3_vwjii")
+shader_parameter/outline_color = Vector4(0, 0, 0, 1)
+shader_parameter/outline_thickness = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vyqvc"]
 size = Vector2(130, 202)
@@ -11,14 +17,11 @@ size = Vector2(130, 202)
 [node name="One_Card" type="Node2D"]
 script = ExtResource("1_tdciy")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-
 [node name="Creator" type="Node2D" parent="."]
 script = ExtResource("4_bt65v")
 
 [node name="Front" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qluy0")
 scale = Vector2(2, 2)
 
 [node name="Back" type="Sprite2D" parent="."]

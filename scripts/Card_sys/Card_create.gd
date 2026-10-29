@@ -1,6 +1,5 @@
 extends Node2D
 @onready var front: Sprite2D = $"../Front"
-@onready var polygon_2d: Polygon2D = $"../Polygon2D"
 @onready var back: Sprite2D = $"../Back"
 @onready var cs: CollisionShape2D = $"../Area2D/CollisionShape2D"
 
@@ -30,7 +29,6 @@ func Create(j,i) -> void:
 	set_size()
 
 func set_size():
-	var target_size = get_parent().size
 	SMen.Resize(front,get_parent().size)
 	SMen.Resize(back,get_parent().size)
 	
@@ -39,7 +37,3 @@ func set_size():
 	if shape and texture_size:
 		shape.size = texture_size
 	$"..".shadow_colli = shape.size 
-	polygon_2d.polygon = [	Vector2(-(target_size.x/2+1),-(target_size.y/2+1)),
-							Vector2((target_size.x/2+1),-(target_size.y/2+1)), 
-							Vector2((target_size.x/2+1),(target_size.y/2+1)), 
-							Vector2(-(target_size.x/2+1),(target_size.y/2+1))]
