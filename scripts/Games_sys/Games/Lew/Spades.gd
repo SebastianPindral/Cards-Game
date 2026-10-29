@@ -4,14 +4,16 @@ class_name Spades
 var spades_count = {"of penalty":0,"of count":0,"End var":0,"blind bid":0,"0 bid":0}
 # 4 lub 2 osob
 
+func get_value(index,Data): return Data["OCL_name_list"][index][2][Data["OCL_name_list"][index][1]]
+
 func config_character2(Data):
 	Order_choice_list = {"Numbers":["0","1","2","3","4","5","6","7","8","9","10","11","12","13"]}
-	player_count = Data["OCL_name_list"][0][1]
-	spades_count["blind bid"] = Data["OCL_name_list"][1][1]
-	spades_count["0 bid"] = Data["OCL_name_list"][2][1]
-	spades_count["of penalty"] = Data["OCL_name_list"][3][1]
-	spades_count["of count"] = Data["OCL_name_list"][4][1]
-	spades_count["End var"] = Data["OCL_name_list"][5][1] # do ilu sie gra
+	player_count = get_value(0,Data)
+	spades_count["blind bid"] = get_value(1,Data)
+	spades_count["0 bid"] = get_value(2,Data)
+	spades_count["of penalty"] = get_value(3,Data)
+	spades_count["of count"] = get_value(4,Data)
+	spades_count["End var"] = get_value(5,Data) # do ilu sie gra
 	Turn = player_count-1
 	Atut = 1 # Pik
 	color_blocked = 1
@@ -91,4 +93,5 @@ func End_Game():
 	for i in GM.Players.size():
 		if not GM.ranking.has(GM.Players[i]):
 			GM.ranking.append([GM.Players[i][0],full_score[i][0]])
+	GM.ranking.sort_custom(func(a, b): return a[1] < b[1])
 	SMen.change_scene("res://scens/Leader_Board.tscn")

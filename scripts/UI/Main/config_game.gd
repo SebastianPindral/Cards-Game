@@ -28,7 +28,7 @@ func set_config_options(t):
 			btn.move_child(x,j+1)
 		else: btn.move_child(x,btn.get_child_count()-1)
 		if btn.get_child_count()>=6:	i+=1
-		x.set_it(j,Data["OCL_name_list"][j][0])
+		x.set_it(j)
 	
 	var sorted_keys = Data.keys()
 	sorted_keys.erase("OCL_name_list")

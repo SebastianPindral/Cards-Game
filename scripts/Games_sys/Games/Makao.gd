@@ -95,14 +95,16 @@ func The_Deal():
 	for i in range(0,player_count):
 		GM.deal_cards(i,GM.game_rule["Start_Cards"])
 
+func get_value(index,Data): return Data["OCL_name_list"][index][2][Data["OCL_name_list"][index][1]]
+
 func config_character2(Data):
-	player_count = Data["OCL_name_list"][0][1]
+	player_count = get_value(0,Data)
 	for i in player_count:
 		Report_Makao.append(true)
 		
-	GM.Deck_size["count_decks"] = Data["OCL_name_list"][1][1]
-	GM.game_rule["Start_Cards"] = Data["OCL_name_list"][2][1]
-	GM.game_rule["Makao_miss_punishment"] = Data["OCL_name_list"][3][1]
+	GM.Deck_size["count_decks"] = get_value(1,Data)
+	GM.game_rule["Start_Cards"] = get_value(2,Data)
+	GM.game_rule["Makao_miss_punishment"] = get_value(3,Data)
 	
 	if ch("M10")[1]: makao_range.append(0)
 
