@@ -23,7 +23,7 @@ func set_poz(dis: float, index: int):
 	rotation = (position - GM.Dis_poz).angle() - PI/2
 
 func take_cards(cards:Array):
-	GM.last_take_card = cards[-1]
+	if cards.size()>0:GM.last_take_card = cards[-1]
 	for c in cards:
 		c.Used.connect(Use_Card,CONNECT_DEFERRED)
 		c.Holdered.connect(holded_cards)
@@ -74,6 +74,11 @@ func play():
 		match x:#na razie losowo / poprawic
 			0:
 				xx.Use() #rzucenie karty
+				await get_tree().process_frame
+				if xx.Data["Number"]==11:
+					GM.Game.Obj_Order["Numbers"].get_children()[0].click()
+				if xx.Data["Number"]==14:
+					GM.Game.Obj_Order["Colors"].get_children()[0].click()
 			1:GM.Deal_Stack_Cards(numer) #dobieranie karty ze stosu
 	elif typ == "player":
 		Check_Hand()

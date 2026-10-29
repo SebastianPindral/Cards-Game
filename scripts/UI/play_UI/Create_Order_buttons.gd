@@ -1,4 +1,5 @@
 extends Control
+signal CH(value)
 var Choice_name =""
 var shape = [Vector2(0, 0),Vector2(200, 0),Vector2(0, 200),]
 var fill_color: Color = Color(1.0, 1.0, 1.0)
@@ -47,8 +48,9 @@ func _unhandled_input(event):
 		if fill_color != normal_color:
 			hover(normal_color,normal_size)
 
-func click():#obslurzyc wybor
-	print(Choice_name)
+func click():
+	if get_parent().visible == true:
+		CH.emit(Choice_name)
 
 func hover(h_color,h_size):
 	fill_color = h_color

@@ -1,4 +1,19 @@
 {
+	"As on everything": [
+		"M18",
+		false,
+		"As mozna rzucic na wszystko"
+	],
+	"As Bit": [
+		"M17",
+		true,
+		"pozwala na przebijanie asa przed koncem kolejki innym asem"
+	],
+	"Bit J": [
+		"M16",
+		false,
+		"pozwala na przebicie J nawet jeśli ktoś rzucił już żądaną kartę innym J"
+	],
 	"Shift 10": [
 		"M15",
 		false,
@@ -55,10 +70,10 @@
 		true,
 		"odwraca kolejke (OK)"
 	],
-	"As Bit": [
+	"As color change": [
 		"M5",
 		true,
-		"pozwala na przebijanie asa przed koncem kolejki"
+		"pozwala na zmiane koloru od razu po rzadaniu"
 	],
 	"BitLegal": [
 		"M3",

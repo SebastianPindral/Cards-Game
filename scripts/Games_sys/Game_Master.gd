@@ -25,6 +25,7 @@ func card_function(c):#obslurzyc karty funkcyjne
 	Active_card = c
 
 func throw_card(c:Array):
+	await Game.Before_Throw(c[-1])
 	table.Cards_is_Used(c)
 	SMen.reorder_Stack(Discarded)
 	Next_Turn()
